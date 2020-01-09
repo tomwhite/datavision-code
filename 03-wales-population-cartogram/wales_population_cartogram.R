@@ -58,21 +58,10 @@ plot(wales_sf)
 #head(powys)
 #plot(powys)
 
-wales_cartogram_sf <- cartogram_cont(wales_sf, "population", itermax=5)
+wales_cartogram_sf <- cartogram_cont(wales_sf, "population", itermax = 15, prepare = "none")
 plot(wales_cartogram_sf["population"])
 
-# produces a blank plot...
-ggplot(wales_cartogram_sf["population"]) +
+ggplot(wales_cartogram_sf["population"], aes(fill = population/1000)) +
   theme_void() + # see https://github.com/tidyverse/ggplot2/issues/2252#issuecomment-551968071
-  geom_sf()
-
-# Chloropeth
-
-# Doesn't work...
-library(broom)
-wales_cartogram_tidy <- tidy(wales_cartogram, region="name_en")
-wales_cartogram_tidy = wales_cartogram_tidy %>% left_join(. , wales_cartogram@data, by=c("id"="name_en")) 
-ggplot() +
-  geom_polygon(data = wales_cartogram_tidy, aes(fill = population.y, x = long, y = lat, group = group) , size=0, alpha=0.9) +
-  coord_map() +
-  theme_void()
+  geom_sf() +
+  scale_fill_distiller(palette = "Blues", direction = 1)
