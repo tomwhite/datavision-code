@@ -64,6 +64,7 @@ wales_cartogram_sf <- cartogram_cont(wales_sf, "population", itermax = 15, prepa
 p1 <- ggplot(wales_sf["population"], aes(fill = population/1000)) +
   theme_void() +
   geom_sf() +
+  # geom_sf_text(label = wales_sf$name_en, size = 3) + # TODO: specify labels directly (only 22), see https://stackoverflow.com/questions/7611169/intelligent-point-label-placement-in-r
   scale_fill_distiller(palette = "Greens", direction = 1) +
   labs(fill = "Population (thousands)")
 
