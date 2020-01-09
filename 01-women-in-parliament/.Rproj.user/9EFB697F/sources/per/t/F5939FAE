@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1577901348826.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "F5939FAE",
+    "lastKnownWriteTime" : 4449725216,
+    "last_content_update" : 1577901348826,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "AD6D7E0C",
+        "caption" : "dinners",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=dinners&cache_key=AD6D7E0C",
+        "displayedObservations" : 647,
+        "environment" : "",
+        "object" : "dinners",
+        "preview" : 0,
+        "totalObservations" : 647,
+        "variables" : 14
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

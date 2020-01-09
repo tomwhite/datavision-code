@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578415552689.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EA6EA53E",
+    "lastKnownWriteTime" : 3544385017578782726,
+    "last_content_update" : 1578415552689,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "195FB55A",
+        "caption" : "foods",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=foods&cache_key=195FB55A",
+        "displayedObservations" : 170,
+        "environment" : "",
+        "object" : "foods",
+        "preview" : 0,
+        "totalObservations" : 170,
+        "variables" : 11
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

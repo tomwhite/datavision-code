@@ -1,0 +1,19 @@
+library(tidyverse)
+
+df <- read_csv("/Users/tom/projects-workspace/whats-for-dinner/FoodDiary2019.csv")
+
+dinners <- df %>%
+  filter(Meal == 'Dinner') %>%
+  select(c(Date, Food)) %>%
+  group_by(Date) %>%
+  summarise(Foods = paste(Food, collapse = ""))
+
+mains <- df %>%
+  filter(Meal == 'Dinner') %>%
+  select(c(Food)) %>%
+  group_by(Food) %>%
+  mutate(count = n()) %>%
+  unique() %>%
+  arrange(desc(count))
+
+  

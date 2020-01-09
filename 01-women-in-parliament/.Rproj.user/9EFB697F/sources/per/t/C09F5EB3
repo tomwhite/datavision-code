@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1577790157866.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2105721643",
+    "id" : "C09F5EB3",
+    "lastKnownWriteTime" : 1577793198,
+    "last_content_update" : 1577793198399,
+    "path" : "~/projects-workspace/datavision-code/01-women-in-parliament/women_in_parliament.R",
+    "project_path" : "women_in_parliament.R",
+    "properties" : {
+        "cursorPosition" : "50,5",
+        "scrollLine" : "27"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

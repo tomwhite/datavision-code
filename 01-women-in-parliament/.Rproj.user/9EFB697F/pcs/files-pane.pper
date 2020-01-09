@@ -1,0 +1,9 @@
+{
+    "path" : "~/projects-workspace/datavision-code/01-women-in-parliament",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}
