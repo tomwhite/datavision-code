@@ -59,9 +59,68 @@ plot(wales_sf)
 #plot(powys)
 
 wales_cartogram_sf <- cartogram_cont(wales_sf, "population", itermax = 15, prepare = "none")
-plot(wales_cartogram_sf["population"])
+#plot(wales_cartogram_sf["population"])
 
-ggplot(wales_cartogram_sf["population"], aes(fill = population/1000)) +
-  theme_void() + # see https://github.com/tidyverse/ggplot2/issues/2252#issuecomment-551968071
+p1 <- ggplot(wales_sf["population"], aes(fill = population/1000)) +
+  theme_void() +
   geom_sf() +
-  scale_fill_distiller(palette = "Blues", direction = 1)
+  scale_fill_distiller(palette = "Greens", direction = 1) +
+  labs(fill = "Population (thousands)")
+
+p2 <- ggplot(wales_cartogram_sf["population"], aes(fill = population/1000)) +
+  theme_void() +
+  geom_sf() +
+  scale_fill_distiller(palette = "Greens", direction = 1)
+
+library("cowplot")
+
+legend <- get_legend(
+  # create some space to the left of the legend
+  p1 + theme(legend.box.margin = margin(0, 0, 0, 12))
+)
+
+legend_b <- get_legend(
+  p1 + 
+    guides(color = guide_legend(nrow = 1)) +
+    theme(legend.position = "bottom")
+)
+
+prow <- plot_grid(
+  p1 + theme(legend.position = "none"),
+  p2 + theme(legend.position = "none")
+)
+#plot_grid(prow, legend, rel_widths = c(2, .4))
+plot_grid(prow, legend_b, ncol = 1, rel_heights = c(1, .1))
+
+#install.packages("transformr")
+library(transformr)
+
+morph <- tween_sf(wales_sf, wales_cartogram_sf,
+                  ease = 'linear',
+                  nframes = 20)
+
+ggplot(morph) + 
+  geom_sf(aes(geometry = geometry, fill = population), colour = 'white' , size = .1) + 
+  facet_wrap(~.frame, labeller = label_both, ncol = 3) + 
+  coord_sf(datum = NULL) + 
+  theme_void()
+
+# TODO: just show side by side view - animation isn't very smooth (lots of gaps appear) and is hard to look at
+
+#remove.packages("gganimate")
+#install.packages('gifski')
+#install.packages('png')
+
+#install.packages("animation")
+#install.packages("/Users/tom/Downloads/gganimate-0.1.1", repos = NULL, type="source")
+
+library(gganimate)
+
+
+p <- ggplot(morph) + 
+  geom_sf(aes(geometry = geometry, fill = population, frame = .frame), colour = 'white' , size = .1) + 
+  coord_sf() + 
+  theme_void()
+  
+animation::ani.options(interval = 1/20)
+gganimate(p, "animation.gif")
