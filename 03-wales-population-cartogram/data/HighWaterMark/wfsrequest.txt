@@ -1,0 +1,1 @@
+http://lle.gov.wales/services/wfs?version=2.0.0&request=GetFeature&typeName=inspire-wg:localauthorities&outputFormat=SHAPE-ZIP
