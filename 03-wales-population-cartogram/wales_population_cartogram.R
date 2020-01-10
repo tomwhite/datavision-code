@@ -61,6 +61,9 @@ plot(wales_sf)
 wales_cartogram_sf <- cartogram_cont(wales_sf, "population", itermax = 15, prepare = "none")
 #plot(wales_cartogram_sf["population"])
 
+# TODO: add LA labels
+# Using plotly fails due to https://github.com/ropensci/plotly/issues/1659. See also https://community.plot.ly/t/how-to-make-tooltips-show-in-region-rather-than-on-border-map-using-ggplotly/13507
+
 p1 <- ggplot(wales_sf["population"], aes(fill = population/1000)) +
   theme_void() +
   geom_sf() +
@@ -73,6 +76,7 @@ p2 <- ggplot(wales_cartogram_sf["population"], aes(fill = population/1000)) +
   geom_sf() +
   scale_fill_distiller(palette = "Greens", direction = 1)
 
+# https://wilkelab.org/cowplot/articles/plot_grid.html
 library("cowplot")
 
 legend <- get_legend(
