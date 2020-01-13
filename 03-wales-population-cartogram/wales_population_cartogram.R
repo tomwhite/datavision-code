@@ -47,7 +47,8 @@ library(sf)
 wales_sf = st_as_sf(wales_spatial)
 
 wales_sf <- wales_sf %>%
-  st_simplify(preserveTopology=TRUE, dTolerance = 200)
+  st_simplify(preserveTopology=TRUE, dTolerance = 200) %>%
+  st_cast("MULTIPOLYGON")
 plot(wales_sf)
 
 #str(wales_sf)
@@ -58,23 +59,30 @@ plot(wales_sf)
 #head(powys)
 #plot(powys)
 
-wales_cartogram_sf <- cartogram_cont(wales_sf, "population", itermax = 15, prepare = "none")
+wales_cartogram_sf <- cartogram_cont(wales_sf, "population", itermax = 15, prepare = "none") %>%
+  st_cast("MULTIPOLYGON")
 #plot(wales_cartogram_sf["population"])
 
 # TODO: add LA labels
 # Using plotly fails due to https://github.com/ropensci/plotly/issues/1659. See also https://community.plot.ly/t/how-to-make-tooltips-show-in-region-rather-than-on-border-map-using-ggplotly/13507
 
-p1 <- ggplot(wales_sf["population"], aes(fill = population/1000)) +
+p1 <- ggplot(wales_sf["population"], aes(fill = population/1000, text = wales_sf$name_en)) +
   theme_void() +
   geom_sf() +
   # geom_sf_text(label = wales_sf$name_en, size = 3) + # TODO: specify labels directly (only 22), see https://stackoverflow.com/questions/7611169/intelligent-point-label-placement-in-r
   scale_fill_distiller(palette = "Greens", direction = 1) +
   labs(fill = "Population (thousands)")
 
-p2 <- ggplot(wales_cartogram_sf["population"], aes(fill = population/1000)) +
+#library(plotly)
+#ggplotly(p1) %>% style(hoveron = "fill")
+
+p2 <- ggplot(wales_cartogram_sf["population"], aes(fill = population/1000, text = wales_sf$name_en)) +
   theme_void() +
   geom_sf() +
-  scale_fill_distiller(palette = "Greens", direction = 1)
+  scale_fill_distiller(palette = "Greens", direction = 1) +
+  labs(fill = "Population (thousands)")
+
+#ggplotly(p2) %>% style(hoveron = "fill")
 
 # https://wilkelab.org/cowplot/articles/plot_grid.html
 library("cowplot")
@@ -96,6 +104,8 @@ prow <- plot_grid(
 )
 #plot_grid(prow, legend, rel_widths = c(2, .4))
 plot_grid(prow, legend_b, ncol = 1, rel_heights = c(1, .1))
+
+#subplot(ggplotly(p1) %>% style(hoveron = "fill"), ggplotly(p2) %>% style(hoveron = "fill"))
 
 #install.packages("transformr")
 library(transformr)
