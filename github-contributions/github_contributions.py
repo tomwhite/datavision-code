@@ -1,12 +1,12 @@
+from adjustText import adjust_text
 from datetime import datetime
 from itertools import accumulate
 import json
 import matplotlib.pyplot as plt
 
-# TODO: label at end of line
-# TODO: use pandas
+# TODO: use pandas?
 # TODO: colours, axes, etc
-# TODO: interpret (e.g. I working on projects in 2014 which were new, faster moving (Kite))
+# TODO: interpret (e.g. I working on projects in 2014 which were new, faster moving (Kite)), cross refer to github heatmap
 
 def date_value_pairs(data, yr="2019"):
     # get contribution counts for every date
@@ -32,11 +32,21 @@ with open("tomwhite-gh.json") as f:
     print(data['years'])
     print(data['contributions'][0])
 
-    for yr in ("2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"):
+    # make plot bigger so labels fit
+    plt.rcParams["figure.figsize"] = (12, 9)
+
+    cmap=plt.get_cmap("tab10") # see https://matplotlib.org/tutorials/colors/colormaps.html
+
+    texts = []
+    for i, yr in enumerate(("2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019")):
         pairs = date_value_pairs(data, yr=yr)
         x, y = list(zip(*pairs))
         y = list(accumulate(y))
-        plt.step(x, y, label=yr)
+        plt.step(x, y, label=yr, color=cmap.colors[i % 10])
 
-    plt.legend(title='Year')
+        texts.append(plt.text(x[-1] + 10, y[-1], yr, color=cmap.colors[i % 10]))
+
+    plt.xlim(0, 400)
+    adjust_text(texts, only_move={'points':'y', 'text':'xy', 'objects':'xy'}, avoid_points=False)
+    plt.title("A Decade of GitHub: github.com/tomwhite")
     plt.show()
