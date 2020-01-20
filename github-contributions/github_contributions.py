@@ -1,5 +1,6 @@
 from adjustText import adjust_text
 from datetime import datetime
+from dateutil import rrule
 from itertools import accumulate
 import json
 import matplotlib.pyplot as plt
@@ -42,11 +43,23 @@ with open("tomwhite-gh.json") as f:
         pairs = date_value_pairs(data, yr=yr)
         x, y = list(zip(*pairs))
         y = list(accumulate(y))
-        plt.step(x, y, label=yr, color=cmap.colors[i % 10])
+        plt.step(x, y, label=yr, color=cmap.colors[i % 10], lw=0.5, antialiased=None, snap=True)
 
         texts.append(plt.text(x[-1] + 10, y[-1], yr, color=cmap.colors[i % 10]))
 
-    plt.xlim(0, 400)
+
+    month_starts = [dt.timetuple().tm_yday for dt in rrule.rrule(freq=rrule.MONTHLY, count=12, dtstart=datetime(2019, 1, 1))]
+
+    ax = plt.axes()
+    ax.spines['left'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    ax.yaxis.grid(True)
+    ax.yaxis.set_tick_params(length=0)
+
+    plt.xlim(1, 400)
     adjust_text(texts, only_move={'points':'y', 'text':'xy', 'objects':'xy'}, avoid_points=False)
+    plt.xticks(month_starts, ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
+    plt.ylabel("Commits")
     plt.title("A Decade of GitHub: github.com/tomwhite")
     plt.show()
