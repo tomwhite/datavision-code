@@ -1,4 +1,4 @@
-= Women in parliament
+# Women in parliament
 
 I wrote a script to download the data from https://data.ipu.org/, since there
 doesn't seem to be a bulk download option.
