@@ -51,11 +51,11 @@ with open("tomwhite-gh.json") as f:
     month_starts = [dt.timetuple().tm_yday for dt in rrule.rrule(freq=rrule.MONTHLY, count=12, dtstart=datetime(2019, 1, 1))]
 
     ax = plt.axes()
-    ax.spines['left'].set_visible(False)
+    #ax.spines['left'].set_visible(False)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    ax.yaxis.grid(True)
-    ax.yaxis.set_tick_params(length=0)
+    #ax.yaxis.grid(True)
+    #ax.yaxis.set_tick_params(length=0)
 
     plt.xlim(1, 400)
     adjust_text(texts, only_move={'points':'y', 'text':'xy', 'objects':'xy'}, avoid_points=False)
