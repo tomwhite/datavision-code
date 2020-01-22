@@ -5,10 +5,6 @@ from itertools import accumulate
 import json
 import matplotlib.pyplot as plt
 
-# TODO: use pandas?
-# TODO: colours, axes, etc
-# TODO: interpret (e.g. I working on projects in 2014 which were new, faster moving (Kite)), cross refer to github heatmap
-
 def date_value_pairs(data, yr="2019"):
     # get contribution counts for every date
     x = [(contribution['date'], contribution['count']) for contribution in data['contributions']]
@@ -27,16 +23,13 @@ def date_value_pairs(data, yr="2019"):
 def yday(str):
     return datetime.strptime(str, '%Y-%m-%d').timetuple().tm_yday
 
-with open("tomwhite-gh.json") as f:
+with open("data/tomwhite-gh.json") as f:
     data = json.load(f)
-    print(data.keys())
-    print(data['years'])
-    print(data['contributions'][0])
 
     # make plot bigger so labels fit
     plt.rcParams["figure.figsize"] = (12, 9)
 
-    cmap=plt.get_cmap("tab10") # see https://matplotlib.org/tutorials/colors/colormaps.html
+    cmap = plt.get_cmap("tab10") # see https://matplotlib.org/tutorials/colors/colormaps.html
 
     texts = []
     for i, yr in enumerate(("2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019")):
@@ -46,7 +39,6 @@ with open("tomwhite-gh.json") as f:
         plt.step(x, y, label=yr, color=cmap.colors[i % 10], lw=0.5, antialiased=None, snap=True)
 
         texts.append(plt.text(x[-1] + 10, y[-1], yr, color=cmap.colors[i % 10]))
-
 
     month_starts = [dt.timetuple().tm_yday for dt in rrule.rrule(freq=rrule.MONTHLY, count=12, dtstart=datetime(2019, 1, 1))]
 
@@ -62,4 +54,5 @@ with open("tomwhite-gh.json") as f:
     plt.xticks(month_starts, ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
     plt.ylabel("Commits")
     plt.title("A Decade of GitHub: github.com/tomwhite")
-    plt.show()
+    #plt.show()
+    plt.savefig("06-a-decade-of-github.png")
