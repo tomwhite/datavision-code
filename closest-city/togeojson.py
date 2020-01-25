@@ -1,4 +1,7 @@
+import json
 import re
+
+geometries = []
 
 pattern = r'.*lat=(-?\d+\.\d*)\|long=(-?\d+\.\d*)\|.*label=.*\[\[(.*)\]\]'
 for line in open('data/wikipedia-list-of-cities-uk.txt', 'r'):
@@ -8,4 +11,16 @@ for line in open('data/wikipedia-list-of-cities-uk.txt', 'r'):
         if '|' in city:
             pos = city.find('|') + 1
             city = city[pos:]
-        print("%s,%s,%s" % (lat, lng, city))
+        geometries.append({
+            "type": "Point",
+            "coordinates": [lng, lat],
+            "properties": {
+                "name": city
+            }
+        })
+
+places = {
+    "type": "GeometryCollection",
+    "geometries": geometries
+}
+print(json.dumps(places, indent=2))

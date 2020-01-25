@@ -1,0 +1,695 @@
+{
+  "type": "GeometryCollection", 
+  "geometries": [
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Bath"
+      }, 
+      "coordinates": [
+        "-2.36556", 
+        "51.3794"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Birmingham"
+      }, 
+      "coordinates": [
+        "-1.91667", 
+        "52.4667"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Bradford"
+      }, 
+      "coordinates": [
+        "-1.75", 
+        "53.7833"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Brighton and Hove"
+      }, 
+      "coordinates": [
+        "-0.139475", 
+        "50.8284"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Bristol"
+      }, 
+      "coordinates": [
+        "-2.58333", 
+        "51.45"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Cambridge"
+      }, 
+      "coordinates": [
+        "0.116667", 
+        "52.2"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Canterbury"
+      }, 
+      "coordinates": [
+        "1.08333", 
+        "51.2667"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Carlisle"
+      }, 
+      "coordinates": [
+        "-2.93333", 
+        "54.8833"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Chelmsford"
+      }, 
+      "coordinates": [
+        "0.483333", 
+        "51.7333"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Chester"
+      }, 
+      "coordinates": [
+        "-2.91667", 
+        "53.2"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Chichester"
+      }, 
+      "coordinates": [
+        "-0.780029", 
+        "50.8367"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Coventry"
+      }, 
+      "coordinates": [
+        "-1.55", 
+        "52.4167"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Derby"
+      }, 
+      "coordinates": [
+        "-1.5", 
+        "52.9333"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Durham"
+      }, 
+      "coordinates": [
+        "-1.56667", 
+        "54.7667"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Ely"
+      }, 
+      "coordinates": [
+        "0.266667", 
+        "52.4"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Exeter"
+      }, 
+      "coordinates": [
+        "-3.53333", 
+        "50.7"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Gloucester"
+      }, 
+      "coordinates": [
+        "-2.25", 
+        "51.8333"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Hereford"
+      }, 
+      "coordinates": [
+        "-2.71667", 
+        "52.05"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Kingston upon Hull"
+      }, 
+      "coordinates": [
+        "-0.333333", 
+        "53.7167"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Lancaster"
+      }, 
+      "coordinates": [
+        "-2.80031", 
+        "54.0475"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Leeds"
+      }, 
+      "coordinates": [
+        "-1.54917", 
+        "53.7997"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Leicester"
+      }, 
+      "coordinates": [
+        "-1.13333", 
+        "52.6333"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Lichfield"
+      }, 
+      "coordinates": [
+        "-1.81667", 
+        "52.6833"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Lincoln"
+      }, 
+      "coordinates": [
+        "-0.533333", 
+        "53.2333"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Liverpool"
+      }, 
+      "coordinates": [
+        "-3.", 
+        "53.4167"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "London"
+      }, 
+      "coordinates": [
+        "-0.0922", 
+        "51.5155"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Manchester"
+      }, 
+      "coordinates": [
+        "-2.21667", 
+        "53.5"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Newcastle upon Tyne"
+      }, 
+      "coordinates": [
+        "-1.61944", 
+        "54.9881"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Norwich"
+      }, 
+      "coordinates": [
+        "1.3", 
+        "52.6333"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Nottingham"
+      }, 
+      "coordinates": [
+        "-1.16667", 
+        "52.9667"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Oxford"
+      }, 
+      "coordinates": [
+        "-1.25596", 
+        "51.7522"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Peterborough"
+      }, 
+      "coordinates": [
+        "-0.25", 
+        "52.5833"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Plymouth"
+      }, 
+      "coordinates": [
+        "-4.13861", 
+        "50.3964"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Portsmouth"
+      }, 
+      "coordinates": [
+        "-1.07142", 
+        "50.8091"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Preston"
+      }, 
+      "coordinates": [
+        "-2.71667", 
+        "53.7667"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Ripon"
+      }, 
+      "coordinates": [
+        "-1.51667", 
+        "54.1167"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Salford"
+      }, 
+      "coordinates": [
+        "-2.26667", 
+        "53.4833"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Salisbury"
+      }, 
+      "coordinates": [
+        "-1.79569", 
+        "51.0693"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Sheffield"
+      }, 
+      "coordinates": [
+        "-1.5", 
+        "53.3667"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Southampton"
+      }, 
+      "coordinates": [
+        "-1.4", 
+        "50.9"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "St Albans"
+      }, 
+      "coordinates": [
+        "-0.333333", 
+        "51.75"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Stoke-on-Trent"
+      }, 
+      "coordinates": [
+        "-2.18333", 
+        "53."
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Sunderland"
+      }, 
+      "coordinates": [
+        "-1.38333", 
+        "54.9119"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Truro"
+      }, 
+      "coordinates": [
+        "-5.04333", 
+        "50.2617"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Wakefield"
+      }, 
+      "coordinates": [
+        "-1.49768", 
+        "53.6833"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Wells"
+      }, 
+      "coordinates": [
+        "-2.64944", 
+        "51.2094"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Westminster"
+      }, 
+      "coordinates": [
+        "-0.13", 
+        "51.5"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Winchester"
+      }, 
+      "coordinates": [
+        "-1.3085", 
+        "51.0632"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Wolverhampton"
+      }, 
+      "coordinates": [
+        "-2.13333", 
+        "52.5833"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Worcester"
+      }, 
+      "coordinates": [
+        "-2.2", 
+        "52.2"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "York"
+      }, 
+      "coordinates": [
+        "-1.08333", 
+        "53.9667"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Aberdeen"
+      }, 
+      "coordinates": [
+        "-2.1", 
+        "57.1333"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Dundee"
+      }, 
+      "coordinates": [
+        "-2.96667", 
+        "56.5"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Edinburgh"
+      }, 
+      "coordinates": [
+        "-3.2", 
+        "55.95"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Glasgow"
+      }, 
+      "coordinates": [
+        "-4.25", 
+        "55.8333"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Inverness"
+      }, 
+      "coordinates": [
+        "-4.23333", 
+        "57.4667"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Perth"
+      }, 
+      "coordinates": [
+        "-3.43333", 
+        "56.4"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Stirling"
+      }, 
+      "coordinates": [
+        "-3.95", 
+        "56.1167"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Bangor"
+      }, 
+      "coordinates": [
+        "-4.13", 
+        "53.23"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Cardiff"
+      }, 
+      "coordinates": [
+        "-3.2", 
+        "51.5"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Newport"
+      }, 
+      "coordinates": [
+        "-2.98333", 
+        "51.5833"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "St Asaph"
+      }, 
+      "coordinates": [
+        "-3.45", 
+        "53.2667"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "St Davids"
+      }, 
+      "coordinates": [
+        "-5.269", 
+        "51.882"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Swansea"
+      }, 
+      "coordinates": [
+        "-3.96667", 
+        "51.6333"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Armagh"
+      }, 
+      "coordinates": [
+        "-6.66667", 
+        "54.35"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Belfast"
+      }, 
+      "coordinates": [
+        "-5.93333", 
+        "54.5833"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Lisburn"
+      }, 
+      "coordinates": [
+        "-6.03527", 
+        "54.5234"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Newry"
+      }, 
+      "coordinates": [
+        "-6.33739", 
+        "54.1784"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Derry"
+      }, 
+      "coordinates": [
+        "-7.3074", 
+        "54.9958"
+      ]
+    }
+  ]
+}

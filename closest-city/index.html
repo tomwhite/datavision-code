@@ -94,20 +94,40 @@ d3.json("uk.json", function(error, uk) {
       .attr("dy", ".35em")
       .text(function(d) { return d.properties.name; });
 
-  svg.append("path")
-      .datum(places)
+//   svg.append("path")
+//       .datum(places)
+//       .attr("d", path)
+//       .attr("class", "place");
+
+//   svg.selectAll(".place-label")
+//       .data(places.geometries)
+//     .enter().append("text")
+//       .attr("class", "place-label")
+//       .attr("transform", function(d) { console.log(d.coordinates); return "translate(" + projection(d.coordinates) + ")"; })
+//       .attr("x", function(d) { return d.coordinates[0] > -1 ? 6 : -6; })
+//       .attr("dy", ".35em")
+//       .style("text-anchor", function(d) { return d.coordinates[0] > -1 ? "start" : "end"; })
+//       .text(function(d) { return d.properties.name; });
+
+  d3.json("data/cities.geojson", function(error, cities) {
+    console.log(cities);
+    svg.append("path")
+      .datum(cities)
       .attr("d", path)
       .attr("class", "place");
 
-  svg.selectAll(".place-label")
-      .data(places.geometries)
-    .enter().append("text")
-      .attr("class", "place-label")
-      .attr("transform", function(d) { return "translate(" + projection(d.coordinates) + ")"; })
-      .attr("x", function(d) { return d.coordinates[0] > -1 ? 6 : -6; })
-      .attr("dy", ".35em")
-      .style("text-anchor", function(d) { return d.coordinates[0] > -1 ? "start" : "end"; })
-      .text(function(d) { return d.properties.name; });
+    svg.selectAll(".place-label")
+        .data(cities.geometries)
+        .enter().append("text")
+        .attr("class", "place-label")
+        .attr("transform", function(d) { return "translate(" + projection(d.coordinates) + ")"; })
+        .attr("x", function(d) { return d.coordinates[0] > -1 ? 6 : -6; })
+        .attr("dy", ".35em")
+        .style("text-anchor", function(d) { return d.coordinates[0] > -1 ? "start" : "end"; })
+        .text(function(d) { return d.properties.name; });
+  });
 });
 
 </script>
+
+</body>
