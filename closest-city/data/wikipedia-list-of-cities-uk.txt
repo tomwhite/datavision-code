@@ -1,0 +1,74 @@
+==Map of the cities==
+{{Location map+ |United Kingdom |float=left |width=640 |caption=Location of cities in the United Kingdom|places=
+{{Location map~ |United Kingdom|lat=51.3794|long=-2.36556|label_size=80 |label=[[Bath, Somerset|Bath]]|position=right}}
+{{Location map~ |United Kingdom|lat=52.4667|long=-1.91667|label_size=80 |label={{lower|0.2em|[[Birmingham]]}}|position=left}}
+{{Location map~ |United Kingdom|lat=53.7833|long=-1.75|label_size=80 |label={{raise|0.1em|[[City of Bradford|Bradford]]}}|position=top}}
+{{Location map~ |United Kingdom|lat=50.8284|long=-0.139475|label_size=80 |label=[[Brighton and Hove]]|position=right}}
+{{Location map~ |United Kingdom|lat=51.45|long=-2.58333|label_size=80 |label={{raise|[[Bristol]]}}|position=right}}
+{{Location map~ |United Kingdom|lat=52.2|long=0.116667|label_size=80 |label=[[Cambridge]]|position=right}}
+{{Location map~ |United Kingdom|lat=51.2667|long=1.08333|label_size=80 |label=[[City of Canterbury|Canterbury]]|position=bottom}}
+{{Location map~ |United Kingdom|lat=54.8833|long=-2.93333|label_size=80 |label=[[City of Carlisle|Carlisle]]|position=left}}
+{{Location map~ |United Kingdom|lat=51.7333|long=0.483333|label_size=80 |label=[[City of Chelmsford|Chelmsford]]|position=right}}
+{{Location map~ |United Kingdom|lat=53.2|long=-2.91667|label_size=80 |label=[[Chester]]|position=right}}
+{{Location map~ |United Kingdom|lat=50.8367|long=-0.780029|label_size=80 |label=&nbsp;&nbsp;&nbsp;&nbsp;[[Chichester]]|position=top}}
+{{Location map~ |United Kingdom|lat=52.4167|long=-1.55|label_size=80 |label=[[Coventry]]|position=right}}
+{{Location map~ |United Kingdom|lat=52.9333|long=-1.5|label_size=80 |label=[[Derby]]&nbsp;&nbsp;&nbsp;|position=top}}
+{{Location map~ |United Kingdom|lat=54.7667|long=-1.56667|label_size=80 |label=[[Durham, England|Durham]]|position=right}}
+{{Location map~ |United Kingdom|lat=52.4|long=0.266667|label_size=80 |label=[[Ely, Cambridgeshire|Ely]]|position=right}}
+{{Location map~ |United Kingdom|lat=50.7|long=-3.53333|label_size=80 |label=[[Exeter]]|position=right}}
+{{Location map~ |United Kingdom|lat=51.8333|long=-2.25|label_size=80 |label={{raise|0.3em|[[Gloucester]]}}|position=right}}
+{{Location map~ |United Kingdom|lat=52.05|long=-2.71667|label_size=80 |label={{lower|0.2em|[[Hereford]]}}|position=right}}
+{{Location map~ |United Kingdom|lat=53.7167|long=-0.333333|label_size=80 |label=[[Kingston upon Hull]]|position=right}}
+{{Location map~ |United Kingdom|lat=54.0475|long=-2.80031|label_size=80 |label=[[City of Lancaster|Lancaster]]|position=left}}
+{{Location map~ |United Kingdom|lat=53.7997|long=-1.54917|label_size=80 |label=[[City of Leeds|Leeds]]|position=right}}
+{{Location map~ |United Kingdom|lat=52.6333|long=-1.13333|label_size=80 |label=[[Leicester]]|position=top}}
+{{Location map~ |United Kingdom|lat=52.6833|long=-1.81667|label_size=80 |label={{raise|0.2em|[[Lichfield]]}}|position=left}}
+{{Location map~ |United Kingdom|lat=53.2333|long=-0.533333|label_size=80 |label=[[Lincoln, England|Lincoln]]|position=right}}
+{{Location map~ |United Kingdom|lat=53.4167|long=-3.|label_size=80 |label=[[Liverpool]]|position=left}}
+{{Location map~ |United Kingdom|lat=51.5155|long=-0.0922|label_size=80 |label=[[City of London|London]]|position=right}}
+{{Location map~ |United Kingdom|lat=53.5|long=-2.21667|label_size=80 |label=[[Manchester]]|position=top}}
+{{Location map~ |United Kingdom|lat=54.9881|long=-1.61944|label_size=80 |label={{raise|1.2em|[[Newcastle upon Tyne]]}}|position=left}}
+{{Location map~ |United Kingdom|lat=52.6333|long=1.3|label_size=80 |label=[[Norwich]]|position=top}}
+{{Location map~ |United Kingdom|lat=52.9667|long=-1.16667|label_size=80 |label=[[Nottingham]]|position=right}}
+{{Location map~ |United Kingdom|lat=51.7522|long=-1.25596|label_size=80 |label=[[Oxford]]|position=bottom}}
+{{Location map~ |United Kingdom|lat=52.5833|long=-0.25|label_size=80 |label=[[City of Peterborough|Peterborough]]|position=right}}
+{{Location map~ |United Kingdom|lat=50.3964|long=-4.13861|label_size=80 |label=[[Plymouth]]|position=right}}
+{{Location map~ |United Kingdom|lat=50.8091|long=-1.07142|label_size=80 |label={{lower|[[Portsmouth]]}}|position=left}}
+{{Location map~ |United Kingdom|lat=53.7667|long=-2.71667|label_size=80 |label=[[City of Preston, Lancashire|Preston]]|position=left}}
+{{Location map~ |United Kingdom|lat=54.1167|long=-1.51667|label_size=80 |label=[[Ripon]]|position=top}}
+{{Location map~ |United Kingdom|lat=53.4833|long=-2.26667|label_size=80 |label=[[City of Salford|Salford]]|position=bottom}}
+{{Location map~ |United Kingdom|lat=51.0693|long=-1.79569|label_size=80 |label=[[Salisbury]]|position=left}}
+{{Location map~ |United Kingdom|lat=53.3667|long=-1.5|label_size=80 |label=[[City of Sheffield|Sheffield]]|position=top}}
+{{Location map~ |United Kingdom|lat=50.9|long=-1.4|label_size=80 |label=[[Southampton]]|position=left}}
+{{Location map~ |United Kingdom|lat=51.75|long=-0.333333|label_size=80 |label=[[City and District of St Albans|St Albans]]|position=top}}
+{{Location map~ |United Kingdom|lat=53.|long=-2.18333|label_size=80 |label={{lower|0.3em|{{nowrap|[[Stoke-on-Trent]]}}}}|position=left}}
+{{Location map~ |United Kingdom|lat=54.9119|long=-1.38333|label_size=80 |label=[[City of Sunderland|Sunderland]]|position=right}}
+{{Location map~ |United Kingdom|lat=50.2617|long=-5.04333|label_size=80 |label=[[Truro]]|position=right}}
+{{Location map~ |United Kingdom|lat=53.6833|long=-1.49768|label_size=80 |label={{lower|0.3em|[[City of Wakefield|Wakefield]]}}|position=right}}
+{{Location map~ |United Kingdom|lat=51.2094|long=-2.64944|label_size=80 |label=[[Wells, Somerset|Wells]]|position=left}}
+{{Location map~ |United Kingdom|lat=51.5|long=-0.13|label_size=80 |label=[[City of Westminster|Westminster]]|position=bottom}}
+{{Location map~ |United Kingdom|lat=51.0632|long=-1.3085|label_size=80 |label=[[City of Winchester|Winchester]]|position=right}}
+{{Location map~ |United Kingdom|lat=52.5833|long=-2.13333|label_size=80 |label=[[Wolverhampton]]|position=left}}
+{{Location map~ |United Kingdom|lat=52.2|long=-2.2|label_size=80 |label=[[Worcester]]|position=right}}
+{{Location map~ |United Kingdom|lat=53.9667|long=-1.08333|label_size=80 |label=[[City of York|York]]|position=right}}
+{{Location map~ |United Kingdom|lat=57.1333|long=-2.1|label_size=80 |label=[[Aberdeen]]|position=right}}
+{{Location map~ |United Kingdom|lat=56.5|long=-2.96667|label_size=80 |label=[[Dundee]]|position=right}}
+{{Location map~ |United Kingdom|lat=55.95|long=-3.2|label_size=80 |label=[[Edinburgh]]|position=right}}
+{{Location map~ |United Kingdom|lat=55.8333|long=-4.25|label_size=80 |label=[[Glasgow]]|position=right}}
+{{Location map~ |United Kingdom|lat=57.4667|long=-4.23333|label_size=80 |label=[[Inverness]]|position=right}}
+{{Location map~ |United Kingdom|lat=56.4|long=-3.43333|label_size=80 |label=[[Perth, Scotland|Perth]]|position=left}}
+{{Location map~ |United Kingdom|lat=56.1167|long=-3.95|label_size=80 |label=[[Stirling]]|position=right}}
+{{Location map~ |United Kingdom|lat=53.23|long=-4.13|label_size=80 |label=[[Bangor, Gwynedd|Bangor]]|position=left}}
+{{Location map~ |United Kingdom|lat=51.5|long=-3.2|label_size=80 |label=[[Cardiff]]|position=left}}
+{{Location map~ |United Kingdom|lat=51.5833|long=-2.98333|label_size=80 |label=[[Newport, Wales|Newport]]|position=top}}
+{{Location map~ |United Kingdom|lat=53.2667|long=-3.45|label_size=80 |label=[[St Asaph]]&nbsp;&nbsp;&nbsp;|position=bottom}}
+{{Location map~ |United Kingdom|lat=51.882|long=-5.269|label_size=80 |label=[[St Davids]]|position=left}}
+{{Location map~ |United Kingdom|lat=51.6333|long=-3.96667|label_size=80 |label=[[Swansea]]|position=left}}
+{{Location map~ |United Kingdom|lat=54.35|long=-6.66667|label_size=80 |label=[[Armagh]]|position=right}}
+{{Location map~ |United Kingdom|lat=54.5833|long=-5.93333|label_size=80 |label=[[Belfast]]|position=right}}
+{{Location map~ |United Kingdom|lat=54.5234|long=-6.03527|label_size=80 |label=[[Lisburn]]|position=left}}
+{{Location map~ |United Kingdom|lat=54.1784|long=-6.33739|label_size=80 |label=[[Newry]]|position=right}}
+{{Location map~ |United Kingdom|lat=54.9958|long=-7.3074|label_size=80 |label=[[Derry]]|position=right}}
+
+}}
+{{clear}}
