@@ -42,11 +42,22 @@ text {
   pointer-events: none;
 }
 
+.d3-tip {
+  line-height: 1;
+  font-size: 12px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
 </style>
 <body>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/topojson.v0.min.js"></script>
 <script src="https://unpkg.com/d3-delaunay@5.2.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
 <script>
 
 var width = 960,
@@ -66,6 +77,17 @@ var path = d3.geoPath()
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
+
+const tip = d3
+  .tip()
+  .attr("class", "d3-tip")
+//      .offset(d => (d.dateStarted < midYear ? [0, 10] : [0, -10]))
+//      .direction(d => (d.dateStarted < midYear ? "e" : "w"))
+  .html(function(d, i) {
+    console.log(i);
+    return i;
+  });
+svg.call(tip);
 
 d3.json("uk.json", function(error, uk) {
   var subunits = topojson.object(uk, uk.objects.subunits),
@@ -135,6 +157,34 @@ d3.json("uk.json", function(error, uk) {
       .attr("stroke", "red")
       .attr("stroke-width", 1)
       .attr("d", voronoi.render());
+
+    // single polygon
+      // svg.append("path")
+      // .attr("fill", "white")
+      // .attr("fill-opacity", 0.5)
+      // .attr("d", voronoi.renderCell(0))
+
+    const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+    const polygons = svg.selectAll("any")
+      .data(cities.geometries)
+      .enter()
+      .append("path")
+      //.attr("fill", function (d, i) { return colorScale(i); })
+      .attr("fill", "grey")
+      .attr("fill-opacity", 0.5)
+      .attr("d", function (d, i) { return voronoi.renderCell(i); })
+      .on('mouseover', function(d, i) {
+        var currentState = this;
+        d3.select(this).style('fill-opacity', 0.8);
+      })
+      .on('mouseout', function(d, i) {
+        var currentState = this;
+        d3.select(this).style('fill-opacity', 0.5);
+      })
+      // .on('mouseover', tip.show)
+      // .on('mouseout', tip.hide)
+      .append("title")
+      .text(function(d) { return d.properties.name; });
   });
 });
 
