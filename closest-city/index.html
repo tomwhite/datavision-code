@@ -1,5 +1,8 @@
 <!DOCTYPE html>
+<html>
 <meta charset="utf-8">
+<head>
+<title>Closest city</title>
 <style>
 
 .subunit.SCT { fill: #dcd; }
@@ -51,13 +54,13 @@ text {
   border-radius: 2px;
   pointer-events: none;
 }
-
 </style>
+</head>
+
 <body>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/topojson.v0.min.js"></script>
 <script src="https://unpkg.com/d3-delaunay@5.2.0"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
 <script>
 
 var width = 960,
@@ -75,19 +78,9 @@ var path = d3.geoPath()
     .pointRadius(2);
 
 var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-const tip = d3
-  .tip()
-  .attr("class", "d3-tip")
-//      .offset(d => (d.dateStarted < midYear ? [0, 10] : [0, -10]))
-//      .direction(d => (d.dateStarted < midYear ? "e" : "w"))
-  .html(function(d, i) {
-    console.log(i);
-    return i;
-  });
-svg.call(tip);
+    .attr("width", width / 2)
+    .attr("height", height / 2)
+    .attr("viewBox", [0, 0, width, height]);
 
 d3.json("uk.json", function(error, uk) {
   var subunits = topojson.object(uk, uk.objects.subunits),
@@ -109,44 +102,11 @@ d3.json("uk.json", function(error, uk) {
       .attr("d", path)
       .attr("class", "subunit-boundary IRL");
 
-    // svg.selectAll(".subunit-label")
-    //     .data(subunits.geometries)
-    //   .enter().append("text")
-    //     .attr("class", function(d) { return "subunit-label " + d.id; })
-    //     .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
-    //     .attr("dy", ".35em")
-    //     .text(function(d) { return d.properties.name; });
-
-//   svg.append("path")
-//       .datum(places)
-//       .attr("d", path)
-//       .attr("class", "place");
-
-//   svg.selectAll(".place-label")
-//       .data(places.geometries)
-//     .enter().append("text")
-//       .attr("class", "place-label")
-//       .attr("transform", function(d) { console.log(d.coordinates); return "translate(" + projection(d.coordinates) + ")"; })
-//       .attr("x", function(d) { return d.coordinates[0] > -1 ? 6 : -6; })
-//       .attr("dy", ".35em")
-//       .style("text-anchor", function(d) { return d.coordinates[0] > -1 ? "start" : "end"; })
-//       .text(function(d) { return d.properties.name; });
-
   d3.json("data/cities.geojson", function(error, cities) {
     svg.append("path")
       .datum(cities)
       .attr("d", path)
       .attr("class", "place");
-
-    // svg.selectAll(".place-label")
-    //     .data(cities.geometries)
-    //     .enter().append("text")
-    //     .attr("class", "place-label")
-    //     .attr("transform", function(d) { return "translate(" + projection(d.coordinates) + ")"; })
-    //     .attr("x", function(d) { return d.coordinates[0] > -1 ? 6 : -6; })
-    //     .attr("dy", ".35em")
-    //     .style("text-anchor", function(d) { return d.coordinates[0] > -1 ? "start" : "end"; })
-    //     .text(function(d) { return d.properties.name; });
 
     const voronoi = d3.Delaunay
         .from(cities.geometries, d => projection(d.coordinates)[0], d => projection(d.coordinates)[1])
@@ -158,31 +118,25 @@ d3.json("uk.json", function(error, uk) {
       .attr("stroke-width", 1)
       .attr("d", voronoi.render());
 
-    // single polygon
-      // svg.append("path")
-      // .attr("fill", "white")
-      // .attr("fill-opacity", 0.5)
-      // .attr("d", voronoi.renderCell(0))
-
-    const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
     const polygons = svg.selectAll("any")
       .data(cities.geometries)
       .enter()
       .append("path")
-      //.attr("fill", function (d, i) { return colorScale(i); })
-      .attr("fill", "grey")
-      .attr("fill-opacity", 0.5)
+      .attr("fill", "#e8e8e8")
+      .attr("fill-opacity", 0.4)
       .attr("d", function (d, i) { return voronoi.renderCell(i); })
-      .on('mouseover', function(d, i) {
+      .on("mouseover", function(d, i) {
         var currentState = this;
-        d3.select(this).style('fill-opacity', 0.8);
+        d3.select(this)
+        .style("fill", "orange")
+        .style("fill-opacity", 0.1);
       })
-      .on('mouseout', function(d, i) {
+      .on("mouseout", function(d, i) {
         var currentState = this;
-        d3.select(this).style('fill-opacity', 0.5);
+        d3.select(this)
+        .style("fill", "#e8e8e8")
+        .style("fill-opacity", 0.4);
       })
-      // .on('mouseover', tip.show)
-      // .on('mouseout', tip.hide)
       .append("title")
       .text(function(d) { return d.properties.name; });
   });
@@ -191,3 +145,4 @@ d3.json("uk.json", function(error, uk) {
 </script>
 
 </body>
+</html>
