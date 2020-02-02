@@ -19,6 +19,18 @@ for line in open('data/wikipedia-list-of-cities-uk.txt', 'r'):
             }
         })
 
+for line in open('data/wikipedia-list-of-cities-ireland.csv', 'r'):
+    city, lat, lng = line.strip().split(',')
+    if city == 'city':
+        continue # header
+    geometries.append({
+        "type": "Point",
+        "coordinates": [lng, lat],
+        "properties": {
+            "name": city
+        }
+    })
+
 places = {
     "type": "GeometryCollection",
     "geometries": geometries

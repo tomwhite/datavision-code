@@ -9,8 +9,8 @@
 .subunit.WLS { fill: #dcd; }
 .subunit.NIR { fill: #dcd; }
 .subunit.ENG { fill: #dcd; }
+.subunit.IRL { fill: rgb(204, 221, 212); }
 
-.subunit.IRL,
 .subunit-label.IRL {
   display: none;
 }
@@ -23,7 +23,7 @@
 }
 
 .subunit-boundary.IRL {
-  stroke: #aaa;
+  stroke-width: 0;
 }
 
 .subunit-label {
@@ -45,15 +45,6 @@ text {
   pointer-events: none;
 }
 
-.d3-tip {
-  line-height: 1;
-  font-size: 12px;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-  pointer-events: none;
-}
 </style>
 </head>
 
@@ -82,7 +73,7 @@ var svg = d3.select("body").append("svg")
     .attr("height", height / 2)
     .attr("viewBox", [0, 0, width, height]);
 
-d3.json("uk.json", function(error, uk) {
+d3.json("data/uk.json", function(error, uk) {
   var subunits = topojson.object(uk, uk.objects.subunits),
       places = topojson.object(uk, uk.objects.places);
 

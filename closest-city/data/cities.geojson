@@ -690,6 +690,56 @@
         "-7.3074", 
         "54.9958"
       ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Dublin"
+      }, 
+      "coordinates": [
+        "-6.266667", 
+        "53.35"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Cork"
+      }, 
+      "coordinates": [
+        "-8.47", 
+        "51.897222"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Limerick"
+      }, 
+      "coordinates": [
+        "-8.6238", 
+        "52.6653"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Waterford"
+      }, 
+      "coordinates": [
+        "-7.129167", 
+        "52.256667"
+      ]
+    }, 
+    {
+      "type": "Point", 
+      "properties": {
+        "name": "Galway"
+      }, 
+      "coordinates": [
+        "-9.048889", 
+        "53.271944"
+      ]
     }
   ]
 }
