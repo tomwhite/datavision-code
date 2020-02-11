@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+<title>Hamilton songs</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+<style>
+    .d3-tip {
+      line-height: 1;
+      font-size: 12px;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      border-radius: 2px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+<script>
+
+const width = 1300,
+    height = 46 * 15;
+
+const svg = d3.select("body")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+const characterAliasMap = {
+    // Special case
+    "Hamilton (Overlapping)": "Hamilton",
+    // Large groups
+    "Company": "Company/Ensemble",
+    "Company (Except Angelica)": "Company/Ensemble",
+    "Company (Except Hamilton)": "Company/Ensemble",
+    "Company (Except Hamilton/Eliza)": "Company/Ensemble",
+    "Ensemble": "Company/Ensemble",
+    "Ensemble 1": "Company/Ensemble",
+    "Ensemble 2": "Company/Ensemble",
+    "Full Company (Except Hamilton)": "Company/Ensemble",
+    "Full Company (Except Hamilton/Burr)": "Company/Ensemble",
+    "Full Company": "Company/Ensemble",
+    "Full Ensemble": "Company/Ensemble",
+    "Hamilton/Burr/Laurens/All Women (Except Eliza)": "Company/Ensemble",
+    // Men
+    "All Men (Except Hamilton)": "Men",
+    "All Men": "Men",
+    "Ensemble Men": "Men",
+    "Male Company": "Men",
+    "Male Ensemble": "Men",
+    "Men": "Men",
+    // Women
+    "All Women (Except Eliza)": "Women",
+    "All Women": "Women",
+    "Ensemble Women": "Women",
+    "Female Ensemble": "Women",
+    "Women": "Women",
+    // Others
+    "A Man": "Others",
+    "A Woman": "Others",
+    "Another Female Voter": "Others",
+    "Another Male Voter": "Others",
+    "Female Voter": "Others",
+    "Male Voter": "Others",
+    "Another Ensemble Man": "Others",
+    "Deep Voice": "Others",
+    "Doctor": "Others",
+    "Dolly": "Others",
+    "Ensemble Man": "Others",
+    "Martha": "Others",
+    "Peggy": "Others",
+    "Both": "Others",
+    "Even More Voters": "Others",
+    "Two Men": "Others",
+    "Two Women": "Others",
+    "Voters": "Others"
+}
+
+// From https://sashat.me/2017/01/11/list-of-20-simple-distinct-colors/
+const colours = [
+    '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe',
+    '#008080', '#e6beff', '#9a6324', /*'#fffac8',*/ '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075',
+    '#cccccc', '#999999', '#666666', '#000000' // greyscale
+];
+
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+
+d3.json("data/albumTrackLyrics.json").then(function(songs) {
+    // Find the character(s) singing each line in each song
+    let allLines = [];
+    let songNumber = 0;
+    for (const song of songs) {
+        const lines = song.lyrics.map((v, i) => ({
+            songNumber: songNumber,
+            lineNumber: i,
+            character: v.line[0].character,
+            characters: v.line.map(l => l.character).filter(onlyUnique)
+        }));
+        allLines = allLines.concat(lines);
+        songNumber++;
+    }
+
+    // Find the number of lines each main character has
+    const mainFrequencies = allLines
+        .filter(line => !characterAliasMap[line.character])
+        .map(line => line.character)
+        .reduce((names, name) => {
+            const count = names[name] || 0;
+            names[name] = count + 1;
+            return names;
+        }, {});
+
+    // Find the unique character names (sorted by decreasing frequency)
+    const uniqueCharacters = Object.entries(mainFrequencies)
+        .sort((a, b) => b[1] - a[1])
+        .map(e => e[0]);
+    // ... and add on the aliases
+    uniqueCharacters.push("Company/Ensemble", "Men", "Women", "Others");
+
+    function characterToColour(character) {
+        const c = characterAliasMap[character] || character;
+        return colours[uniqueCharacters.indexOf(c) % colours.length];
+    }
+
+    function characterEquals(c1, c2) {
+        return (characterAliasMap[c1] || c1) === (characterAliasMap[c2] || c2);
+    }
+
+    const songXOffset = 190;
+    const legendXOffset = 5;
+    const legendYOffset = 65;
+
+    // Draw the song titles
+    const titles = svg.selectAll("text")
+        .data(songs)
+        .enter()
+        .append("text")
+        .attr("x", d => songXOffset + d.lyrics.length * 5 + 5)
+        .attr("y", (d, i) => i * 15 + 9)
+        .text(d => d.trackName)
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "10px");
+
+    // Add tooltips for each line
+    const tip = d3
+        .tip()
+        .attr("class", "d3-tip")
+        .direction(d => d.songNumber < songs.length / 2 ? "se" : "ne")
+        .html(d => d.characters.join("; "));
+    svg.call(tip);
+
+    // Draw a small rectangle for each line of each song
+    const rectangles = svg.selectAll("rect")
+        .data(allLines)
+        .enter()
+        .append("rect")
+        .attr("class", "line")
+        .attr("x", d => songXOffset + d.lineNumber * 5)
+        .attr("y", d => d.songNumber * 15)
+        .attr("width", 4)
+        .attr("height", d => d.characters.length === 1 ? 10 : 8)
+        .attr("fill", d => characterToColour(d.character));
+
+    // Invisible rectangle with slightly larger area for tooltips
+    svg.selectAll("rect2")
+        .data(allLines)
+        .enter()
+        .append("rect")
+        .attr("x", d => songXOffset + d.lineNumber * 5)
+        .attr("y", d => d.songNumber * 15)
+        .attr("width", 5)
+        .attr("height", 12)
+        .attr("visibility", "hidden")
+        .attr("pointer-events", "all")
+        .on("mouseover", tip.show)
+        .on("mouseout", tip.hide);
+
+    // Add character legend
+    svg.selectAll("rect3")
+        .data(uniqueCharacters)
+        .enter()
+        .append("rect")
+        .attr("x", legendXOffset)
+        .attr("y", (d, i) => legendYOffset + i * 15)
+        .attr("width", 12)
+        .attr("height", 12)
+        .attr("fill", d => characterToColour(d));
+    // Invisible rectangle with slightly larger area for tooltips
+    svg.selectAll("rect4") 
+        .data(uniqueCharacters)
+        .enter()
+        .append("rect")
+        .attr("x", legendXOffset)
+        .attr("y", (d, i) => legendYOffset + i * 15)
+        .attr("width", 15)
+        .attr("height", 15)
+        .attr("visibility", "hidden")
+        .attr("pointer-events", "all")
+        // hover over a character to highlight lines (by dimming others)
+        .on("mouseover", d => {
+            svg.selectAll(".line")
+                .attr("fill-opacity", d2 => characterEquals(d, d2.character) ? 1 : 0.05);
+        })
+        .on("mouseout", d => {
+            svg.selectAll(".line")
+                .attr("fill-opacity", 1);
+        });
+    // Add character names next to key
+    svg.selectAll("text2")
+        .data(uniqueCharacters)
+        .enter()
+        .append("text")
+        .attr("x", legendXOffset + 15)
+        .attr("y", (d, i) => legendYOffset + i * 15 + 9)
+        .text(d => d)
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "10px");
+
+    // Add a title and caption
+    svg.append("text")
+        .attr("x", legendXOffset)
+        .attr("y", 24)
+        .text("Hamilton Songs")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "24px");
+    svg.append("text")
+        .attr("x", legendXOffset)
+        .attr("y", 55)
+        .text("Who sang each line?")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "14px");
+    svg.append("text")
+        .attr("x", legendXOffset)
+        .attr("y", height - 15)
+        .text("Data source: github.com/anbnyc/hamilton")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "8px");
+    svg.append("text")
+        .attr("x", legendXOffset)
+        .attr("y", height - 5)
+        .text("Not affiliated with the official Hamilton production")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "8px");
+
+});
+
+</script>
+
+</body>
+</html>
