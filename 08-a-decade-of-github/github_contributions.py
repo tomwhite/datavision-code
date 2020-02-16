@@ -55,4 +55,4 @@ with open("data/tomwhite-gh.json") as f:
     plt.ylabel("Commits")
     plt.title("A Decade of GitHub: github.com/tomwhite")
     #plt.show()
-    plt.savefig("06-a-decade-of-github.png")
+    plt.savefig("08-a-decade-of-github.png")
