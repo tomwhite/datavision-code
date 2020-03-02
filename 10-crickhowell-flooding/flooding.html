@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Crickhowell Flooding</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+<script src="https://d3js.org/d3-format.v1.min.js"></script>
+
+<style>
+.min_level {
+   fill: #EBF4FA;
+   stroke: lightblue;
+   stroke-width: 0.5;
+}
+.max_level {
+   fill: none;
+   stroke: darkblue;
+   stroke-width: 0.75;
+}
+.storm {
+   fill: none;
+   stroke: brown;
+   stroke-width: 1;
+   stroke-opacity: 0.2;
+}
+.storm-text {
+   font-size: 10px;
+}
+
+.peak {
+  stroke: red;
+  fill: red;
+  fill-opacity: 0.5;
+}
+
+.d3-tip {
+   line-height: 1;
+   font-size: 12px;
+   padding: 12px;
+   background: rgba(0, 0, 0, 0.8);
+   color: #fff;
+   border-radius: 2px;
+   pointer-events: none;
+}
+
+</style>
+</head>
+<body>
+<script type="text/javascript">
+
+const w = 1200;
+const h = 350;
+const padding = 40;
+
+const parseDate = d3.timeParse("%Y-%m-%d");
+
+
+// Format dates on x axis: only every three months, and use the short form of month name
+const formatMonth = d3.timeFormat("%b"),
+    formatYear = d3.timeFormat("%Y");
+function multiFormat(date) {
+   if (date.getMonth() % 3 != 0) {
+      return "";
+   }
+  return (d3.timeMonth(date) < date ? (d3.timeWeek(date) < date ? formatDay : formatWeek)
+      : d3.timeYear(date) < date ? formatMonth
+      : formatYear)(date);
+}
+
+// Load river level data for the Usk at Crickhowell
+d3.csv("data/usk-crickhowell-community-crickhowell.csv", function(d) {
+   // remove days where gauge data looked suspect (nearby gauges didn't have a peak)
+   if (d.date === '2018-06-15' || d.date === '2018-06-16' || d.date === '2018-06-17' || d.date === '2018-06-18' || d.date === '2018-06-26') {
+      return {
+         date: parseDate(d.date),
+         min_level: NaN,
+         avg_level: NaN,
+         max_level: NaN
+      };
+   }
+  return {
+    date: parseDate(d.date),
+    min_level: Math.abs(d.min_level),
+    avg_level: Math.abs(d.avg_level),
+    max_level: Math.abs(d.max_level)
+  };
+}).then(function(data) {
+
+   // Single out the flood peaks
+
+   function dataOn(date) {
+      for (d of data) {
+         if (d.date.getYear() == date.getYear() && d.date.getMonth() == date.getMonth() && d.date.getDate() == date.getDate()) {
+            return d;
+         }
+      }
+      return null;
+   }
+
+   function definePeak(date, div_id) {
+      const d = dataOn(date);
+      d.div_id = div_id;
+      return d;
+   }
+   
+   const peaks = [
+      definePeak(new Date(2018, 9, 13), "callum"),
+      definePeak(new Date(2019, 9, 26), "persistent-wet-weather"),
+      definePeak(new Date(2020, 1, 16), "dennis"),
+   ];
+
+   // Load storm data from Met Office
+   d3.csv("data/storms.csv", function(d) {
+      return {
+         storm: d.storm,
+         start_date: parseDate(d.start_date),
+         end_date: parseDate(d.end_date),
+         met_office_report: d.met_office_report
+      };
+   }).then(function(storms) {
+
+      function showPeak(d) {
+         document.getElementById("info").style.display = 'none';
+         for (peak of peaks) {
+            if (peak.div_id === d.div_id) {
+               document.getElementById(d.div_id).style.display = 'block';
+            } else {
+               document.getElementById(peak.div_id).style.display = 'none';  
+            }
+         }
+      }
+
+      function showStorm(d) {
+         for (peak of peaks) {
+            document.getElementById(peak.div_id).style.display = 'none';  
+         }
+         document.getElementById("info").style.display = 'block';
+         const startDate = d3.timeFormat("%d %B %Y")(d.start_date);
+         if (d.met_office_report != "") {
+            document.getElementById("info").innerHTML = `<h3>${d.storm}</h3>
+               <ul>
+                  <li>${startDate}</li>
+                  <li>Read the <a href="${d.met_office_report}">Met Office Report</a></li>
+               </ul>
+            `;
+         } else {
+            document.getElementById("info").innerHTML = `<h3>${d.storm}</h3>
+               <ul>
+                  <li>${startDate}</li>
+               </ul>
+            `;            
+         }
+      }
+
+      const xScale = d3.scaleTime()
+         .domain([
+            d3.min(data, d => d.date),
+            d3.max(data, d => d.date)
+         ])
+         .range([padding, w - padding])
+         .nice(d3.timeMonth.every(3));
+
+      const yScale = d3.scaleLinear()
+         .domain([0, 5.75])
+         .range([h - padding, padding]);
+
+      const xAxis = d3.axisBottom()
+         .scale(xScale)
+         .ticks(d3.timeMonth.every(1))
+         .tickFormat(multiFormat);
+
+      const yAxis = d3.axisLeft()
+         .scale(yScale)
+         .ticks(5);
+
+      const svg = d3.select("#dataviz")
+         .append("svg")
+         .attr("width", w)
+         .attr("height", h);
+
+      // Maximum daily level
+      const maxLevelLine = d3.line()
+         .defined(d => !isNaN(d.max_level))
+         .x(d => xScale(d.date))
+         .y(d => yScale(d.max_level));
+
+      // Minimum daily level (area graph)
+      const minLevelLine = d3.area()
+         .defined(d => !isNaN(d.min_level))
+         .x(d => xScale(d.date))
+         .y0(yScale(0))
+         .y1(d => yScale(d.min_level));
+
+      svg.append("path")
+         .datum(data)
+         .attr("d", minLevelLine)
+         .attr("class", "min_level");
+
+      svg.append("path")
+         .datum(data)
+         .attr("d", maxLevelLine)
+         .attr("class", "max_level");
+
+      // Draw a line for each storm
+      svg.selectAll(".storm")
+         .data(storms)
+         .enter()
+         .append("line")
+         .attr("x1", d => xScale(d.start_date))
+         .attr("x2", d => xScale(d.start_date))
+         .attr("y1", d => yScale(0))
+         .attr("y2", (d, i) => yScale(5.4 - (i % 6) / 5))
+         .attr("class", "storm");
+
+      // And add a clickable label
+      svg.selectAll(".storm-text")
+         .data(storms)
+         .enter()
+         .append("text")
+         .text(d => d.storm.replace(/Storm /, ''))
+         .attr("x", d => xScale(d.start_date))
+         .attr("y", (d, i) => yScale(5.5 - (i % 6) / 5))
+         .attr("class", "storm-text")
+         .on("mouseover", function(d) {
+            d3.select(this)
+               .style("cursor", "default");
+         })
+         .on("click", showStorm);
+
+      // Add a tooltip for the peaks
+      const tip = d3
+         .tip()
+         .attr("class", "d3-tip")
+         .html(d => d3.format(".2f")(d.max_level) + " m");
+      svg.call(tip);
+
+      // Add a clickable red blob for peaks
+      svg.selectAll(".peak")
+         .data(peaks)
+         .enter()
+         .append("circle")
+         .attr("class", "peak")
+         .attr("r", 3)
+         .attr("cx", d => xScale(d.date))
+         .attr("cy", d => yScale(d.max_level))
+         .on("mouseover", tip.show)
+         .on("mouseout", tip.hide)
+         .on("click", showPeak);
+
+      // Draw axes
+      svg.append("g")
+         .attr("class", "axis")
+         .attr("transform", "translate(0," + (h - padding) + ")")
+         .call(xAxis);
+
+      svg.append("g")
+         .attr("class", "axis")
+         .attr("transform", "translate(" + padding + ",0)")
+         .call(yAxis);
+
+      // Title, labels, annotations, etc
+      svg.append("text")
+         .attr("transform", "rotate(-90)")
+         .attr("y", 0)
+         .attr("x", -h / 3)
+         .attr("dy", "1em")
+         .style("text-anchor", "middle")
+         .style("font-size", "14px")
+         .text("Gauge depth (m)");
+
+      svg.append("text")
+         .attr("x", w / 2)
+         .attr("y", padding / 2)
+         .attr("text-anchor", "middle")
+         .style("font-size", "20px")
+         .text("Usk River Level at Crickhowell");
+      svg.append("text")
+         .attr("x", w - 130)
+         .attr("y", h - 5)
+         .attr("text-anchor", "middle")
+         .style("font-size", "10px")
+         .text("Data sources: RiverLevels.uk, Met Office");
+      svg.append("text")
+         .attr("x", w - 270)
+         .attr("y", padding / 2)
+         .style("font-size", "12px")
+         .text("Click on storm names or red peaks for more info");
+   });
+});
+
+</script>
+<div id="dataviz"></div>
+<div id="info" width="1200" height="100"></div>
+<div id="callum" width="1200" style="display: none">
+   <h3>Storm Callum</h3>
+   <ul>
+      <li>Peak: 3.43 metres on 13 October 2018</li>
+      <li>Crickhowell was flooded and roads were closed. See <a href="https://www.walesonline.co.uk/news/wales-news/welsh-town-thats-now-island-15276116">photos</a></li>
+      <li>Read the <a href="https://www.metoffice.gov.uk/binaries/content/assets/metofficegovuk/pdf/weather/learn-about/uk-past-events/interesting/2018/strong-winds-and-heavy-rain-from-storm-callum---met-office.pdf">Met Office Report</a></li>
+   </ul>
+</div>
+<div id="persistent-wet-weather" width="1200" style="display: none">
+   <h3>Persistent Wet Weather</h3>
+   <ul>
+      <li>Peak: 4.38 metres on 26 October 2019</li>
+      <li>Crickhowell was flooded and roads were closed. See <a href="https://www.walesonline.co.uk/news/crickhowell-flooding-wales-weather-rain-17152999">photos</a></li>
+      <li>Read the <a href="https://www.metoffice.gov.uk/binaries/content/assets/metofficegovuk/pdf/weather/learn-about/uk-past-events/interesting/2019/2019_010_october_rainfall.pdf">Met Office Report</a></li>
+   </ul>
+</div>
+<div id="dennis" width="1200" style="display: none">
+   <h3>Storm Dennis</h3>
+   <ul>
+      <li>Peak: 4.51 metres on 16 February 2020 (although likely higher since gauge stopped working)</li>
+      <li>Crickhowell was flooded and roads were closed. See <a href="https://www.standard.co.uk/news/uk/uk-weather-floods-boris-johnson-faces-criticism-a4364456.html">aerial drone images</a></li>
+      <li>Read the <a href="https://www.metoffice.gov.uk/binaries/content/assets/metofficegovuk/pdf/weather/learn-about/uk-past-events/interesting/2020/2020_03_storm_dennis.pdf">Met Office Report</a></li>
+   </ul>
+</div>
+</body>
+</html>
