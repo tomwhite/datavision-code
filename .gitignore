@@ -3,4 +3,6 @@
 .Rhistory
 .Rproj.user
 .vscode
+export_*.zip
+export_*
 venv

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<title>Lots of Lotties: 5K runs in 2019</title>
+<!-- Use d3 v3, not v5, since I use code from http://bl.ocks.org/explunit/6082362, which I haven't been able to translate to v5 -->
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3-format.v1.min.js"></script>
+<style>
+    .runner-legend {
+        stroke: black;
+        stroke-width: 0.5;
+    }
+    .runner-legend-text {
+        font-family: sans-serif;
+        font-size: 10px;
+    }
+    .runner {
+        stroke: black;
+        stroke-width: 0.5;
+    }
+    .track {
+        stroke-width: 1;
+        fill: none;
+        stroke-opacity: 0.1
+    }
+</style>
+</head>
+<body>
+<script type="text/javascript">
+const width = 800;
+const height = 650;
+const sidebarWidth = 150; // included in overall width
+const padding = 10;
+const speedUp = 60;
+const dateParserFormat = d3.time.format("%e %b %Y, %H:%M:%S");
+const activitiesCsv = "data/lottie-activities.csv";
+const tracksCsv = "data/lottie-running.csv";
+
+// Load activities (metadata about each run)
+d3.csv(activitiesCsv, function(d) {
+    return {
+        id: d["Activity ID"],
+        date: dateParserFormat.parse(d["Activity Date"]),
+        elapsedTime: +d["Elapsed Time"],
+        distance: +d["Distance"],
+        pace: +d["Elapsed Time"] / +d["Distance"]
+    };
+}, function(error, activities) {
+
+    // Load tracks (sampled points for each run)
+    d3.csv(tracksCsv, function(d) {
+        return {
+            id: d.id,
+            x: +d.x,
+            y: -d.y, // y goes down the page
+            duration: +d.duration * 1000 / speedUp // convert to millis and speed up
+        };
+    }, function(error, data) {
+
+        // Some of the code below is based on http://bl.ocks.org/explunit/6082362
+
+        // Find extents of data
+        const min_x = d3.min(data, d => d.x);
+        const min_y = d3.min(data, d => d.y);
+        const max_x = d3.max(data, d => d.x);
+        const max_y = d3.max(data, d => d.y);
+
+        const x = d3.scale.linear().domain([min_x, max_x]).range([padding, (width - sidebarWidth - padding)]);
+        const y = d3.scale.linear().domain([min_y, max_y]).range([padding, (height - padding)]);
+
+        // Line generator function
+        const line = d3.svg.line()
+            .interpolate("cardinal")
+            .x(d => x(d.x))
+            .y(d => y(d.y))
+
+        const svg = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("id", "visualization")
+
+        function addRunner(run, lineData) {
+
+            // Find the length of the line at each given point.
+            // Hack: draw hidden line with portion of the points -- surely there is a more elegant way but I'm not sure how to get the 'cardinal' interpolation
+            const lengthAt = [];
+            for (let i = 1; i < lineData.length - 1; i++) {
+                const path = svg.append("path")
+                    .attr("d", line(lineData.slice(i)))
+                    .attr("class", "temppath")
+                    .attr("visibility", "hidden")
+                lengthAt.push(path.node().getTotalLength());
+            };
+            svg.selectAll(".temppath").remove();
+
+            // Add the track for the runner
+            const path = svg.append("path")
+                .attr("d", line(lineData))
+                .attr("class", "track")
+                .attr("stroke", run.colour);
+
+            const totalLength = path.node().getTotalLength();
+
+            path.attr("stroke-dasharray", totalLength + " " + totalLength)
+                .attr("stroke-dashoffset", totalLength);
+
+            // Add a circle representing the runner
+            const marker = svg.append("circle")
+                .attr("r", 4)
+                .attr("id", "id" + run.id)
+                .attr("class", "runner")
+                .attr("fill", run.colour);
+
+            // transition will be chained from either the original path or the last transition
+            let transitionFrom = path;
+            // start at 1 since no transition needed to first point
+            for (let i = 1; i < lineData.length; i++) {
+                transitionFrom = transitionFrom.transition()
+                .duration(lineData[i].duration)
+                .ease("linear")
+                .attrTween("stroke-dashoffset", tweenDash(lengthAt[i-1] || 0));
+            };
+
+            function tweenDash(len) {
+                return (d, index, a) => {
+                    const interpolator = d3.interpolateNumber(a, len || 0)
+                    return function(t) {
+                        const l = interpolator(t);
+                        const p = path.node().getPointAtLength(totalLength - l);
+                        marker.attr("transform", "translate(" + p.x + "," + p.y + ")");
+                        return l;
+                    }
+                }
+            }
+        }
+
+        // Find unique ids for track data
+        const ids = data
+            .map(d => d.id)
+            .filter(onlyUnique);
+        
+        // Find stas for each run and sort by pace
+        const runs = activities
+            .filter(d => ids.includes(d.id))
+            .sort((a, b) => a.pace - b.pace)
+
+        // Assign each run a colour (rainbow order)
+        // from https://sashat.me/2017/01/11/list-of-20-simple-distinct-colors/
+        const colours = ["#800000", "#e6194B", "#fabebe", "#9A6324", "#f58231", "#ffd8b1", "#808000", "#ffe119", "#fffac8", "#bfef45", "#3cb44b", "#aaffc3", "#469990", "#42d4f4", "#000075", "#4363d8", "#911eb4", "#e6beff", "#f032e6", "#000000", "#a9a9a9"]
+        for (let i = 0; i < runs.length; i++) {
+            runs[i].colour = colours[i % colours.length]
+        }
+
+        // Create legends, with hover that dims other runners
+        const circles = svg.selectAll("runner-legend")
+            .data(runs)
+            .enter()
+            .append("circle")
+            .attr("class", "runner-legend")
+            .attr("r", 4)
+            .attr("cx", 700)
+            .attr("cy", (d, i) => 18 * i + 10)
+            .attr("fill", d => d.colour)
+            .on("mouseover", d => {
+                svg.selectAll(".runner")
+                    .attr("fill-opacity", 0)
+                    .attr("stroke-opacity", 0.2)
+                svg.select("#id" + d.id)
+                    .attr("fill-opacity", 1)
+                    .attr("stroke-opacity", 1)
+            })
+            .on("mouseout", d => {
+                svg.selectAll(".runner")
+                    .attr("fill-opacity", 1)
+                    .attr("stroke-opacity", 1)
+            })
+        const dateFormat = d3.time.format("%e %b");
+        const text = svg.selectAll("text")
+            .data(runs)
+            .enter()
+            .append("text")
+            .attr("class", "runner-legend-text")
+            .text(d => formatPace(d.pace) + ", " + dateFormat(d.date))
+            .attr("x", 710)
+            .attr("y", (d, i) => 18 * i + 13)
+
+        // Add a title and caption
+        svg.append("text")
+            .attr("x", 200)
+            .attr("y", 24)
+            .text("Lots of Lotties: 5K runs in 2019")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "24px");
+
+        svg.append("text")
+            .attr("x", 200)
+            .attr("y", 40)
+            .text("By Tom White; Data source: Strava")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "8px");
+
+        // Create the runners
+        runs.forEach(run => {
+                const lineData = data.filter(d => d.id === run.id)
+                setTimeout(() => addRunner(run, lineData), 500);
+            });
+        });
+
+});
+
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+
+function formatPace(sPerKm) {
+    const mm = Math.floor(sPerKm / 60);
+    const s = Math.round(sPerKm % 60);
+    const ss = ("0" + s).slice(-2);
+    return mm + ":" + ss + " /km";
+}
+
+</script>
+</body>
+</html>
