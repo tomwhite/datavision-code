@@ -86,8 +86,8 @@
   <div id="asteroids"></div>
 <script>
 
-const width = 1200,
-    height = 800,
+const width = 1080,
+    height = 720,
     padding = 50;
 
 const svg = d3.select("#asteroids")
@@ -263,12 +263,12 @@ d3.csv("data/cneos_closeapproach_data_20ld_clean.csv", function(d) {
 
   const gRange = svg
     .append('g')
-    .attr('transform', 'translate(' + (width - 350) + ',10)');
+    .attr('transform', 'translate(' + (width - 330) + ',10)');
 
   gRange.call(sliderRange);
 
   svg.append("text")
-      .attr("x", width - 480)
+      .attr("x", width - 460)
       .attr("y", 15)
       .attr("class", "slider-text")
       .text("Filter by min diameter")
