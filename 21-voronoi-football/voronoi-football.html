@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .dots {
+    fill: black;
+    stroke: black;
+  }
+
+  path {
+    stroke: white;
+    stroke-width: 2;
+    fill: none;
+  }
+</style>
+<body>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://unpkg.com/d3-delaunay@5.2.0"></script>
+  <script src="https://d3js.org/d3-array.v2.min.js"></script>
+
+  <script>
+    const speedup = 10;
+    const margin = { top: 0, right: 0, bottom: 0, left: 0 },
+      width = 106 * 10 - margin.left - margin.right,
+      height = 70 * 10 - margin.top - margin.bottom;
+
+    const x = d3.scaleLinear().domain([-53, 53]).range([0, width]);
+    const y = d3.scaleLinear().domain([-35, 35]).range([height, 0]);
+
+    const svg = d3
+      .select("body")
+      .append("svg")
+      .attr(
+        "viewBox",
+        "0 0 " +
+          (width + margin.left + margin.right) +
+          " " +
+          (height + margin.top + margin.bottom)
+      )
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    d3.json("data/tr-ft-processed.json").then((data) => {
+      const dots = data.map((d) => d3.values(d));
+
+      function getCurrentPoints() {
+        // get the current x, y screen locations for all points
+        // used to construct the voronoi polygons
+        const cxs = [];
+        const cys = [];
+        d3.selectAll(".dots").each(function (d, i) {
+          cxs.push(d3.select(this).attr("cx"));
+          cys.push(d3.select(this).attr("cy"));
+        });
+        return d3.zip(cxs, cys);
+      }
+
+      function updateVoronoiPolygons() {
+        // Update the voronoi polygons
+        const voronoi = d3.Delaunay.from(getCurrentPoints()).voronoi([
+          0,
+          0,
+          width,
+          height,
+        ]);
+        svg.selectAll(".polygons").attr("d", (d, i) => voronoi.renderCell(i));
+      }
+
+      svg
+        .selectAll(".polygons")
+        .data(dots[0])
+        .enter()
+        .append("path")
+        .attr("class", "polygons")
+        .style("fill", (d, i) => {
+          if (i === 0) {
+            return "white";
+          } else if (i < 12) {
+            return "#FF355E";
+          } else {
+            return "#0066FF";
+          }
+        });
+
+      const selection = svg
+        .selectAll(".dots")
+        .data(dots[0])
+        .enter()
+        .append("circle")
+        .attr("class", "dots")
+        .attr("id", (d, i) => "dot_" + i)
+        .style("fill", (d, i) => (i === 0 ? "white" : "black"))
+        .attr("r", 2)
+        .attr("cx", (d) => x(d[0]))
+        .attr("cy", (d) => y(d[1]));
+
+      function transitionToNext(row) {
+        if (row >= dots.length) {
+          return;
+        }
+        const duration = 100 / speedup;
+        selection
+          .transition()
+          .duration(duration)
+          .ease(d3.easeLinear)
+          .attrTween("cx", nextTweenFnX(row))
+          .attrTween("cy", nextTweenFnY(row))
+          .end()
+          .then(() => transitionToNext(++row));
+      }
+
+      updateVoronoiPolygons();
+
+      transitionToNext(1);
+
+      function nextTweenFnX(row) {
+        function tweenFnX(d, index, a) {
+          const interpolator = d3.interpolateNumber(
+            dots[row - 1][index][0],
+            dots[row][index][0]
+          );
+          return function (t) {
+            updateVoronoiPolygons();
+            return x(interpolator(t));
+          };
+        }
+        return tweenFnX;
+      }
+
+      function nextTweenFnY(row) {
+        function tweenFnY(d, index, a) {
+          const interpolator = d3.interpolateNumber(
+            dots[row - 1][index][1],
+            dots[row][index][1]
+          );
+          return function (t) {
+            return y(interpolator(t));
+          };
+        }
+        return tweenFnY;
+      }
+    });
+  </script>
+</body>

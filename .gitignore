@@ -1,3 +1,4 @@
+__pycache__
 .DS_Store
 .RData
 .Rhistory
@@ -11,3 +12,4 @@ venv
 15-body-temperature/__MACOSX
 15-body-temperature/elife-49555-data1-v2.zip
 17-unknown-levels/data/out.json
+21-voronoi-football/data
