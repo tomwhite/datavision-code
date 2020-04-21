@@ -1,0 +1,15 @@
+{
+  "name": "unknown-levels",
+  "version": "1.0.0",
+  "description": "Tom White's 2019 Blood Glucose Readings",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tom White",
+  "license": "MIT",
+  "dependencies": {
+    "csv-writer": "^1.6.0",
+    "moment": "^2.24.0"
+  }
+}

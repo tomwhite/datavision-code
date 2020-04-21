@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Unknown Levels: Tom White's 2019 daily blood glucose levels, by volatility
+    </title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+
+    <style>
+      .area {
+        fill: black;
+        stroke: white;
+        stroke-width: 1.2;
+        stroke-linejoin: round;
+      }
+      .d3-tip {
+        line-height: 1;
+        font-size: 12px;
+        padding: 12px;
+        background: white;
+        color: black;
+        border-radius: 2px;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const dateFormat = d3.timeFormat("%e %b");
+
+      d3.csv("data/bgs.csv", function (d) {
+        return {
+          date: moment(d.date, "YYYY-MM-DD").toDate(),
+          minOfDay: +d.minOfDay,
+          bg: +d.bg,
+        };
+      }).then((dataset) => {
+        // group by date
+        let grouped = d3
+          .groups(dataset, (d) => +d.date) // need to coerce date to a key that supports equality, see https://observablehq.com/@d3/d3-group
+          .filter(
+            (d) =>
+              first(d[1]).minOfDay < 15 && last(d[1]).minOfDay > 24 * 60 - 15 // filter out days with less data (nothing in first/last 15 min of day)
+          )
+          .filter((d) => !moment(first(d[1]).date).isSame(moment("2019-08-07"))) // weird sensor readings
+          .filter(
+            (d) => !moment(first(d[1]).date).isSame(moment("2019-10-27")) // DST longer day
+          );
+
+        const numRows = grouped.length;
+        const rowHeight = 10;
+        const rowHeightDomain = 5;
+
+        const padding = 50;
+        const w = padding + 250 + padding;
+        const h = padding + numRows * rowHeight + padding;
+
+        const x = d3
+          .scaleTime()
+          .domain([0, 24 * 60])
+          .range([padding, w - padding]);
+
+        const y = d3
+          .scaleLinear()
+          .domain([0, numRows * rowHeightDomain])
+          .range([h - padding, padding]);
+
+        function line(yoff) {
+          return d3
+            .area()
+            .x((d) => x(d.minOfDay))
+            .y((d) => y(yoff + d.bg));
+        }
+
+        function area(yoff) {
+          return d3
+            .area()
+            .x((d) => x(d.minOfDay))
+            .y1((d) => y(yoff + d.bg))
+            .y0((d) => y(yoff - 4));
+        }
+
+        const svg = d3
+          .select("body")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h);
+
+        // add a tooltip for every area curve
+        const tip = d3
+          .tip()
+          .attr("class", "d3-tip")
+          .direction((d, i) => (i < numRows / 2 ? "s" : "n"))
+          .html(
+            (d) =>
+              dateFormat(first(d[1]).date) +
+              ", avg " +
+              meanBg(d).toFixed(1) +
+              " mmol/l"
+          );
+        svg.call(tip);
+
+        // draw paths in date order, but hidden, in order to calculate their lengths
+        const paths = svg
+          .selectAll(".line")
+          .data(grouped)
+          .enter()
+          .append("path")
+          .attr("class", "temppath")
+          .attr("visibility", "hidden")
+          .attr("d", (d, i) => line(i * rowHeightDomain)(d[1]));
+        paths.each((p, j, g) => grouped[j].push(g[j].getTotalLength()));
+        svg.selectAll(".temppath").remove();
+
+        // ... and sort by length
+        const groupedSorted = grouped.sort(
+          (a, b) => normalizedPathLength(a) - normalizedPathLength(b)
+        );
+
+        // draw from top to bottom, so overlapping works
+        svg
+          .selectAll(".area")
+          .data(groupedSorted)
+          .enter()
+          .append("path")
+          .attr("class", "area")
+          .attr("d", (d, i) => area((numRows - i) * rowHeightDomain)(d[1]))
+          .on("mouseover", tip.show)
+          .on("mouseout", tip.hide);
+
+        // Add a title and caption
+        svg
+          .append("text")
+          .attr("x", w / 2)
+          .attr("y", 25)
+          .text("Unknown Levels")
+          .attr("text-anchor", "middle")
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "24px");
+
+        svg
+          .append("text")
+          .attr("x", w / 2)
+          .attr("y", h - 20)
+          .text("Tom White's 2019 daily blood glucose levels, by volatility")
+          .attr("text-anchor", "middle")
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "10px");
+      });
+
+      function first(arr) {
+        return arr[0];
+      }
+
+      function last(arr) {
+        return arr.slice(-1)[0];
+      }
+
+      function meanBg(d) {
+        return d3.mean(d[1].map((v) => v.bg));
+      }
+
+      function normalizedPathLength(d) {
+        return d[2] / (last(d[1]).minOfDay - first(d[1]).minOfDay);
+      }
+    </script>
+  </body>
+</html>

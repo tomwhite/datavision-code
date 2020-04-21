@@ -5,7 +5,9 @@
 .vscode
 export_*.zip
 export_*
+node_modules
 venv
 15-body-temperature/Data\ Files
 15-body-temperature/__MACOSX
 15-body-temperature/elife-49555-data1-v2.zip
+17-unknown-levels/data/out.json
