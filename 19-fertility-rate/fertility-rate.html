@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Fertility rate by country, 2015</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+
+    <style>
+      .country {
+        fill-opacity: 0.9;
+      }
+      .world {
+        fill: blue;
+        fill-opacity: 0.1;
+      }
+      .line {
+        stroke: black;
+        stroke-width: 0.75;
+        stroke-dasharray: 2, 2;
+      }
+      .cells path {
+        fill: none;
+        stroke: #ddd;
+      }
+      .mouse-circle {
+        fill: pink;
+        fill-opacity: 0.5;
+      }
+      .d3-tip {
+        line-height: 1;
+        font-family: "sans-serif";
+        font-size: 14px;
+        padding: 10px;
+        background: white;
+        color: black;
+        border-radius: 2px;
+        border: solid black;
+        border-width: thin;
+        pointer-events: none;
+      }
+      .title {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 24px;
+      }
+      .caption {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 10px;
+      }
+      .label {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="1000" height="400"></svg>
+    <script type="text/javascript">
+      const svg = d3.select("svg"),
+        margin = { top: 40, right: 40, bottom: 40, left: 40 },
+        width = svg.attr("width") - margin.left - margin.right,
+        height = svg.attr("height") - margin.top - margin.bottom;
+
+      var g = svg
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      const fetchFertilityData = d3.csv(
+        "data/children-per-woman-UN.csv",
+        function (d) {
+          return {
+            entity: d["Entity"],
+            code: d["Code"],
+            year: +d["Year"],
+            fertility: +d[
+              "Estimates, 1950 - 2015: Demographic Indicators - Total fertility (live births per woman) (live births per woman)"
+            ],
+            value: +d[
+              "Estimates, 1950 - 2015: Demographic Indicators - Total fertility (live births per woman) (live births per woman)"
+            ],
+          };
+        }
+      );
+
+      const fetchPopulationData = d3.csv(
+        "data/historic-and-projected-population.csv",
+        function (d) {
+          return {
+            entity: d["Entity"],
+            code: d["Code"],
+            year: +d["Year"],
+            population: +d[""],
+          };
+        }
+      );
+
+      const fetchContinentsData = d3.csv("data/continents.csv", function (d) {
+        return {
+          entity: d["Entity"],
+          code: d["Code"],
+          year: +d["Year"],
+          continent: d[""],
+        };
+      });
+
+      Promise.all([
+        fetchFertilityData,
+        fetchPopulationData,
+        fetchContinentsData,
+      ]).then(function ([data, populationData, continentsData]) {
+        // https://stackoverflow.com/a/51672402
+        const mergeByCode = (a1, a2) =>
+          a1.map((itm) => ({
+            ...a2.find((item) => item.code === itm.code && item),
+            ...itm,
+          }));
+
+        let data2015 = data
+          .filter((d) => d.year == 2015)
+          .filter((d) => d.code.length > 0);
+
+        data2015 = mergeByCode(
+          data2015,
+          populationData.filter((d) => d.year == 2015)
+        );
+
+        data2015 = mergeByCode(
+          data2015,
+          continentsData.filter((d) => d.year == 2015)
+        );
+
+        function populationToRadius(population) {
+          return Math.max(1.5, Math.sqrt(population) / 900);
+        }
+        data2015.forEach((d) => (d.radius = populationToRadius(d.population)));
+
+        const world = data2015.filter((d) => d.code === "OWID_WRL")[0];
+        data2015 = data2015.filter((d) => !d.code.startsWith("OWID"));
+
+        const continents = [
+          "Africa",
+          "Asia",
+          "Europe",
+          "North America",
+          "South America",
+          "Oceania",
+        ];
+
+        const colours = d3
+          .scaleOrdinal()
+          .domain(continents)
+          .range(d3.schemeDark2);
+
+        const x = d3.scaleLinear().domain([1, 7.5]).range([width, 0]); // fertility decreases from left to right
+
+        const xAxis = d3.axisBottom().scale(x).ticks(7);
+
+        const tip = d3
+          .tip()
+          .attr("class", "d3-tip")
+          .offset(function (d) {
+            return [this.getBBox().height / 2 - d.data.radius - 5, 0];
+          })
+          .html(
+            (d) => `${d.data.entity}: ${d3.format(".2f")(d.data.fertility)}`
+          );
+        svg.call(tip);
+
+        const padding = 1.5;
+
+        const dodge = (data) => {
+          const circles = data
+            .map((d) => ({ x: x(d.value), data: d }))
+            .sort((a, b) => b.data.population - a.data.population);
+          const epsilon = 1e-3;
+          let head = null,
+            tail = null,
+            queue = null;
+
+          // Returns true if circle ⟨x,y⟩ intersects with any circle in the queue.
+          function intersects(x, y, rad) {
+            let a = head;
+            while (a) {
+              const rad2 = (a.data.radius + rad + padding) ** 2;
+              if (rad2 - epsilon > (a.x - x) ** 2 + (a.y - y) ** 2) {
+                return true;
+              }
+              a = a.next;
+            }
+            return false;
+          }
+
+          // Place each circle sequentially.
+          for (const b of circles) {
+            const rad = b.data.radius;
+
+            // Choose the minimum non-intersecting tangent.
+            if (intersects(b.x, (b.y = rad), rad)) {
+              let a = head;
+              b.y = Infinity;
+              do {
+                let y =
+                  a.y +
+                  Math.sqrt(
+                    (a.data.radius + b.data.radius + padding) ** 2 -
+                      (a.x - b.x) ** 2
+                  );
+                if (y < b.y && !intersects(b.x, y, rad)) b.y = y;
+                a = a.next;
+              } while (a);
+            }
+
+            // Add b to the queue.
+            b.next = null;
+            if (head === null) {
+              head = tail = b;
+              queue = head;
+            } else tail = tail.next = b;
+          }
+
+          return circles;
+        };
+
+        // Draw pale world circle in background
+        const worldDatum = {
+          x: x(world.fertility),
+          y: world.radius,
+          data: world,
+        };
+        g.append("g")
+          .selectAll("circle")
+          .data([worldDatum])
+          .join("circle")
+          .attr("class", "world")
+          .attr("cx", (d) => d.x)
+          .attr("cy", (d) => height - margin.bottom - padding - d.y)
+          .attr("r", (d) => d.data.radius)
+          .on("mouseover", tip.show)
+          .on("mouseout", tip.hide);
+
+        // Create beeswarm
+        const dodgedData = dodge(data2015);
+
+        // Fit voronoi cells to help with target mouse events
+        const voronoiCells = d3
+          .voronoi()
+          .extent([
+            [-margin.left, -margin.top],
+            [width + margin.right, height + margin.top],
+          ])
+          .x((d) => d.x)
+          .y((d) => height - margin.bottom - padding - d.y)
+          .polygons(dodgedData);
+
+        // Create clip paths from voronoi cells
+        g.append("defs")
+          .attr("class", "clipWrapper")
+          .selectAll(".clip")
+          .data(voronoiCells)
+          .enter()
+          .append("clipPath")
+          .attr("class", "clip")
+          .attr("id", (d) => "clip-" + d.data.data.code)
+          .append("path")
+          .attr("class", "clip-path-circle")
+          .attr("d", (d) => "M" + d.join(",") + "Z");
+
+        // Draw voronoi cells (for debugging)
+        // g
+        //   .append("g")
+        //   .attr("class", "cells")
+        //   .selectAll("g")
+        //   .data(voronoiCells)
+        //   .enter()
+        //   .append("g")
+        //   .append("path")
+        //   .attr("d", function (d) {
+        //     return "M" + d.join("L") + "Z";
+        //   });
+
+        // Draw invisible circles (clipped to voronoi cells) to expand target for mouse events
+        g.append("g")
+          .selectAll("circle")
+          .data(dodgedData)
+          .join("circle")
+          .attr("class", "mouse-circle")
+          .attr("visibility", "hidden")
+          .attr("pointer-events", "all")
+          .attr("clip-path", (d) => "url(#clip-" + d.data.code + ")")
+          .attr("cx", (d) => d.x)
+          .attr("cy", (d) => height - margin.bottom - padding - d.y)
+          .attr("r", (d) => 10)
+          .on("mouseover", tip.show)
+          .on("mouseout", tip.hide);
+
+        // Draw country circles
+        g.append("g")
+          .selectAll("circle")
+          .data(dodgedData)
+          .join("circle")
+          .attr("class", "country")
+          .attr("id", (d) => "country-" + d.data.code)
+          .attr("cx", (d) => d.x)
+          .attr("cy", (d) => height - margin.bottom - padding - d.y)
+          .attr("r", (d) => d.data.radius)
+          .attr("fill", (d) => colours(d.data.continent))
+          .on("mouseover", tip.show)
+          .on("mouseout", tip.hide);
+
+        // Draw line showing 2.1 fertility rate
+        const replacementLevel = 2.1;
+        g.append("g")
+          .append("line")
+          .attr("class", "line")
+          .attr("x1", x(replacementLevel))
+          .attr("y1", 0)
+          .attr("x2", x(replacementLevel))
+          .attr("y2", height - margin.bottom);
+
+        g.append("g")
+          .append("text")
+          .attr("x", x(replacementLevel))
+          .attr("y", 0)
+          .attr("dx", -10)
+          .attr("dy", 10)
+          .style("text-anchor", "end")
+          .attr("class", "label")
+          .text(
+            "Replacement level: " + replacementLevel + " children per woman"
+          );
+
+        // Draw x axis
+        g.append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(0," + (height - margin.bottom) + ")")
+          .call(xAxis);
+
+        g.append("g")
+          .append("text")
+          .attr("x", width / 2)
+          .attr("y", height)
+          .style("text-anchor", "middle")
+          .attr("class", "label")
+          .text("Average number of children born per woman");
+
+        // Legend
+        svg
+          .selectAll("legend")
+          .data(continents)
+          .enter()
+          .append("rect")
+          .attr("x", margin.left + 5)
+          .attr("y", (d, i) => margin.top + 30 + i * 20)
+          .attr("width", 15)
+          .attr("height", 15)
+          .attr("fill", (d) => colours(d));
+
+        svg
+          .selectAll("legend")
+          .data(continents)
+          .enter()
+          .append("text")
+          .attr("x", margin.left + 25)
+          .attr("y", (d, i) => margin.top + 42 + i * 20)
+          .attr("class", "label")
+          .text((d) => d);
+
+        // Title and caption
+        svg
+          .append("text")
+          .attr("x", margin.left + 5)
+          .attr("y", 24)
+          .attr("class", "title")
+          .text("Fertility rate by country, 2015");
+
+        svg
+          .append("text")
+          .attr("x", margin.left + 5)
+          .attr("y", 40)
+          .attr("class", "caption")
+          .text(
+            "Size of circle shows population size. Tom White, 2020. Data source: Our World in Data"
+          );
+      });
+    </script>
+  </body>
+</html>
