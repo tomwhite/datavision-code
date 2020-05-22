@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Carbohydrate content of common food ingredients</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <script src="labeler.js"></script>
+    <style>
+      .title {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 24px;
+      }
+      .caption {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 10px;
+      }
+      .cells path {
+        fill: none;
+        stroke: #ddd;
+      }
+      .domain {
+        stroke-width: 0;
+      }
+      .grid {
+        stroke-width: 0.3;
+        stroke: lightgrey;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="1200" height="1000"></svg>
+    <script type="text/javascript">
+      const margin = { top: 20, right: 100, bottom: 30, left: 190 };
+      const width = 1200;
+      const height = 900;
+      const radius = 3;
+      const padding = 1.5;
+
+      const carbsThreshold = 10;
+
+      d3.csv("data/foods_curated2.csv", function (d) {
+        return {
+          code: d.food_code,
+          name: d.short_name,
+          value: +d.carbs,
+          group: d.g2,
+        };
+      }).then(function (data) {
+        // consolidate meat and fish group
+        data.forEach((d) => {
+          d.group = d.group.replace(/Meat|Fish/, "Meat and fish");
+        });
+
+        x = d3
+          .scaleLinear()
+          .domain(d3.extent(data, (d) => d.value))
+          .range([margin.left, width - margin.right]);
+
+        const xAxis = d3.axisBottom().scale(x).tickSize(0);
+
+        const svg = d3.select("svg");
+
+        svg
+          .append("g")
+          .attr("transform", "translate(0,20)")
+          .call(d3.axisTop().scale(x).tickSize(0));
+        svg.append("g").attr("transform", "translate(0,860)").call(xAxis);
+        svg
+          .append("g")
+          .attr("transform", "translate(0,860)")
+          .attr("class", "grid")
+          .call(d3.axisBottom().scale(x).tickSize(-840).tickFormat(""));
+
+        const groups = [
+          { name: "Sugars and snacks", baseline: 70, colour: "#4363d8" },
+          { name: "Cereals", baseline: 50, colour: "#808000" },
+          { name: "Fruit", baseline: 50, colour: "#f58231" },
+          { name: "Vegetables", baseline: 100, colour: "#3cb44b" },
+          { name: "Nuts and seeds", baseline: 80, colour: "#9A6324" },
+          { name: "Herbs and spices", baseline: 80, colour: "#469990" },
+          { name: "Soups, sauces, and misc", baseline: 90, colour: "#800000" },
+          { name: "Milk", baseline: 50, colour: "#ffd8b1" },
+          { name: "Alcohol", baseline: 40, colour: "#911eb4" },
+          { name: "Meat and fish", baseline: 70, colour: "#e6194B" },
+          { name: "Fats and oils", baseline: 100, colour: "#ffe119" },
+          { name: "Eggs", baseline: 60, colour: "#fabebe" },
+        ];
+
+        // Find baseline offsets
+        const cumBaselines = d3.cumsum(groups, (d) => d.baseline);
+
+        svg
+          .append("g")
+          .selectAll("text")
+          .data(groups)
+          .enter()
+          .append("text")
+          .attr("x", 140)
+          .attr("y", (d, i) => cumBaselines[i])
+          .text((d) => d.name)
+          .attr("fill", (d) => d.colour)
+          .attr("text-anchor", "end")
+          .attr("alignment-baseline", "middle")
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "12px");
+
+        // Run beeswarm algorithm for each group to create "dodged" data points
+        let allDodgedData = [];
+        groups.forEach((g, i) => {
+          const group = data.filter((d) => d.group === g.name);
+          const baseline = cumBaselines[i];
+          const dodgedData = dodge(group, radius * 2 + padding);
+          dodgedData.forEach((d) => {
+            d.y = d.y + baseline;
+            d.colour = g.colour;
+          });
+          allDodgedData = allDodgedData.concat(dodgedData);
+        });
+
+        const labelArray = allDodgedData.map((d) => ({
+          x: d.x,
+          y: d.y,
+          code: d.data.code,
+          name: d.data.name,
+          value: d.data.value,
+          width: 0.0,
+          height: 0.0,
+        }));
+
+        const links = svg
+          .append("g")
+          .selectAll(".link")
+          .data(labelArray)
+          .enter()
+          .append("line")
+          .attr("class", "link")
+          .attr("x1", (d) => d.x)
+          .attr("y1", (d) => d.y)
+          .attr("x2", (d) => d.x)
+          .attr("y2", (d) => d.y)
+          .attr("stroke-width", 0.6)
+          .attr("stroke", "lightgrey");
+
+        const circles = svg
+          .append("g")
+          .selectAll("circle")
+          .data(allDodgedData)
+          .join("circle")
+          .attr("id", (d) => `circle-${d.data.code}`)
+          .attr("cx", (d) => d.x)
+          .attr("cy", (d) => d.y)
+          .attr("r", radius)
+          .attr("fill", (d) => d.colour)
+          .on("mouseover", mouseOverCircle)
+          .on("mouseout", mouseOutCircle);
+
+        const labelsNode = svg.append("g");
+
+        const backgroundLabels = labelsNode
+          .selectAll("rect")
+          .data(labelArray)
+          .enter()
+          .append("rect")
+          .attr("id", (d) => `rect-${d.code}`)
+          .attr("x", (d) => d.x)
+          .attr("y", (d) => d.y)
+          .attr("width", 0)
+          .attr("height", 0)
+          .attr("fill", "white")
+          .attr("fill-opacity", 0.8)
+          .attr("visibility", "hidden"); // hide until placed
+
+        const labels = labelsNode
+          .selectAll("text")
+          .data(labelArray)
+          .enter()
+          .append("text")
+          .attr("id", (d) => `label-${d.code}`)
+          .attr("class", "label")
+          .text((d) => d.name)
+          .attr("x", (d) => d.x)
+          .attr("y", (d) => d.y)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "10px")
+          .attr("fill", "grey")
+          .attr("visibility", "hidden") // hide until placed
+          .on("mouseover", mouseOverLabel)
+          .on("mouseout", mouseOutLabel);
+
+        function mouseOverLabel(d, i) {
+          d3.select(`#circle-${d.code}`)
+            .attr("r", radius * 2)
+            .attr("stroke", "white")
+            .raise();
+          d3.select(this).attr("fill", "black");
+        }
+
+        function mouseOutLabel(d, i) {
+          d3.select(`#circle-${d.code}`).attr("r", radius).attr("stroke", null);
+          d3.select(this).attr("fill", "grey");
+        }
+
+        function mouseOverCircle(d, i) {
+          d3.select(this)
+            .attr("r", radius * 2)
+            .attr("stroke", "white")
+            .raise();
+          d3.select(`#rect-${d.data.code}`)
+            .attr("visibility", "visible")
+            .raise();
+          d3.select(`#label-${d.data.code}`)
+            .attr("fill", "black")
+            .attr("visibility", "visible")
+            .attr("x", (d) =>
+              d.value > carbsThreshold ? d.x : d.x + 2 * radius + padding
+            )
+            .attr("y", (d) =>
+              d.value > carbsThreshold ? d.y : d.y - 2 * radius + padding
+            )
+            .raise();
+        }
+
+        function mouseOutCircle(d, i) {
+          d3.select(this).attr("r", radius).attr("stroke", null);
+          d3.select(`#label-${d.data.code}`)
+            .attr("fill", "grey")
+            .attr("visibility", (d) =>
+              d.value > carbsThreshold ? "visible" : "hidden"
+            );
+          d3.select(`#rect-${d.data.code}`)
+            .attr("visibility", "hidden")
+            .raise();
+        }
+
+        setTimeout((d) => {
+          var index = 0;
+          labels.each(function () {
+            const label = labelArray[index];
+            if (label.value > carbsThreshold) {
+              label.width = this.getBBox().width + 1; // add one pixel of padding
+              label.height = this.getBBox().height + 1;
+            } else {
+              const height = this.getBBox().height + 4;
+              d3.select(`#rect-${label.code}`)
+                .attr("width", this.getBBox().width + 4)
+                .attr("height", height)
+                .attr("x", label.x + 2 * radius + padding - 2)
+                .attr("y", label.y - 2 * radius + padding - height + 2);
+            }
+            index += 1;
+          });
+
+          const anchorArray = labelArray.map((d) => ({
+            x: d.x,
+            y: d.y,
+            r: radius + 2 * padding,
+          }));
+
+          d3.labeler()
+            .label(labelArray)
+            .anchor(anchorArray)
+            .width(width)
+            .height(height)
+            .start(1000);
+
+          labels
+            .transition()
+            .duration(0)
+            .attr("x", (d) => d.x)
+            .attr("y", (d) => d.y)
+            .attr("visibility", (d) =>
+              d.value > carbsThreshold ? "visible" : "hidden"
+            );
+
+          links
+            .transition()
+            .duration(0)
+            .attr("x2", (d) => d.x)
+            .attr("y2", (d) => d.y);
+        }, 10);
+
+        // Title and caption
+        svg
+          .append("text")
+          .attr("x", 5)
+          .attr("y", 20)
+          .attr("class", "title")
+          .text("Food carbs");
+        svg
+          .append("text")
+          .attr("x", 5)
+          .attr("y", 38)
+          .attr("class", "caption")
+          .text("Carbs (g/100g)");
+        svg
+          .append("text")
+          .attr("x", 5)
+          .attr("y", 50)
+          .attr("class", "caption")
+          .text("Tom White, 2020. Data source: PHE");
+      });
+
+      dodge = (data, radius) => {
+        const radius2 = radius ** 2;
+        const circles = data
+          .map((d) => ({ x: x(d.value), data: d }))
+          .sort((a, b) => a.x - b.x);
+        const epsilon = 1e-3;
+        let head = null,
+          tail = null;
+
+        // Returns true if circle ⟨x,y⟩ intersects with any circle in the queue.
+        function intersects(x, y) {
+          let a = head;
+          while (a) {
+            if (radius2 - epsilon > (a.x - x) ** 2 + (a.y - y) ** 2) {
+              return true;
+            }
+            a = a.next;
+          }
+          return false;
+        }
+
+        // Place each circle sequentially.
+        for (const b of circles) {
+          // Remove circles from the queue that can’t intersect the new circle b.
+          while (head && head.x < b.x - radius2) head = head.next;
+
+          // Choose the minimum non-intersecting tangent.
+          if (intersects(b.x, (b.y = 0))) {
+            let a = head;
+            b.y = Infinity;
+            do {
+              let y1 = a.y + Math.sqrt(radius2 - (a.x - b.x) ** 2);
+              let y2 = a.y - Math.sqrt(radius2 - (a.x - b.x) ** 2);
+              if (Math.abs(y1) < Math.abs(b.y) && !intersects(b.x, y1))
+                b.y = y1;
+              if (Math.abs(y2) < Math.abs(b.y) && !intersects(b.x, y2))
+                b.y = y2;
+              a = a.next;
+            } while (a);
+          }
+
+          // Add b to the queue.
+          b.next = null;
+          if (head === null) head = tail = b;
+          else tail = tail.next = b;
+        }
+
+        return circles;
+      };
+    </script>
+  </body>
+</html>

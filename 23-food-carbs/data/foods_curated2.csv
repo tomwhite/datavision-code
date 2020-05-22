@@ -1,0 +1,190 @@
+food_code,name,group,protein,fat,carbs,cals,fibre,g,g2,short_name
+13-801,"Allspice, ground",H,6.1,8.7,0,0,,H,Herbs and spices,Allspice
+14-803,"Almonds, toasted",GA,21.2,56.7,7,621,,G,Nuts and seeds,Almonds
+16-448,"Anchovies, canned in oil, drained",JC,25.2,10,0,191,0,J,Fish,Anchovies
+14-319,"Apples, eating, raw, flesh and skin",FA,0.6,0.5,11.6,51,1.2,F,Fruit,Apples
+14-025,"Apricots, raw, flesh and skin",FA,0.9,0.1,7.2,31,N,F,Fruit,Apricots
+13-155,"Artichoke, globe, base of leaves and heart, boiled in unsalted water",DG,2.9,0.2,2.7,18,,D,Vegetables,Globe artichoke
+13-161,"Aubergine, raw",DG,0.9,0.4,2.2,15,0,D,Vegetables,Aubergine
+19-016,"Bacon rashers, streaky, raw",MAA,15.8,23.6,0,276,,M,Meat,Bacon
+17-355,Baking powder,WY,5.2,0,37.8,163,0,W,"Soups, sauces, and misc",Baking powder
+14-318,"Bananas, flesh only",FA,1.2,0.1,20.3,81,1.4,F,Fruit,Banana
+11-002,"Barley, pearl, raw",AA,7.9,1.7,83.6,360,,A,Cereals,Pearl barley
+13-804,"Basil, fresh",H,3.1,0.8,5.1,40,0,H,Herbs and spices,Basil
+16-386,"Bass, sea, flesh only, baked",JA,23.2,6.8,0,154,0,J,Fish,Sea bass
+13-806,"Bay leaf, dried",H,7.6,8.4,48.6,313,,H,Herbs and spices,Bay leaf
+13-064,"Beans, broad, whole, raw",DB,5.7,1,7.2,59,,D,Vegetables,Broad beans
+13-560,"Beans, chick peas, canned, re-heated, drained",DB,7.2,2.9,16.1,115,0,D,Vegetables,Chick peas
+13-514,"Beans, green, raw",DB,2.1,0.4,3.1,24,3.4,D,Vegetables,Green beans
+13-087,"Beans, haricot, whole, dried, boiled in unsalted water",DB,6.6,0.5,17.2,95,,D,Vegetables,Haricot beans
+13-426,"Beansprouts, mung, raw",DB,2.9,0.5,4,31,0,D,Vegetables,Beansprouts
+18-007,"Beef, braising steak, raw, lean and fat",MAC,20.7,8.6,0,160,,M,Meat,Beef
+13-164,"Beetroot, raw",DG,1.7,0.1,7.6,36,,D,Vegetables,Beetroot
+17-356,Bicarbonate of soda,WY,0,0,0,0,,W,"Soups, sauces, and misc",Bicarbonate of soda
+14-048,"Blackberries, raw",FA,0.9,0.2,5.1,25,N,F,Fruit,Blackberries
+14-053,"Blackcurrants, raw",FA,0.9,0,6.6,28,0,F,Fruit,Blackcurrants
+14-325,Blueberries,FA,0.9,0.2,9.1,40,1.5,F,Fruit,Blueberries
+11-979,"Bread, white, premium",AF,8.3,2.3,47,230,2.8,A,Cereals,White bread
+13-502,"Broccoli, green, raw",DG,4.3,0.6,3.2,34,4,D,Vegetables,Broccoli
+17-661,"Butter, unsalted",OA,0.6,82.2,0.6,744,0,O,Fats and oils,Butter
+13-582,"Cabbage, average, raw",DG,1.8,0.2,4.4,26,3.5,D,Vegetables,Cabbage
+13-187,"Cabbage, Chinese, raw",DG,1,0.2,1.4,12,,D,Vegetables,Chinese cabbage
+13-190,"Cabbage, red, raw",DG,1.1,0.3,3.7,21,2.9,D,Vegetables,Red cabbage
+13-808,Caraway seeds,H,19.8,14.6,0,0,,H,Herbs and spices,Caraway seeds
+13-809,"Cardamom, ground",H,10.8,6.7,0,0,,H,Herbs and spices,Cardamom
+13-448,"Carrots, young, raw",DG,0.7,0.5,6,30,0,D,Vegetables,Carrots
+14-811,"Cashew nuts, kernel only, plain",GA,17.7,48.2,18.1,573,,G,Nuts and seeds,Cashew nuts
+13-512,"Cauliflower, raw",DG,2.5,0.4,4.4,30,1.8,D,Vegetables,Cauliflower
+13-451,"Celery, raw",DG,0.5,0.2,0.9,7,0,D,Vegetables,Celery
+13-223,"Chard, Swiss, raw",DG,1.8,0.2,2.9,19,,D,Vegetables,Swiss chard
+12-346,"Cheese, Cheddar, English",BL,25.4,34.9,0.1,416,0,B,Milk,Cheddar
+12-525,"Cheese, Feta",BL,15.6,20.2,1.5,250,0,B,Milk,Feta
+12-164,"Cheese, Gruyere",BL,27.2,33.3,0,409,,B,Milk,Gruyere
+12-496,"Cheese, Halloumi",BL,23.9,23.5,1.7,313,0,B,Milk,Halloumi
+12-360,"Cheese, Mozzarella, fresh",BL,18.6,20.3,0,257,0,B,Milk,Mozzarella
+12-495,"Cheese, Paneer",BL,26,24.5,0.9,328,0,B,Milk,Paneer
+12-526,"Cheese, Parmesan, fresh",BL,36.2,29.7,0.9,415,0,B,Milk,Parmesan
+12-176,"Cheese, Ricotta",BL,9.4,11,2,144,,B,Milk,Ricotta
+12-367,"Cheese, Stilton, blue",BL,23.7,35,0.1,410,0,B,Milk,Blue stilton
+14-061,"Cherries, flesh and skin, raw",FA,0.9,0.1,11.5,48,N,F,Fruit,Cherries
+14-813,"Chestnuts, kernel only, raw",GA,2,2.7,36.6,170,0,G,Nuts and seeds,Chestnuts
+18-488,"Chicken, meat, average, raw",MCA,22.3,2.1,0,108,0,M,Meat,Chicken
+13-873,Chilli powder,H,13.5,14.3,0,0,34.8,H,Herbs and spices,Chilli powder
+13-887,"Chives, fresh",H,3.3,0.7,1.9,27,2.5,H,Herbs and spices,Chives
+17-491,"Chocolate, plain",SEA,5,28,63.5,510,N,S,Sugars and snacks,Chocolate
+19-516,Chorizo,MI,24,32.2,2.4,395,1,M,Meat,Chorizo
+17-222,"Cider, dry",QC,0,0,2.6,36,0,Q,Alcohol,Cider
+13-874,"Cinnamon, ground",H,4,1.2,0,0,53.1,H,Herbs and spices,Cinnamon
+14-873,"Coconut, desiccated",GA,5.6,62,6.4,604,0,G,Nuts and seeds,Coconut
+16-372,"Cod, flesh only, raw",JA,17.5,0.6,0,75,0,J,Fish,Cod
+13-888,"Coriander leaves, fresh",H,2.1,0.5,1.2,18,2.8,H,Herbs and spices,Coriander leaves
+13-875,Coriander seeds,H,12.4,17.8,0,0,41.9,H,Herbs and spices,Coriander seeds
+13-230,"Courgette, raw",DG,1.8,0.4,1.8,18,0,D,Vegetables,Courgette
+11-901,"Couscous, plain, raw",AT,12,2.1,79.2,364,3.7,A,Cereals,Couscous
+12-334,"Cream, fresh, double, including Jersey cream",BJC,1.6,53.7,1.7,496,0,B,Milk,Double cream
+12-332,"Cream, fresh, single",BJC,3.3,19.1,2.2,193,0,B,Milk,Single cream
+12-335,"Creme fraiche, full fat",BJC,2.2,40,2.4,378,0,B,Milk,Creme fraiche
+13-523,"Cucumber, raw, flesh and skin",DG,1,0.6,1.2,14,0.7,D,Vegetables,Cucumber
+13-889,Cumin seeds,H,17.8,22.3,0,0,10.5,H,Herbs and spices,Cumin seeds
+13-234,"Curly kale, raw",DG,3.4,1.6,1.4,33,0,D,Vegetables,Curly kale
+14-074,Currants,FA,2.3,0.4,67.8,267,,F,Fruit,Currants
+13-876,Curry powder,H,9.5,10.8,26.1,233,0,H,Herbs and spices,Curry powder
+14-085,"Dates, dried, flesh and skin",FA,3.3,0.2,68,270,0,F,Fruit,Dates
+13-824,"Dill, fresh",H,3.7,0.8,0.9,25,,H,Herbs and spices,Dill
+12-937,"Eggs, chicken, whole, raw",CA,12.6,9,0,131,0,C,Eggs,Eggs
+12-939,"Eggs, chicken, yolk, raw",CA,16.4,31.3,0,347,0,C,Eggs,Egg yolks
+13-827,Fennel seeds,H,15.8,14.9,0,0,,H,Herbs and spices,Fennel seeds
+13-241,"Fennel, Florence, raw",DG,0.9,0.2,1.8,12,0,D,Vegetables,Fenne
+11-892,"Flour, wheat, brown",AA,12.2,2,72.5,339,7.7,A,Cereals,Brown flour
+11-886,"Flour, wheat, white, plain, soft",AA,9.1,1.4,80.9,352,4,A,Cereals,White flour
+13-829,Garam masala,H,15.6,15.1,45.2,379,0,H,Herbs and spices,Garam masala
+13-244,"Garlic, raw",DG,7.9,0.6,16.3,98,0,D,Vegetables,Garlic
+17-640,"Ghee, butter",OF,0.1,97.6,0,878,0,O,Fats and oils,Ghee
+13-246,"Gherkins, pickled, drained",DG,0.9,0.1,2.6,14,1.5,D,Vegetables,Gherkins
+13-890,"Ginger, fresh",H,1.8,0.8,8.1,44,2,H,Herbs and spices,Ginger
+14-100,"Gooseberries, cooking, raw",FA,1.1,0.4,3,19,,F,Fruit,Gooseberries
+14-322,"Grapes, green",FA,0.7,0.2,15.2,62,1.2,F,Fruit,Grapes
+14-874,"Hazelnuts, kernel only",GA,14.1,63.5,6,650,6.9,G,Nuts and seeds,Hazelnuts
+17-050,Honey,SC,0.4,0,76.4,288,0,S,Sugars and snacks,Honey
+17-073,"Jam, fruit with edible seeds",SC,0.6,0,69,261,N,S,Sugars and snacks,Jam
+14-293,"Kiwi fruit, flesh and seeds",FA,1.1,0.5,10.6,49,N,F,Fruit,Kiwi fruit
+18-475,"Lamb, lean only, raw, average",MAE,20.2,8,0,153,0,M,Meat,Lamb
+13-466,"Leeks, raw",DG,1.6,0.5,2.9,22,0,D,Vegetables,Leeks
+14-337,Lemon peel,FA,1.5,0.3,0,0,10.6,F,Fruit,Lemon peel
+14-129,"Lemons, peeled, flesh only",FA,0.8,0.3,2.2,14,,F,Fruit,Lemons
+13-089,"Lentils, green and brown, whole, dried, raw",DB,24.3,1.9,48.8,297,,D,Vegetables,Green/brown lentils
+13-091,"Lentils, red, split, dried, raw",DB,23.8,1.3,56.3,318,0,D,Vegetables,Red lentils
+17-078,Marmalade,SC,0.1,0,69.5,261,0.5,S,Sugars and snacks,Marmalade
+14-354,"Melon, flesh only, average",FA,0.5,0.1,5.5,24,1.3,F,Fruit,Melon
+12-313,"Milk, semi-skimmed, pasteurised, average",BAH,3.5,1.7,4.7,46,0,B,Milk,Semi-skimmed milk
+12-596,"Milk, whole, pasteurised, average",BAK,3.4,3.6,4.6,63,0,B,Milk,Whole milk
+13-836,"Mint, fresh",H,3.8,0.7,5.3,43,0,H,Herbs and spices,Mint
+13-886,Mixed curry spices,H,13.2,13.3,0,0,0,H,Herbs and spices,Mixed curry spices
+17-059,Molasses,SC,0,0.1,68.8,266,NA,S,Sugars and snacks,Molasses
+13-505,"Mushrooms, white, raw",DG,1,0.2,0.3,7,0.7,D,Vegetables,Mushrooms
+17-365,"Mustard, wholegrain",WY,8.2,10.2,4.2,140,0,W,"Soups, sauces, and misc",Mustard
+13-877,"Nutmeg, ground",H,5.8,36.3,0,0,20.8,H,Herbs and spices,Nutmeg
+17-031,"Oil, coconut",OC,0,99.9,0,899,0,O,Fats and oils,Coconut oil
+17-038,"Oil, olive",OC,0,99.9,0,899,0,O,Fats and oils,Olive oil
+17-040,"Oil, peanut (groundnut)",OC,0,99.9,0,899,0,O,Fats and oils,Groundnut oil
+17-041,"Oil, rapeseed",OC,0,99.9,0,899,0,O,Fats and oils,Rapeseed oil
+17-043,"Oil, sesame",OC,0.2,99.7,0,898,0,O,Fats and oils,Sesame oil
+17-045,"Oil, sunflower",OC,0,99.9,0,899,0,O,Fats and oils,Sunflower oil
+17-686,"Oil, vegetable, average",OC,0,99.9,0,899,0,O,Fats and oils,Vegetable oil
+14-340,"Olives, green, in brine, drained, flesh and skin",FA,0.9,11,0,103,0,F,Fruit,Green olives
+13-499,"Onions, raw",DG,1,0.1,8,35,2.2,D,Vegetables,Onions
+14-327,"Oranges, flesh only",FA,0.8,0.2,8.2,36,1.2,F,Fruit,Oranges
+13-878,"Oregano, dried, ground",H,9,4.3,0,0,42.5,H,Herbs and spices,Oregano
+13-879,Paprika,H,14.1,12.9,0,0,34.9,H,Herbs and spices,Paprika
+13-844,"Parsley, fresh",H,3,1.3,2.7,34,0,H,Herbs and spices,Parsley
+13-312,"Parsnip, raw",DG,1.8,1.1,12.5,64,4.7,D,Vegetables,Parsnip
+11-716,"Pasta, white, dried, raw",AD,11.3,1.6,75.6,343,0,A,Cereals,Pasta
+11-856,"Pastry, filo, retail, cooked",AO,10,3.8,77.1,363,4.5,A,Cereals,Filo pastry
+14-299,"Peaches, raw, flesh and skin",FA,1,0.1,7.6,33,N,F,Fruit,Peaches
+14-892,"Peanut butter, smooth",GA,22.8,51.8,13.1,607,6.6,G,Nuts and seeds,Peanut butter
+14-365,"Pears, average, raw, flesh only",F,0.3,0.1,11.3,44,2.7,F,Fruit,Pears
+13-122,"Peas, mange-tout, raw",DF,3.6,0.2,4.2,32,0,D,Vegetables,Mange-tout
+13-438,"Peas, raw",DF,6.9,1.5,11.3,83,5.3,D,Vegetables,Peas
+13-141,"Peas, split, dried, raw",DF,22.1,2.4,58.2,328,,D,Vegetables,Split peas
+13-880,"Pepper, black",H,10.4,3.3,0,0,25.3,H,Herbs and spices,Pepper
+13-524,"Pepper, capsicum, red, raw",DG,0.8,0.2,4.3,21,2.2,D,Vegetables,Red pepper
+13-526,"Pepper, capsicum, yellow, raw",DG,0.8,0.2,4.6,23,2.2,D,Vegetables,Yellow pepper
+13-847,"Pepper, cayenne, ground",H,12,17.3,31.7,318,,H,Herbs and spices,Cayenne pepper
+13-316,"Peppers, capsicum, chilli, green, raw",DG,2.9,0.6,0.7,20,0,D,Vegetables,Green chilli
+13-317,"Peppers, capsicum, chilli, red, raw",DG,1.8,0.3,4.2,26,,D,Vegetables,Red chilli
+13-318,"Peppers, capsicum, green, raw",DG,0.8,0.3,2.6,15,0,D,Vegetables,Green pepper
+14-839,"Pine nuts, kernel only",GA,14,68.6,4,688,0,G,Nuts and seeds,Pine nuts
+14-208,"Pineapple, raw, flesh only",FA,0.4,0.2,10.1,41,N,F,Fruit,Pineapple
+14-300,"Plums, average, raw, flesh and skin",FA,0.6,0.1,8.8,36,N,F,Fruit,Plums
+14-226,"Pomegranate, flesh and pips",FA,1.3,0.2,11.8,51,0,F,Fruit,Pomegranate
+18-225,"Pork, fillet, raw, lean and fat",MAG,22,6.5,0,147,,M,Meat,Pork
+11-788,"Porridge oats, unfortified",A,10.9,8.1,70.7,381,7.8,A,Cereals,Porridge oats
+13-618,"Potatoes, new and salad, flesh only, raw",DAE,1.7,0.1,16.1,68,1.8,D,Vegetables,New potatoes
+13-489,"Potatoes, old, raw, flesh only",DAM,1.9,0.1,19.6,82,2,D,Vegetables,Potatoes
+16-387,"Prawns, king, raw",JK,17.6,0.7,0,77,0,J,Fish,Prawns
+14-231,"Prunes, flesh and skin",FA,2.8,0.5,38.4,160,,F,Fruit,Prunes
+14-842,Pumpkin seeds,GA,24.4,45.6,15.2,565,0,G,Nuts and seeds,Pumpkin seeds
+14-843,"Quinoa, raw",GA,13.8,5,55.7,309,7,G,Nuts and seeds,Quinoa
+13-330,"Radish, red, raw, flesh and skin",DG,0.7,0.2,1.9,12,0,D,Vegetables,Radish
+11-857,"Rice, white, basmati, raw",AC,8.1,0.5,83.7,351,1.1,A,Cereals,Basmati rice
+13-892,"Rosemary, fresh",H,1.4,4.4,13.5,99,12.4,H,Herbs and spices,Rosemary
+13-852,Saffron,H,11.4,5.9,61.5,310,NA,H,Herbs and spices,Saffron
+13-853,"Sage, fresh",H,3.9,4.6,15.6,119,,H,Herbs and spices,Sage
+16-356,"Salmon, farmed, flesh only, raw",J,20.4,15,0,217,0.2,J,Fish,Salmon
+17-367,Salt,WY,0,0,0,0,0,W,"Soups, sauces, and misc",Salt
+13-342,"Shallots, raw",DG,1.5,0.2,3.3,20,,D,Vegetables,Shallots
+17-721,"Soy sauce, light and dark varieties",WCN,3,0,17.9,79,0,W,"Soups, sauces, and misc",Soy sauce
+13-521,"Spinach, baby, raw",DG,2.6,0.6,0.2,16,1,D,Vegetables,Baby spinach
+13-572,"Spinach, mature, raw",DG,2.8,0.8,1.6,25,0,D,Vegetables,Spinach
+13-352,"Spring onions, bulbs and tops, raw",DG,2,0.5,3,23,0,D,Vegetables,Spring onions
+13-355,"Squash, butternut, raw",DG,1.1,0.1,8.3,36,,D,Vegetables,Butternut squash
+17-727,"Stock cubes, vegetable",WY,13.5,17.3,0,0,1.8,W,"Soups, sauces, and misc",Stock cubes
+17-681,"Stock, chicken, ready made, retail",WY,2.3,0.2,0.2,12,0.3,W,"Soups, sauces, and misc",Chicken stock
+14-324,"Strawberries, raw",FA,0.6,0.5,6.1,30,3.8,F,Fruit,Strawberries
+17-060,"Sugar, brown",SC,0.1,0,101.3,380,0,S,Sugars and snacks,Brown sugar
+17-062,"Sugar, icing",SC,Tr,0,104.9,393,0,S,Sugars and snacks,Icing sugar
+17-063,"Sugar, white",SC,0,0,105,394,0,S,Sugars and snacks,White sugar
+14-845,Sunflower seeds,GA,19.8,47.5,18.6,576,0,G,Nuts and seeds,Sunflower seeds
+13-359,"Swede, flesh only, raw",DG,0.7,0.3,5,24,NA,D,Vegetables,Swede
+13-463,"Sweet potato, raw, flesh only",DG,1.2,0.3,21.3,87,0,D,Vegetables,Sweet potato
+13-552,"Sweetcorn, baby, fresh and frozen, boiled in unsalted water",DG,2.5,0.4,2.7,24,0,D,Vegetables,Baby sweetcorn
+13-623,"Sweetcorn, kernels, 'on-the-cob', raw, weighed with core",DG,2,1.1,4.8,36,0,D,Vegetables,Sweetcorn
+17-065,"Syrup, golden",SC,0.3,0,79,298,0,S,Sugars and snacks,Golden syrup
+13-857,"Tarragon, fresh",H,3.4,1.1,6.3,49,,H,Herbs and spices,Tarragon
+13-893,"Thyme, fresh",H,3,2.5,15.1,95,12.3,H,Herbs and spices,Thyme
+13-531,Tomato puree,DG,4.4,0.2,12.9,67,4.7,D,Vegetables,Tomato puree
+13-519,"Tomatoes, cherry, raw",DG,1.1,0.5,3.6,22,1.3,D,Vegetables,Cherry tomatoes
+13-517,"Tomatoes, standard, raw",DG,0.5,0.1,3,14,1,D,Vegetables,Tomatoes
+16-417,"Tuna, canned in sunflower oil, drained",JC,25.4,6.4,0,159,0,J,Fish,Tuna
+13-861,"Turmeric, ground",H,6.7,7,0,0,,H,Herbs and spices,Turmeric
+17-339,Vinegar,WY,0.4,0,0.6,22,0,W,"Soups, sauces, and misc",Vinegar
+14-879,"Walnuts, kernel only",GA,14.7,68.5,3.3,688,0,G,Nuts and seeds,Walnuts
+13-462,"Watercress, raw",DG,3,1,0.4,22,0,D,Vegetables,Watercress
+11-904,"Wheat, bulgur, raw",AA,10.6,2,77.8,352,6.7,A,Cereals,Bulgar wheat
+17-752,"Wine, red",QE,0.1,0,0.2,76,0,Q,Alcohol,Red wine
+17-755,"Wine, white, dry",QE,0.1,0,0.6,75,0,Q,Alcohol,Dry white wine
+17-756,"Wine, white, medium",QE,0.1,0,3,75,0,Q,Alcohol,White wine
+17-723,Worcestershire sauce,WCN,1.4,0.1,28.3,113,Tr,W,"Soups, sauces, and misc",Worcestershire sauce
+13-397,"Yam, flesh only, raw",DG,1.5,0.3,28.2,114,NA,D,Vegetables,Yam
+12-555,"Yogurt, Greek style, plain",BN,5.7,10.2,4.8,133,0,B,Milk,Greek yogurt
+12-379,"Yogurt, low fat, plain",BN,4.8,1,7.8,57,0,B,Milk,Low-fat yogurt
