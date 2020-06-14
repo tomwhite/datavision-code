@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Bach charts
+    </title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+
+    <!-- How to scale SVG to fill window https://stackoverflow.com/questions/5643254/how-to-scale-svg-image-to-fill-browser-window-->
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #f8f8f8;
+      }
+      svg {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .black-key {
+        stroke: #000000;
+        stroke-width: 0.5px;
+        fill: #000000;
+      }
+      .white-key {
+        stroke: #000000;
+        stroke-width: 0.5px;
+        fill: #ffffff;
+      }
+      text {
+        cursor: default;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      const NOTES = "ABCDEFG";
+      const notesInOctave = NOTES.length;
+      const blackOctave = [0, 2, 3, 5, 6];
+      const whiteOctave = [0, 1, 2, 3, 4, 5, 6];
+      const numberBlackKeys = 7 * blackOctave.length + 1;
+      const numberWhiteKeys = 7 * whiteOctave.length + 3;
+      const blackKeyWidth = 13.9;
+      const blackKeyHeight = 90;
+      const whiteKeyWidth = 23.5;
+      const whiteKeyHeight = 150;
+
+      function octaveNumber(d, i) {
+        return d < 2 ? i : i + 1;
+      }
+
+      function getKeys() {
+        let blackKeys = [];
+        let whiteKeys = [];
+        for (let i = 0; i < 8; i++) {
+          blackKeys = blackKeys.concat(
+            blackOctave.map((d) => ({
+              class: "black-key",
+              note: NOTES[d] + "#" + octaveNumber(d, i),
+              width: blackKeyWidth,
+              height: blackKeyHeight,
+              x:
+                (i * notesInOctave + d + 1) * whiteKeyWidth - blackKeyWidth / 2,
+              y: 0,
+            }))
+          );
+          whiteKeys = whiteKeys.concat(
+            whiteOctave.map((d) => ({
+              class: "white-key",
+              note: NOTES[d] + octaveNumber(d, i),
+              width: whiteKeyWidth,
+              height: whiteKeyHeight,
+              x: (i * notesInOctave + d) * whiteKeyWidth,
+              y: 0,
+            }))
+          );
+        }
+        // Trim to keyboard length
+        blackKeys = blackKeys.slice(0, numberBlackKeys);
+        whiteKeys = whiteKeys.slice(0, numberWhiteKeys);
+
+        // Plot black keys on top of white
+        return whiteKeys.concat(blackKeys);
+      }
+
+      const fetchMetadata = d3.csv(
+        "data/maestro-v2.0.0/maestro-v2.0.0.csv",
+        function (d) {
+          return {
+            canonical_composer: d.canonical_composer,
+          };
+        }
+      );
+      const fetchNoteProportions = d3.csv(
+        "data/note_proportions_by_composer.csv",
+        d3.autoType
+      );
+
+      Promise.all([fetchMetadata, fetchNoteProportions]).then(function ([
+        metadata,
+        noteProportions,
+      ]) {
+        // Load composers and filter out ones with few pieces
+        const composers = d3
+          .rollups(
+            metadata,
+            (v) => v.length,
+            (d) => d.canonical_composer
+          )
+          .filter((d) => d[1] >= 5)
+          .filter((d) => !d[0].includes("/"))
+          .map((d) => ({
+            name: d[0],
+            last_name: d[0].split(" ").slice(-1)[0],
+            pieces: d[1],
+          }))
+          .sort((a, b) => a.last_name.localeCompare(b.last_name));
+
+        // Add an "All" composer
+        composers.unshift({
+          name: "All",
+          last_name: "All",
+          pieces: metadata.length,
+        });
+
+        // Create a dictionary of notes to proportions for each composer
+        const noteProportionsDict = Object.assign(
+          {},
+          ...noteProportions.map((x) => ({ [x.note]: x }))
+        );
+
+        // Add note proportions to keys data
+        const keys = getKeys();
+        keys.forEach((d) => (d.proportions = noteProportionsDict[d.note]));
+
+        // Find the biggest proportion for all the composers we are interested
+        // in so we know how tall to make the plot
+        const whiteNoteProportions = noteProportions.filter(
+          (d) => !d.note.includes("#")
+        );
+        const maxProportion = d3.max(
+          composers.map((d) =>
+            d3.max(whiteNoteProportions.map((p) => p[d.name]))
+          )
+        );
+        const maxHeight = maxProportion * keys.length * whiteKeyHeight;
+
+        // Create SVG element of computed size
+        const svg = d3
+          .select("body")
+          .append("svg")
+          .attr(
+            "viewBox",
+            `0 0 ${whiteKeyWidth * numberWhiteKeys} ${maxHeight}`
+          )
+          .attr("preserveAspectRatio", "xMidYMid meet");
+
+        // Draw the keyboard
+        const keyboard = svg
+          .append("g")
+          .selectAll("path")
+          .data(keys)
+          .enter()
+          .append("rect")
+          .attr("class", (d) => d.class)
+          .attr("width", (d) => d.width)
+          .attr("height", (d) => d.height)
+          .attr("x", (d) => d.x)
+          .attr("y", (d) => d.y);
+
+        // Distort the keyboard using the given composer's note proportions
+        function distortKeyboard(composer) {
+          keyboard
+            .transition()
+            .duration(1000)
+            .attr(
+              "height",
+              (d) => keys.length * (d.height * d.proportions[composer])
+            );
+        }
+
+        function resetKeyboard() {
+          keyboard
+            .transition()
+            .duration(500)
+            .attr("height", (d) => d.height);
+        }
+
+        // Draw composers' names
+        const names = svg
+          .append("g")
+          .selectAll("text")
+          .data(composers)
+          .enter()
+          .append("text")
+          .attr("x", 3)
+          .attr("y", (d, i) => 270 + i * 20 + 9)
+          .text((d) => `${d.last_name} (${d.pieces})`)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "16px")
+          .on("mouseover", (d) => {
+            d3.select(event.currentTarget).style("font-weight", "bold");
+            distortKeyboard(d.name);
+          })
+          .on("mouseout", (d) => {
+            d3.select(event.currentTarget).style("font-weight", "normal");
+            resetKeyboard();
+          });
+
+        // Add title, captions, etc
+        svg
+          .append("text")
+          .attr("x", 3)
+          .attr("y", 190)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "24px")
+          .text("Bach charts");
+        svg
+          .append("text")
+          .attr("x", 3)
+          .attr("y", 220)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "16px")
+          .text("Hover on a composer below");
+        svg
+          .append("text")
+          .attr("x", 3)
+          .attr("y", 255)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "16px")
+          .attr("font-style", "italic")
+          .text("Composer (no. pieces)");
+        svg
+          .append("text")
+          .attr("x", 3)
+          .attr("y", 750)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "16px")
+          .attr("class", "caption")
+          .text("Tom White, 2020");
+        svg
+          .append("text")
+          .attr("x", 3)
+          .attr("y", 770)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "16px")
+          .attr("class", "caption")
+          .text("Data source: MAESTRO Dataset");
+      });
+    </script>
+  </body>
+</html>
