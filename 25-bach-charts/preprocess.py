@@ -1,8 +1,27 @@
 import pandas as pd
 import pretty_midi
+import re
+import unidecode
 
-# Get all the composers and MIDI files from the metadata CSV
+# Load the metadata CSV
 pieces = pd.read_csv('data/maestro-v2.0.0/maestro-v2.0.0.csv')
+
+# Remove all duplicated pieces by normalizing the name of the piece
+def normalize(s):
+    s = s.lower()
+    s = s.replace(",", " ")
+    s = s.replace("-", " ")
+    s = s.replace(".", " ")
+    s = s.replace("'", " ")
+    s = s.replace('"', " ")
+    s = re.sub('\s+',' ',s)
+    return unidecode.unidecode(s)
+
+pieces['normalized_title'] = pieces['canonical_title'].apply(normalize)
+pieces = pieces.drop_duplicates('normalized_title')
+pieces[['canonical_composer', 'canonical_title']].to_csv("data/pieces.csv", index=False)
+
+# Restrict to composers and MIDI file names
 pieces = pieces[['canonical_composer', 'midi_filename']]
 composers = pieces['canonical_composer'].unique()
 

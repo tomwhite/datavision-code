@@ -46,6 +46,7 @@
 
   <body>
     <script type="text/javascript">
+      const minPieces = 4;
       const NOTES = "ABCDEFG";
       const notesInOctave = NOTES.length;
       const blackOctave = [0, 2, 3, 5, 6];
@@ -95,14 +96,11 @@
         return whiteKeys.concat(blackKeys);
       }
 
-      const fetchMetadata = d3.csv(
-        "data/maestro-v2.0.0/maestro-v2.0.0.csv",
-        function (d) {
-          return {
-            canonical_composer: d.canonical_composer,
-          };
-        }
-      );
+      const fetchMetadata = d3.csv("data/pieces.csv", function (d) {
+        return {
+          canonical_composer: d.canonical_composer,
+        };
+      });
       const fetchNoteProportions = d3.csv(
         "data/note_proportions_by_composer.csv",
         d3.autoType
@@ -119,7 +117,7 @@
             (v) => v.length,
             (d) => d.canonical_composer
           )
-          .filter((d) => d[1] >= 5)
+          .filter((d) => d[1] >= minPieces)
           .filter((d) => !d[0].includes("/"))
           .map((d) => ({
             name: d[0],
@@ -213,11 +211,11 @@
           .on("mouseover", (d) => {
             d3.select(event.currentTarget).style("font-weight", "bold");
             distortKeyboard(d.name);
-          })
-          .on("mouseout", (d) => {
-            d3.select(event.currentTarget).style("font-weight", "normal");
-            resetKeyboard();
           });
+        // .on("mouseout", (d) => {
+        //   d3.select(event.currentTarget).style("font-weight", "normal");
+        //   resetKeyboard();
+        // });
 
         // Add title, captions, etc
         svg
