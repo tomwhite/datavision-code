@@ -211,11 +211,11 @@
           .on("mouseover", (d) => {
             d3.select(event.currentTarget).style("font-weight", "bold");
             distortKeyboard(d.name);
+          })
+          .on("mouseout", (d) => {
+            d3.select(event.currentTarget).style("font-weight", "normal");
+            resetKeyboard();
           });
-        // .on("mouseout", (d) => {
-        //   d3.select(event.currentTarget).style("font-weight", "normal");
-        //   resetKeyboard();
-        // });
 
         // Add title, captions, etc
         svg
