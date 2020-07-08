@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Daily covid-19 cases in Leicester
+    </title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+
+  <body>
+    <div id="plot"></div>
+    <script type="text/javascript">
+      // set the dimensions and margins of the graph
+      const margin = { top: 40, right: 20, bottom: 45, left: 30 },
+        width = 800 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+      // append the svg object to the body of the page
+      var g = d3
+        .select("#plot")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      d3.csv("data/covid_leicester.csv", d3.autoType).then((data) => {
+        data = data.filter((d) => d["Specimen date"] <= new Date("2020-07-02"));
+
+        const uniqueData = data.map((d) => {
+          const date = d["Specimen date"];
+          const uniqueValues = new Set();
+          for (const [key, value] of Object.entries(d)) {
+            if (key.startsWith("2020-") && value > 0) {
+              uniqueValues.add(value);
+            }
+          }
+          return {
+            date: date,
+            uniqueValues: [...uniqueValues],
+          };
+        });
+
+        const x = d3
+          .scaleTime()
+          .domain(d3.extent(uniqueData, (d) => d.date))
+          .range([0, width]);
+
+        const y = d3
+          .scaleLinear()
+          .domain([0, d3.max(uniqueData, (d) => d3.max(d.uniqueValues))])
+          .range([height, 0]);
+
+        const firstNoticeDate = new Date("2020-06-08");
+        g.append("text")
+          .attr("x", x(firstNoticeDate))
+          .attr("dx", -5)
+          .attr("y", 70)
+          .attr("class", "date-2020-06-08")
+          .text('Johnson: "government first took notice" (8 June)')
+          .attr("text-anchor", "end")
+          .attr("alignment-baseline", "central")
+          .attr("visibility", "hidden");
+        g.append("line")
+          .attr("x1", x(firstNoticeDate))
+          .attr("y1", 70)
+          .attr("x2", x(firstNoticeDate))
+          .attr("y2", height)
+          .attr("class", "date-2020-06-08")
+          .attr("stroke", "grey")
+          .attr("stroke-width", 0.5)
+          .attr("visibility", "hidden");
+
+        const lockdownDate = new Date("2020-06-29");
+        g.append("text")
+          .attr("x", x(lockdownDate))
+          .attr("dx", -5)
+          .attr("y", -10)
+          .attr("class", "date-2020-06-29")
+          .text("Leicester lockdown imposed (29 June)")
+          .attr("text-anchor", "end")
+          .attr("alignment-baseline", "central")
+          .attr("visibility", "hidden");
+        g.append("line")
+          .attr("x1", x(lockdownDate))
+          .attr("y1", -10)
+          .attr("x2", x(lockdownDate))
+          .attr("y2", height)
+          .attr("class", "date-2020-06-29")
+          .attr("stroke", "grey")
+          .attr("stroke-width", 0.5)
+          .attr("visibility", "hidden");
+
+        const pillar2DataPublishedDate = new Date("2020-07-02");
+        g.append("text")
+          .attr("x", x(pillar2DataPublishedDate))
+          .attr("dx", -5)
+          .attr("y", -30)
+          .attr("class", "date-2020-07-02")
+          .text("Pillar 2 data published (2 July)")
+          .attr("text-anchor", "end")
+          .attr("alignment-baseline", "central")
+          .attr("visibility", "hidden");
+        g.append("line")
+          .attr("x1", x(pillar2DataPublishedDate))
+          .attr("y1", -30)
+          .attr("x2", x(pillar2DataPublishedDate))
+          .attr("y2", height)
+          .attr("class", "date-2020-07-02")
+          .attr("stroke", "grey")
+          .attr("stroke-width", 0.5)
+          .attr("visibility", "hidden");
+
+        // Bars
+        g.selectAll("bars")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("class", "line")
+          .attr("class", (d) => "date-2020-07-02")
+          .attr("x", (d) => x(d["Specimen date"]) - 2.5)
+          .attr("y", (d) => y(d["2020-07-02"]))
+          .attr("width", 5)
+          .attr("height", (d) => height - y(d["2020-07-02"]))
+          .attr("fill", "lightblue")
+          .attr("visibility", "hidden");
+
+        let bars = g
+          .selectAll("bars")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("class", "line")
+          .attr(
+            "class",
+            (d) => `date-${d["Specimen date"].toISOString().substring(0, 10)}`
+          )
+          .attr("x", (d) => x(d["Specimen date"]) - 2.5)
+          .attr("y", (d) =>
+            y(
+              d["2020-07-01"] > d["2020-07-02"]
+                ? d["2020-07-02"]
+                : d["2020-07-01"]
+            )
+          )
+          .attr("width", 5)
+          .attr(
+            "height",
+            (d) =>
+              height -
+              y(
+                d["2020-07-01"] > d["2020-07-02"]
+                  ? d["2020-07-02"]
+                  : d["2020-07-01"]
+              )
+          )
+          .attr("fill", "blue")
+          .attr("visibility", "hidden");
+
+        // Draw axes
+        const xAxis = d3.axisBottom().scale(x);
+        g.append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+
+        const yAxis = d3.axisLeft().scale(y);
+        g.append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(" + 0 + ",0)")
+          .call(yAxis);
+
+        // Add title, captions, etc
+        g.append("g")
+          .append("text")
+          .attr("x", 20)
+          .attr("y", -20)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "24px")
+          .attr("alignment-baseline", "hanging")
+          .text("Daily covid-19 cases in Leicester");
+        g.append("g")
+          .append("rect")
+          .attr("x", 20)
+          .attr("y", 10)
+          .attr("width", 10)
+          .attr("height", 10)
+          .attr("fill", "blue");
+        g.append("g")
+          .append("text")
+          .attr("x", 40)
+          .attr("y", 10)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "12px")
+          .attr("alignment-baseline", "hanging")
+          .attr("class", "caption")
+          .text("Pillar 1");
+        g.append("g")
+          .append("rect")
+          .attr("x", 20)
+          .attr("y", 30)
+          .attr("width", 10)
+          .attr("height", 10)
+          .attr("fill", "lightblue");
+        g.append("g")
+          .append("text")
+          .attr("x", 40)
+          .attr("y", 30)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "12px")
+          .attr("alignment-baseline", "hanging")
+          .attr("class", "caption")
+          .text("Pillar 2");
+        g.append("g")
+          .append("text")
+          .attr("x", 450)
+          .attr("y", height + 30)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "12px")
+          .attr("alignment-baseline", "hanging")
+          .attr("class", "caption")
+          .text("Data source: Public Health England. Graphic: Tom White");
+
+        function showDateIndex(i) {
+          const date = data[i]["Specimen date"];
+          const dateString = date.toISOString().substring(0, 10);
+          let timeout = 75;
+          if (dateString === firstNoticeDate.toISOString().substring(0, 10)) {
+            timeout += 1000;
+          } else if (
+            dateString === lockdownDate.toISOString().substring(0, 10)
+          ) {
+            timeout += 1000;
+          }
+          d3.selectAll(`.date-${dateString}`).attr("visibility", "visible");
+          if (i + 1 < data.length) {
+            setTimeout(() => {
+              showDateIndex(i + 1);
+            }, timeout);
+          }
+        }
+
+        showDateIndex(0);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<link rel="icon" href="https://coronavirus.data.gov.uk/favicon.ico">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<meta name="theme-color" content="#000000">
+		<base href="https://coronavirus.data.gov.uk">
+		<base href="/archive">
+		<meta name="description" content="GOV.UK Coronavirus dashboard">
+		<link rel="apple-touch-icon" href="https://coronavirus.data.gov.uk/favicon.png">
+		<link rel="manifest" href="https://coronavirus.data.gov.uk/manifest.json">
+		<title>Coronavirus (COVID-19) in the UK</title>
+		<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+		<script>
+			!function(e,a,t,n,c,g,o){e.GoogleAnalyticsObject=c,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,g=a.createElement(t),o=a.getElementsByTagName(t)[0],g.async=1,g.src="https://www.google-analytics.com/analytics.js",o.parentNode.insertBefore(g,o)}(window,document,"script",0,"ga")
+		</script>
+		<link href="/static/css/2.7f75bbe2.chunk.css" rel="stylesheet">
+		<link href="/static/css/main.fcd37537.chunk.css" rel="stylesheet">
+		<style data-styled="active" data-styled-version="5.0.1"></style>
+		<script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script>
+	</head>
+
+	<body class="govuk-template__body js-enabled"><noscript>You need to enable JavaScript to run this app.</noscript><div class="app-root" id="top"></div>
+	<body class="govuk-template__body js-enabled"><noscript>You need to enable JavaScript to run this app.</noscript><div class="app-root" id="top">
+			<div id="global-cookie-message" class="gem-c-cookie-banner govuk-clearfix" data-module="cookie-banner" role="region" aria-label="cookie banner" data-nosnippet="" style="display: block;">
+				<div class="gem-c-cookie-banner__wrapper govuk-width-container">
+					<div class="govuk-grid-row">
+						<div class="govuk-grid-column-two-thirds">
+							<div class="gem-c-cookie-banner__message"><span class="govuk-heading-m">Tell us whether you accept cookies</span><p class="govuk-body">We use <a href="/cookies" class="govuk-link">cookies to collect information</a> about how you use this site. We use this information to make the website work as well as possible.</p>
+							</div>
+							<div class="gem-c-cookie-banner__buttons gem-c-cookie-banner__buttons--flex"><button class="gem-c-button govuk-button gem-c-button--inline" type="submit" data-module="track-click" data-accept-cookies="true" data-track-category="cookieBanner">Accept all cookies</button><button class="gem-c-button govuk-button gem-c-button--inline" type="submit" data-module="track-click" data-set-cookie-preferences="true" data-track-category="cookieBanner">Set cookie preferences</button></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<header class="govuk-header " role="banner" data-module="govuk-header">
+				<div class="govuk-header__container govuk-width-container">
+					<div class="govuk-header__logo"><a href="https://gov.uk" class="govuk-header__link govuk-header__link--homepage"><span class="govuk-header__logotype"><svg aria-hidden="true" focusable="false" class="govuk-header__logotype-crown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 97" height="30" width="36"><path fill="currentColor" fill-rule="evenodd" d="M25 30.2c3.5 1.5 7.7-.2 9.1-3.7 1.5-3.6-.2-7.8-3.9-9.2-3.6-1.4-7.6.3-9.1 3.9-1.4 3.5.3 7.5 3.9 9zM9 39.5c3.6 1.5 7.8-.2 9.2-3.7 1.5-3.6-.2-7.8-3.9-9.1-3.6-1.5-7.6.2-9.1 3.8-1.4 3.5.3 7.5 3.8 9zM4.4 57.2c3.5 1.5 7.7-.2 9.1-3.8 1.5-3.6-.2-7.7-3.9-9.1-3.5-1.5-7.6.3-9.1 3.8-1.4 3.5.3 7.6 3.9 9.1zm38.3-21.4c3.5 1.5 7.7-.2 9.1-3.8 1.5-3.6-.2-7.7-3.9-9.1-3.6-1.5-7.6.3-9.1 3.8-1.3 3.6.4 7.7 3.9 9.1zm64.4-5.6c-3.6 1.5-7.8-.2-9.1-3.7-1.5-3.6.2-7.8 3.8-9.2 3.6-1.4 7.7.3 9.2 3.9 1.3 3.5-.4 7.5-3.9 9zm15.9 9.3c-3.6 1.5-7.7-.2-9.1-3.7-1.5-3.6.2-7.8 3.7-9.1 3.6-1.5 7.7.2 9.2 3.8 1.5 3.5-.3 7.5-3.8 9zm4.7 17.7c-3.6 1.5-7.8-.2-9.2-3.8-1.5-3.6.2-7.7 3.9-9.1 3.6-1.5 7.7.3 9.2 3.8 1.3 3.5-.4 7.6-3.9 9.1zM89.3 35.8c-3.6 1.5-7.8-.2-9.2-3.8-1.4-3.6.2-7.7 3.9-9.1 3.6-1.5 7.7.3 9.2 3.8 1.4 3.6-.3 7.7-3.9 9.1zM69.7 17.7l8.9 4.7V9.3l-8.9 2.8c-.2-.3-.5-.6-.9-.9L72.4 0H59.6l3.5 11.2c-.3.3-.6.5-.9.9l-8.8-2.8v13.1l8.8-4.7c.3.3.6.7.9.9l-5 15.4v.1c-.2.8-.4 1.6-.4 2.4 0 4.1 3.1 7.5 7 8.1h.2c.3 0 .7.1 1 .1.4 0 .7 0 1-.1h.2c4-.6 7.1-4.1 7.1-8.1 0-.8-.1-1.7-.4-2.4V34l-5.1-15.4c.4-.2.7-.6 1-.9zM66 92.8c16.9 0 32.8 1.1 47.1 3.2 4-16.9 8.9-26.7 14-33.5l-9.6-3.4c1 4.9 1.1 7.2 0 10.2-1.5-1.4-3-4.3-4.2-8.7L108.6 76c2.8-2 5-3.2 7.5-3.3-4.4 9.4-10 11.9-13.6 11.2-4.3-.8-6.3-4.6-5.6-7.9 1-4.7 5.7-5.9 8-.5 4.3-8.7-3-11.4-7.6-8.8 7.1-7.2 7.9-13.5 2.1-21.1-8 6.1-8.1 12.3-4.5 20.8-4.7-5.4-12.1-2.5-9.5 6.2 3.4-5.2 7.9-2 7.2 3.1-.6 4.3-6.4 7.8-13.5 7.2-10.3-.9-10.9-8-11.2-13.8 2.5-.5 7.1 1.8 11 7.3L80.2 60c-4.1 4.4-8 5.3-12.3 5.4 1.4-4.4 8-11.6 8-11.6H55.5s6.4 7.2 7.9 11.6c-4.2-.1-8-1-12.3-5.4l1.4 16.4c3.9-5.5 8.5-7.7 10.9-7.3-.3 5.8-.9 12.8-11.1 13.8-7.2.6-12.9-2.9-13.5-7.2-.7-5 3.8-8.3 7.1-3.1 2.7-8.7-4.6-11.6-9.4-6.2 3.7-8.5 3.6-14.7-4.6-20.8-5.8 7.6-5 13.9 2.2 21.1-4.7-2.6-11.9.1-7.7 8.8 2.3-5.5 7.1-4.2 8.1.5.7 3.3-1.3 7.1-5.7 7.9-3.5.7-9-1.8-13.5-11.2 2.5.1 4.7 1.3 7.5 3.3l-4.7-15.4c-1.2 4.4-2.7 7.2-4.3 8.7-1.1-3-.9-5.3 0-10.2l-9.5 3.4c5 6.9 9.9 16.7 14 33.5 14.8-2.1 30.8-3.2 47.7-3.2z"></path>
+									<image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAgCAYAAAB6kdqOAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AgXEBkknAt7fAAAA0VJREFUWMPtl02IjlEUx/93Rs0YFiJSmlkgSU2+ZmGFNGI2PhdvjLJkMdRYiclHyl7U2CiThZKFpiRSksUsKM0GTVhggRnCTJhe08/m/4471/M+3jHjIzl1e57nfPzPueeee+5zpX+JgIp446EwCUEdkrTEnw9CCCcnglc1CYn6LKnVY/BPLtdUP2fzjWbEst+doQLwUdIBScMeHeYVfkmxAtOBqjI6uyhPu8rYVAHT84o/01kIQcA518QI0JwTf7ukokd7ziSbJY1IGgTOhRDGlaHaZMZ3zN8OXATagPnAVGBBpLfAvPnWuQhst+2dBLP2R0FsMkC7v2PqApYnvA3WOxHxTpi3IdFdboxRsl67fW5Kg5mXALQCjUA30FmmZg6a/yrivTLvYFZNAZ3GbLSPmObFAW1OhEfjogMEVAP9lg8DdclyxctWZx1sU52BdzSx25xm6aUFI8CsnJ03x88ArMgIaAUQEt2sEpllXwAvM88eYGbJ2Tg2wPMomKfjsAuxz9FYgBrgoQEvpFkBpgFNP+hXBaCQ11+AJmOl/Av2/RCoEdCRpjwxOGv+op85yT2pRcY4m8jSJT82RdKXBONj8r3Hz0shhGUJYIukmdFfA5LehhCuJU32UoS1N8fXpxJwt3fDkYwZjukdyVI1ZhR1Y0ZtfocRyY7Yd3cKvtTNayPQEBlcN9ZAArTOz7bIX1upMSa6A5Zfj3gN9tUFLB0zCfeNEi0EeiPDeqAI3APOAzvN/wBcAVYDbzxWm/fBOjvssMcY9RFur32VqC5N3W4Lbvo5LTkW0rbfE7E+eZSoJ+P4GT1ejB372l1uRzzxTPBWvg/cjRpYE3Daupc9y2rgKnDD773AZeuctk2p4d71KJhXBJ7kbc9tVqwH9gHro9ST6B+I3vuBd1myKFM7/L4W2G8f2Gdu3ygCfXFHBbbY+HiG/uFoOToy5Mct2xKfAEAfUKykkZ0ywGOgBdgKDEVOXwBnPPoyaqQvkr+I+EPGajE2wKlKAlrF76OVFd3LmOhtr9JLYcZ/7JQyurckrZH0WNIzSa8lPZL0XtJb38We51w0kVQvqUbSXEl1khZLmiOpQdJCSbd/+no80Svyr8D8T38NfQWcfES5EXNkCgAAAABJRU5ErkJggg==" class="govuk-header__logotype-crown-fallback-image" xlink:href="" height="32" width="36"></image></svg> <span class="govuk-header__logotype-text">GOV.UK</span></span></a></div>
+					<div class="govuk-header__content"><a class="govuk-header__link govuk-header__link--service-name" href="/">Coronavirus (COVID-19) cases in the UK</a></div>
+				</div>
+			</header>
+			<nav class="sc-fzplgP bHmBtJ govuk-header__container--full-width">
+				<ul class="sc-fznzqM kcMtBa">
+					<li class="sc-fznOgF ljvMwn"><a class="sc-fznYue kyOvTV govuk-link govuk-link--no-visited-state app-navigation__link" href="/">Data dashboard</a></li>
+					<li class="sc-fznOgF ljvMwn"><a class="sc-fznYue kyOvTV govuk-link govuk-link--no-visited-state app-navigation__link" href="/about">About the data</a></li>
+				</ul>
+			</nav>
+			<div class="sc-fzqMdD fZQoNm govuk-width-container">
+				<main class="sc-fzowVh equHBw govuk-main-wrapper" role="main">
+					<div class="sc-fzqMdD fZQoNm govuk-grid-row">
+						<div class="sc-fzqMdD fZQoNm govuk-grid-column-two-thirds">
+							<h2 class="sc-fzoJus bPIkEp govuk-heading-l">Archive</h2>
+							<p class="govuk-body">This page provides links to data previously published on the dashboard. These files include data that have been superseded because errors have been found. For corrected up-to-date series of daily data, use the “latest” downloads below.</p>
+							<p class="govuk-body">Files for deaths dated 28 April 2020 and earlier include the data for England based only on hospital deaths reported by NHS England. Files dated 29 April 2020 onwards include deaths for England calculated by PHE from multiple sources. See the&nbsp;<a class="govuk-link govuk-link--no-visited-state" href="/about">About the data</a>&nbsp;for details.</p>
+						</div>
+					</div>
+					<div class="sc-fznLxA gQRraV">
+						<table class="sc-fznXWL cEvDCP govuk-table">
+							<thead class="govuk-table__head">
+								<tr class="govuk-table__row">
+									<th scope="col" class="sc-fznyYp kdOAmQ govuk-table__header app-custom-class">Date</th>
+									<th colspan="4" class="sc-fznyYp kdOAmQ govuk-table__header app-custom-class">Downloads</th>
+								</tr>
+							</thead>
+							<tbody class="govuk-table__body">
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 03 Jul 2020&nbsp;<strong class="govuk-tag">Latest</strong></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202007031451.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-07-03.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202007031451.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-07-03.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202007031451.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-07-03.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202007031451.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-07-03.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 02 Jul 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202007021618.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-07-02.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202007021618.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-07-02.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202007021618.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-07-02.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202007021618.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-07-02.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Wed, 01 Jul 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202007011400.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-07-01.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202007011400.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-07-01.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202007011400.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-07-01.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202007011400.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-07-01.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Tue, 30 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006301445.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-30.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006301445.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-30.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006301445.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-30.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006301445.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-30.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Mon, 29 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006291411.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-29.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006291411.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-29.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006291411.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-29.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006291411.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-29.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sun, 28 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006281400.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-28.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006281400.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-28.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006281400.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-28.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006281400.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-28.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sat, 27 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006271441.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-27.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006271441.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-27.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006271441.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-27.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006271441.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-27.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 26 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006261500.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-26.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006261500.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-26.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006261500.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-26.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006261500.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-26.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 25 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006251438.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-25.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006251438.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-25.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006251438.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-25.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006251438.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-25.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Wed, 24 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006241355.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-24.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006241355.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-24.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006241355.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-24.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006241355.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-24.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Tue, 23 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006231528.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-23.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006231528.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-23.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006231528.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-23.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006231528.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-23.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Mon, 22 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006221336.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-22.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006221336.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-22.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006221336.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-22.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006221336.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-22.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sun, 21 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006211446.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-21.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006211446.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-21.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006211446.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-21.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006211446.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-21.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sat, 20 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006201410.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-20.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006201410.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-20.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006201410.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-20.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006201410.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-20.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 19 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006191407.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-19.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006191407.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-19.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006191407.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-19.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006191407.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-19.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 18 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006181340.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-18.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006181340.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-18.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006181340.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-18.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006181340.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-18.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Wed, 17 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006171358.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-17.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006171358.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-17.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006171358.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-17.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006171358.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-17.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Tue, 16 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006161432.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-16.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006161432.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-16.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006161432.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-16.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006161432.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-16.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Mon, 15 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006151530.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-15.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006151530.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-15.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006151530.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-15.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006151530.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-15.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sun, 14 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006141358.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-14.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006141358.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-14.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006141358.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-14.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006141358.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-14.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sat, 13 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006131430.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-13.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006131430.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-13.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006131430.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-13.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006131430.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-13.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 12 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006121339.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-12.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006121339.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-12.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006121339.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-12.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006121339.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-12.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 11 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006111329.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-11.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006111329.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-11.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006111329.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-11.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006111329.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-11.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Wed, 10 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006101522.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-10.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006101522.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-10.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006101522.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-10.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006101522.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-10.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Tue, 09 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006091440.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-09.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006091440.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-09.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006091440.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-09.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006091440.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-09.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Mon, 08 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006081341.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-08.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006081341.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-08.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006081341.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-08.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006081341.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-08.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sun, 07 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006071502.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-07.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006071502.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-07.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006071502.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-07.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006071502.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-07.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sat, 06 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006061346.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-06.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006061346.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-06.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006061346.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-06.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006061346.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-06.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 05 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006051441.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-05.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006051441.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-05.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006051441.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-05.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006051441.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-05.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 04 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006041356.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-04.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006041356.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-04.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006041356.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-04.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006041356.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-04.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Wed, 03 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006031412.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-03.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006031412.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-03.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006031412.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-03.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006031412.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-03.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Tue, 02 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006021540.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-02.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006021540.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-02.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006021540.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-02.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006021540.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-02.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Mon, 01 Jun 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202006011604.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-01.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202006011604.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-06-01.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202006011604.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-01.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202006011604.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-06-01.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sun, 31 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005311434.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-31.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005311434.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-31.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005311434.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-31.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005311434.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-31.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sat, 30 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005301512.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-30.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005301512.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-30.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005301512.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-30.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005301512.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-30.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 29 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005291612.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-29.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005291612.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-29.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005291612.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-29.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005291612.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-29.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 28 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005281507.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-28.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005281507.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-28.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005281507.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-28.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005281507.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-28.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Wed, 27 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005271508.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-27.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005271508.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-27.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005271508.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-27.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005271508.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-27.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Tue, 26 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005261537.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-26.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005261537.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-26.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005261537.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-26.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005261537.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-26.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Mon, 25 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005251534.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-25.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005251534.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-25.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005251534.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-25.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005251534.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-25.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sun, 24 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005241458.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-24.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005241458.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-24.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005241458.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-24.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005241458.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-24.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sat, 23 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005231511.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-23.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005231511.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-23.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005231511.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-23.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005231511.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-23.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 22 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005221347.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-22.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005221347.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-22.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005221347.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-22.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005221347.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-22.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 21 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005211346.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-21.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005211346.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-21.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005211346.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-21.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005211346.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-21.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Wed, 20 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005201630.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-20.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005201630.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-20.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005201630.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-20.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005201630.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-20.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Tue, 19 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005191711.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-19.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005191711.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-19.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005191711.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-19.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005191711.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-19.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Mon, 18 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005181505.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-18.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005181505.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-18.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005181505.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-18.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005181505.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-18.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sun, 17 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005172122.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-17.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005172122.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-17.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005172122.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-17.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005172122.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-17.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sat, 16 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005161352.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-16.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005161352.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-16.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005161352.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-16.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005161352.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-16.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 15 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005151534.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-15.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005151534.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-15.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005151534.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-15.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005151534.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-15.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 14 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005141344.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-14.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005141344.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-14.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005141344.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-14.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005141344.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-14.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Wed, 13 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005131522.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-13.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005131522.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-13.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005131522.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-13.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005131522.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-13.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Tue, 12 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005129876.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-12.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005129876.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-12.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005129876.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-12.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005129876.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-12.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Mon, 11 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005111457.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-11.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005111457.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-11.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005111457.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-11.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005111457.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-11.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sun, 10 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005101500.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-10.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005101500.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-10.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005101500.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-10.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005101500.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-10.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sat, 09 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005091431.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-09.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005091431.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-09.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005091431.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-09.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005091431.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-09.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 08 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005081443.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-08.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005081443.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-08.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005081443.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-08.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005081443.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-08.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 07 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005071534.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-07.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005071534.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-07.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005071534.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-07.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005071534.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-07.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Wed, 06 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005061549.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-06.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005061549.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-06.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005061549.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-06.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005061549.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-06.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Tue, 05 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005051554.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-05.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005051554.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-05.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005051554.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-05.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005051554.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-05.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Mon, 04 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005041501.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-04.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005041501.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-04.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005041501.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-04.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005041501.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-04.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sun, 03 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005031518.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-03.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005031518.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-03.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005031518.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-03.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005031518.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-03.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sat, 02 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005021621.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-02.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005021621.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-02.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005021621.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-02.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005021621.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-02.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 01 May 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202005011647.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-01.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202005011647.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-05-01.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202005011647.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-01.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202005011647.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-05-01.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 30 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004301702.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-30.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004301702.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-30.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004301702.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-30.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004301702.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-30.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Wed, 29 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004292132.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-29.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004292132.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-29.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004292132.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-29.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004292132.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-29.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Tue, 28 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004281636.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-28.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004281636.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-28.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004281636.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-28.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004281636.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-28.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Mon, 27 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004271932.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-27.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004271932.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-27.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004271932.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-27.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004271932.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-27.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sun, 26 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004261346.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-26.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004261346.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-26.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004261346.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-26.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004261346.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-26.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sat, 25 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004251405.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-25.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004251405.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-25.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004251405.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-25.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004251405.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-25.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 24 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004241424.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-24.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004241424.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-24.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004241424.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-24.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004241424.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-24.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 23 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004231511.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-23.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004231511.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-23.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004231511.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-23.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004231511.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-23.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Wed, 22 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004221458.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-22.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004221458.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-22.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004221458.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-22.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004221458.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-22.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Tue, 21 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004211538.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-21.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004211538.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-21.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004211538.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-21.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004211538.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-21.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Mon, 20 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004201559.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-20.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004201559.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-20.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004201559.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-20.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004201559.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-20.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sun, 19 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004191513.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-19.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004191513.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-19.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004191513.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-19.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004191513.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-19.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sat, 18 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004181457.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-18.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004181457.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-18.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004181457.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-18.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004181457.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-18.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 17 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004171502.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-17.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004171502.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-17.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004171502.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-17.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004171502.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-17.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 16 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004161444.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-16.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004161444.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-16.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004161444.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-16.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004161444.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-16.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Wed, 15 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004151454.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-15.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004151454.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-15.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004151454.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-15.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004151454.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-15.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Tue, 14 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004141544.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-14.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004141544.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-14.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004141544.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-14.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004141544.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-14.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Mon, 13 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004131413.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-13.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004131413.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-13.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004131413.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-13.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004131413.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-13.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sun, 12 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004121411.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-12.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004121411.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-12.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004121411.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-12.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004121411.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-12.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Sat, 11 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004111452.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-11.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004111452.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-11.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004111452.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-11.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004111452.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-11.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Fri, 10 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004101527.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-10.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004101527.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-10.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004101527.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-10.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004101527.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-10.json">Deaths as JSON</a></td>
+								</tr>
+								<tr class="govuk-table__row">
+									<td class="sc-fzpisO jHQZJv govuk-table__cell">Thu, 09 Apr 2020&nbsp;</td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-cases_202004091537.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-09.csv">Cases as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-cases_202004091537.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-cases_2020-04-09.json">Cases as JSON</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/csv/dated/coronavirus-deaths_202004091537.csv" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-09.csv">Deaths as CSV</a></td>
+									<td class="sc-fzpisO jHQZJv govuk-table__cell"><a href="/downloads/json/dated/coronavirus-deaths_202004091537.json" class="sc-fzoVTD Atfvz govuk-link" download="coronavirus-deaths_2020-04-09.json">Deaths as JSON</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</main>
+			</div>
+			<footer class="govuk-footer " role="contentinfo">
+				<div class="govuk-width-container ">
+					<div class="govuk-footer__meta">
+						<div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+							<h2 class="govuk-visually-hidden">Items</h2>
+							<ul class="govuk-footer__inline-list">
+								<li class="govuk-footer__inline-list-item"><a href="/archive" class="govuk-footer__link ">Archive</a></li>
+								<li class="govuk-footer__inline-list-item"><a href="/accessibility" class="govuk-footer__link ">Accessibility</a></li>
+								<li class="govuk-footer__inline-list-item"><a href="/cookies" class="govuk-footer__link ">Cookies</a></li>
+							</ul>
+							<div class="govuk-footer__meta-custom">
+								<p class="govuk-footer__meta-custom">For feedback email&nbsp;<a class="govuk-footer__link" href="mailto:coronavirus-tracker@phe.gov.uk?Subject=Coronavirus%20dashboard%20feedback" rel="noopener noreferrer" target="_blank">coronavirus-tracker@phe.gov.uk</a></p>
+								<p class="govuk-footer__meta-custom">Developed by&nbsp;<a class="govuk-footer__link" href="https://www.gov.uk/government/organisations/public-health-england" target="_blank" rel="noopener noreferrer">PHE</a>&nbsp;and&nbsp;<a class="govuk-footer__link" href="https://www.nhsx.nhs.uk/" target="_blank" rel="noopener noreferrer">NHSX</a></p>
+							</div><svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.2 195.7" height="17" width="41"><path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145"></path></svg><span class="govuk-footer__licence-description">All content is available under the <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a> , except where otherwise stated</span></div>
+						<div class="govuk-footer__meta-item"><a class="govuk-footer__link govuk-footer__copyright-logo" href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">© Crown copyright</a></div>
+					</div>
+				</div>
+			</footer>
+		</div>
+		<script>
+			!function(e){function r(r){for(var n,i,l=r[0],c=r[1],p=r[2],a=0,s=[];a<l.length;a++)i=l[a],Object.prototype.hasOwnProperty.call(o,i)&&o[i]&&s.push(o[i][0]),o[i]=0;for(n in c)Object.prototype.hasOwnProperty.call(c,n)&&(e[n]=c[n]);for(f&&f(r);s.length;)s.shift()();return u.push.apply(u,p||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,l=1;l<t.length;l++){var c=t[l];0!==o[c]&&(n=!1)}n&&(u.splice(r--,1),e=i(i.s=t[0]))}return e}var n={},o={1:0},u=[];function i(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,i),t.l=!0,t.exports}i.m=e,i.c=n,i.d=function(e,r,t){i.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},i.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},i.t=function(e,r){if(1&r&&(e=i(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(i.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)i.d(t,n,function(r){return e[r]}.bind(null,n));return t},i.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return i.d(r,"a",r),r},i.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},i.p="/";var l=this["webpackJsonpcovid-public"]=this["webpackJsonpcovid-public"]||[],c=l.push.bind(l);l.push=r,l=l.slice();for(var p=0;p<l.length;p++)r(l[p]);var f=c;t()}([])
+		</script>
+		<script src="/static/js/2.fe4be493.chunk.js"></script>
+		<script src="/static/js/main.4e463dd8.chunk.js"></script>
+	</body>
+
+</html>
