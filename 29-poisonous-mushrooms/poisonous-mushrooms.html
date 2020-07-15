@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Poisonous mushrooms</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/umap-js@1.3.2/lib/umap-js.min.js"></script>
+  </head>
+  <body>
+    <div id="plot"></div>
+    <script type="text/javascript">
+      // set the dimensions and margins of the graph
+      const margin = { top: 10, right: 30, bottom: 30, left: 60 },
+        width = 800 - margin.left - margin.right,
+        height = 800 - margin.top - margin.bottom;
+
+      // append the svg object to the body of the page
+      const svg = d3
+        .select("#plot")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      const fetchRawData = d3.text("data/agaricus-lepiota.data");
+      const fetchOneShotEncodedData = d3.text("data/mushrooms.csv");
+
+      Promise.all([fetchRawData, fetchOneShotEncodedData]).then(function ([
+        rawText,
+        oneShotEncodedText,
+      ]) {
+        const colours = [];
+        for (line of rawText.split("\n")) {
+          if (line.length > 0) {
+            colours.push(
+              line.split(",")[0].replace("e", "#69b3a2").replace("p", "red")
+            );
+          }
+        }
+        console.log(colours);
+
+        const data = [];
+        for (line of oneShotEncodedText.split("\n")) {
+          if (line.length > 0) {
+            data.push(line.split(",").map((d) => +d));
+          }
+        }
+        console.log(data);
+
+        // run umap on this data
+
+        const umap = new UMAP({
+          nComponents: 2,
+          nNeighbors: 5,
+          distanceFn: jaccard,
+        });
+        const embedding = umap.fit(data);
+
+        console.log(embedding);
+
+        const x = d3
+          .scaleLinear()
+          .domain(d3.extent(embedding, (d) => d[0]))
+          .range([0, width]);
+
+        const y = d3
+          .scaleLinear()
+          .domain(d3.extent(embedding, (d) => d[1]))
+          .range([height, 0]);
+
+        svg
+          .append("g")
+          .selectAll("dot")
+          .data(embedding)
+          .enter()
+          .append("circle")
+          .attr("cx", (d) => x(d[0]))
+          .attr("cy", (d) => x(d[1]))
+          .attr("r", 1)
+          .style("fill", (d, i) => colours[i])
+          .style("fill-opacity", 0.5);
+      });
+
+      function jaccard(x, y) {
+        let numNonZero = 0.0;
+        let numEqual = 0.0;
+        for (let i = 0; i < x.length; i++) {
+          xTrue = x[i] != 0;
+          yTrue = y[i] != 0;
+          numNonZero += xTrue || yTrue ? 1.0 : 0.0;
+          numEqual += xTrue && yTrue ? 1.0 : 0.0;
+        }
+        if (numNonZero === 0.0) {
+          return 0.0;
+        } else {
+          return (numNonZero - numEqual) / numNonZero;
+        }
+      }
+    </script>
+  </body>
+</html>
