@@ -1,0 +1,37 @@
+class_1990,class_2015,sqkm
+Woodland,Woodland,21915
+Woodland,Arable,223
+Woodland,Grassland,1401
+Woodland,Freshwater,27
+Woodland,Built-up areas,600
+Woodland,Other,20
+Arable,Woodland,945
+Arable,Arable,44202
+Arable,Grassland,9916
+Arable,Freshwater,96
+Arable,Built-up areas,1121
+Arable,Other,62
+Grassland,Woodland,6200
+Grassland,Arable,10806
+Grassland,Grassland,113515
+Grassland,Freshwater,98
+Grassland,Built-up areas,2505
+Grassland,Other,349
+Freshwater,Woodland,32
+Freshwater,Arable,12
+Freshwater,Grassland,40
+Freshwater,Freshwater,2417
+Freshwater,Built-up areas,17
+Freshwater,Other,2
+Built-up areas,Woodland,239
+Built-up areas,Arable,207
+Built-up areas,Grassland,485
+Built-up areas,Freshwater,19
+Built-up areas,Built-up areas,12767
+Built-up areas,Other,14
+Other,Woodland,93
+Other,Arable,109
+Other,Grassland,454
+Other,Freshwater,14
+Other,Built-up areas,105
+Other,Other,4364

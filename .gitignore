@@ -16,3 +16,6 @@ venv
 25-bach-charts/data/maestro-v2.0.0*
 26-the-tate-collection/data
 28-covid-leicester/data/coronavirus-cases*.csv
+30-land-cover/data/*.zip
+30-land-cover/data/readme.txt
+30-land-cover/data/*.pdf
