@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Carbon mountain: historical UK CO2 emissions</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+    <style>
+      .area {
+        fill: lightslategrey;
+        stroke: lightslategrey;
+        stroke-width: 0.5;
+        pointer-events: all;
+      }
+      .line {
+        fill: none;
+        stroke: lightslategrey;
+        stroke-width: 0.75;
+      }
+      .point {
+        stroke: white;
+        stroke-width: 0.5;
+      }
+      .year {
+        fill: none;
+        stroke: white;
+        stroke-width: 1;
+      }
+      .prevLowerLine {
+        stroke: white;
+        stroke-width: 1;
+      }
+
+      .prevLowerText {
+        fill: white;
+        color: white;
+      }
+
+      .axis text {
+        font-size: 1em;
+      }
+
+      .axis line {
+        shape-rendering: crispEdges;
+        stroke: lightslategrey;
+        stroke-width: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="dataviz"></div>
+    <script type="text/javascript">
+      const w = 1000;
+      const h = 600;
+      const padding = 45;
+      d3.csv("data/ghg-emissions.csv").then((data) => {
+        console.log(data[0]);
+        // data is on one line, so turn into a list of dicts
+        const data2 = [];
+        Object.keys(data[0]).forEach(function (key) {
+          if (Number.isFinite(+key)) {
+            data2.push({
+              year: +key,
+              value: +data[0][key],
+            });
+          }
+        });
+        data2[0].delta = 0;
+        for (let i = 1; i < data2.length; i++) {
+          data2[i].delta = data2[i].value - data2[i - 1].value;
+          if (data2[i].delta < 0) {
+            // Look for last time value was less than this
+            for (let j = i - 1; j >= 0; j--) {
+              if (data2[j].value < data2[i].value) {
+                data2[i].prevLower = data2[j];
+                break;
+              }
+            }
+          }
+        }
+        console.log(data2);
+
+        const xScale = d3
+          .scaleLinear()
+          .domain([d3.min(data2, (d) => d.year), d3.max(data2, (d) => d.year)])
+          .range([padding, w - padding]);
+
+        const yScale = d3
+          .scaleLinear()
+          .domain([0, d3.max(data2, (d) => d.value)])
+          .range([h - padding, padding]);
+
+        const svg = d3
+          .select("#dataviz")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h);
+
+        const line = d3
+          .line()
+          .defined((d) => !isNaN(d.value))
+          .x((d) => xScale(d.year))
+          .y((d) => yScale(d.value));
+
+        const area = d3
+          .area()
+          .defined((d) => !isNaN(d.value))
+          .x((d) => xScale(d.year))
+          .y0(yScale(0))
+          .y1((d) => yScale(d.value));
+
+        // Draw filled in area
+        svg
+          .append("g")
+          .append("path")
+          .datum(data2)
+          .attr("d", area)
+          .attr("id", "area")
+          .attr("class", "area")
+          .on("mousemove", () => {
+            const m = d3.mouse(d3.select("#area").node());
+            const year = Math.round(xScale.invert(m[0]));
+            const datum = data2.find((d) => d.year === year);
+            svg
+              .selectAll(".year")
+              .attr("visibility", (d) =>
+                year == d.year ? "visible" : "hidden"
+              );
+            if (datum.prevLower) {
+              svg
+                .selectAll(`#year-${datum.prevLower.year}`)
+                .attr("visibility", "visible");
+            }
+            svg
+              .selectAll(".prevLower")
+              .attr("visibility", (d) =>
+                year == d.year ? "visible" : "hidden"
+              );
+          });
+
+        // Draw line
+        svg.append("path").datum(data2).attr("d", line).attr("class", "line");
+
+        svg
+          .append("g")
+          .selectAll("prevLower")
+          .data(data2.filter((d) => d.prevLower != null))
+          .enter()
+          .append("line")
+          .attr("class", "prevLower prevLowerLine")
+          .attr("visibility", "hidden")
+          .attr("x1", (d) => xScale(d.year))
+          .attr("y1", (d) => yScale(d.value))
+          .attr("x2", (d) => xScale(d.prevLower.year))
+          .attr("y2", (d) => yScale(d.value));
+
+        // Label with years difference
+        svg
+          .append("g")
+          .selectAll("prevLower")
+          .data(
+            data2.filter(
+              (d) => d.prevLower != null && d.year - d.prevLower.year >= 10
+            )
+          )
+          .enter()
+          .append("text")
+          .attr("class", "prevLower prevLowerText")
+          .attr("visibility", "hidden")
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "12px")
+          .attr("text-anchor", "middle")
+          .attr("alignment-baseline", "hanging")
+          .text((d) => `${d.year - d.prevLower.year} years`)
+          .attr("x", (d) => xScale((d.year + d.prevLower.year) / 2))
+          .attr("y", (d) => yScale(d.value))
+          .attr("dy", 3);
+
+        svg
+          .append("g")
+          .selectAll("years")
+          .data(data2)
+          .enter()
+          .append("line")
+          .attr("id", (d) => `year-${d.year}`)
+          .attr("class", "year")
+          .attr("visibility", "hidden")
+          .attr("x1", (d) => xScale(d.year))
+          .attr("y1", (d) => yScale(0))
+          .attr("x2", (d) => xScale(d.year))
+          .attr("y2", (d) => yScale(d.value));
+
+        // A point for each year, according to if an increase or decrease
+        svg
+          .append("g")
+          .selectAll("points")
+          .data(data2)
+          .enter()
+          .append("circle")
+          .attr("class", "point")
+          .style("fill", (d) => (d.delta > 0 ? "red" : "green"))
+          .attr("r", 2.5)
+          .attr("cx", (d) => xScale(d.year))
+          .attr("cy", (d) => yScale(d.value));
+
+        // Draw x axis
+        const xAxis = d3
+          .axisBottom()
+          .scale(xScale)
+          .tickSize(12)
+          .ticks(20)
+          .tickFormat(d3.format("d"));
+        svg
+          .append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(0," + (h - padding) + ")")
+          .call(xAxis);
+
+        const numYears =
+          d3.max(data2, (d) => d.year) - d3.min(data2, (d) => d.year) + 1;
+        const xAxis2 = d3
+          .axisBottom()
+          .scale(xScale)
+          .ticks(numYears)
+          .tickFormat("");
+        svg
+          .append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(0," + (h - padding) + ")")
+          .call(xAxis2);
+
+        // Draw y axes
+        const yAxisLeft = d3.axisLeft().scale(yScale);
+        svg
+          .append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(" + padding + ",0)")
+          .call(yAxisLeft);
+        const yAxisRight = d3.axisRight().scale(yScale);
+        svg
+          .append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(" + (w - padding) + ",0)")
+          .call(yAxisRight);
+
+        svg
+          .append("g")
+          .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 0)
+          .attr("x", -h / 3)
+          .attr("dy", "10")
+          .style("text-anchor", "middle")
+          .style("font-size", "14px")
+          .text("Millions of tonnes of CO2");
+
+        // Add title, captions, etc
+        svg
+          .append("g")
+          .append("text")
+          .attr("x", 60)
+          .attr("y", 15)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "24px")
+          .attr("alignment-baseline", "hanging")
+          .text("Carbon mountain: historical UK CO2 emissions");
+        svg
+          .append("g")
+          .append("text")
+          .attr("x", 60)
+          .attr("y", 50)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "12px")
+          .attr("alignment-baseline", "hanging")
+          .text("Red dot = rise, green dot = fall");
+        svg
+          .append("g")
+          .text("Tom White, 2020")
+          .append("text")
+          .attr("x", 60)
+          .attr("y", h - padding - 30)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "12px")
+          .attr("alignment-baseline", "hanging")
+          .attr("class", "caption")
+          .attr("fill", "white")
+          .text("Graphic: Tom White, 2020. Data source: Climate Watch");
+      });
+    </script>
+  </body>
+</html>
