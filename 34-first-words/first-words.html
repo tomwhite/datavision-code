@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>First words</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+
+    <style>
+      .d3-tip {
+        line-height: 1;
+        font-family: "sans-serif";
+        font-size: 14px;
+        padding: 10px;
+        background: white;
+        color: black;
+        border-radius: 2px;
+        border: solid black;
+        border-width: thin;
+        pointer-events: none;
+      }
+      .title {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 24px;
+      }
+      .caption {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 10px;
+      }
+      .label {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="1200" height="700"></svg>
+    <script type="text/javascript">
+      const svg = d3.select("svg"),
+        margin = { top: 40, right: 40, bottom: 40, left: 40 },
+        width = svg.attr("width") - margin.left - margin.right,
+        height = svg.attr("height") - margin.top - margin.bottom;
+
+      var g = svg
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      d3.csv("data/datasets_1752_3039_main_data.csv", d3.autoType).then(
+        (data) => {
+          function normalizeWord(word) {
+            return word.replace(/^'/, "").replace(/'$/, "");
+          }
+
+          function toBritishEnglish(word) {
+            word = word.replace("mommy", "mummy");
+            word = word.replace("diaper", "nappy");
+            word = word.replace("pacifier", "dummy");
+            return word;
+          }
+
+          function abbreviate(word) {
+            word = word.replace("buttocks/bottom", "bottom");
+            word = word.replace("call (on phone)", "call");
+            word = word.replace("cock-a-doodle-doo", "cock-a-doo..");
+            word = word.replace("child's own name", "[own name]");
+            word = word.replace("slice (of bread)", "slice");
+            word = word.replace("(thermal) suit", "suit");
+            word = word.replace("vacuum cleaner", "vacuum cl..");
+            word = word.replace("wanna/want to", "want to");
+            return word;
+          }
+
+          data = data.filter((d) => !isNaN(d.AoA));
+          data = data.filter((d) => d.CDS_freq > 1);
+
+          data.forEach((d) => (d.value = d.AoA));
+          data.forEach((d) => (d.word = normalizeWord(d.Translation)));
+          data.forEach((d) => (d.word = toBritishEnglish(d.word)));
+          data.forEach((d) => (d.word_abbr = abbreviate(d.word)));
+
+          data = unique(data, ["Word_CDI", "Translation"]);
+
+          const lexicalCategories = data
+            .map((d) => d.Lex_cat)
+            .filter(onlyUnique);
+
+          data = data
+            .map((d) => ({
+              word: d.word,
+              word_abbr: d.word_abbr,
+              word_nw: normalizeWord(d.Word_CDI),
+              AoA: d.AoA,
+              freq: d.CDS_freq,
+              Lex_cat: d.Lex_cat,
+            }))
+            .sort((a, b) => {
+              if (a.AoA != b.AoA) {
+                return a.AoA - b.AoA;
+              }
+              return b.freq - a.freq;
+            });
+
+          // assign an index: higher freq = closer to centre line
+          const groupedData = d3.groups(data, (d) => d.AoA);
+          groupedData.forEach((d) => {
+            const arr = d[1];
+            for (let i = 0; i < arr.length; i++) {
+              if (i % 2 == 0) {
+                arr[i].index = i / 2;
+              } else {
+                arr[i].index = -1 - (i - 1) / 2;
+              }
+            }
+          });
+
+          const x = d3
+            .scaleLinear()
+            .domain(d3.extent(data, (d) => d.AoA))
+            .range([0, width]);
+
+          const xAxisTop = d3.axisTop().scale(x).ticks(25);
+          const xAxisBottom = d3.axisBottom().scale(x).ticks(25);
+
+          const y = d3
+            .scaleLinear()
+            .domain(d3.extent(data, (d) => d.index))
+            .range([height, 0]);
+
+          const colours = d3
+            .scaleOrdinal()
+            .domain(lexicalCategories)
+            .range(d3.schemeCategory10);
+
+          const tip = d3
+            .tip()
+            .attr("class", "d3-tip")
+            .offset(function (d) {
+              return [this.getBBox().height / 2 - 7, 0];
+            })
+            .html((d) => `${d.word}<br/>${d.word_nw}`);
+          svg.call(tip);
+
+          g.append("g")
+            .selectAll(".words")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("class", "word")
+            .attr("r", 2)
+            .attr("cx", (d) => x(d.AoA))
+            .attr("cy", (d) => y(d.index))
+            .attr("fill", (d) => colours(d.Lex_cat))
+            .on("mouseover", tip.show)
+            .on("mouseout", tip.hide);
+          g.append("g")
+            .selectAll(".words")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "word")
+            .text((d) => d.word_abbr)
+            .attr("font-size", "6pt")
+            .attr("font-weight", (d) => (d.index == 0 ? "bold" : "normal"))
+            .attr("x", (d) => x(d.AoA) + 3)
+            .attr("y", (d) => y(d.index) + 2)
+            .on("mouseover", tip.show)
+            .on("mouseout", tip.hide);
+
+          // Add legend
+          g.selectAll("categories")
+            .data(lexicalCategories)
+            .enter()
+            .append("circle")
+            .attr("r", 5)
+            .attr("cx", 5)
+            .attr("cy", (d, i) => 90 + i * 15)
+            .attr("fill", (d) => colours(d))
+            // hover over a character to highlight lines (by dimming others)
+            .on("mouseover", (d) => {
+              svg
+                .selectAll(".word")
+                .attr("fill-opacity", (d2) =>
+                  colours(d) === colours(d2.Lex_cat) ? 1 : 0.05
+                );
+            })
+            .on("mouseout", (d) => {
+              svg.selectAll(".word").attr("fill-opacity", 1);
+            });
+
+          g.selectAll("categories-text")
+            .data(lexicalCategories)
+            .enter()
+            .append("text")
+            .attr("x", 5 + 15)
+            .attr("y", (d, i) => 90 + i * 15 + 4)
+            .text((d) => d.replace("#N/A", "time words"))
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px");
+
+          // Draw axes
+          g.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0,-10)")
+            .call(xAxisTop);
+          g.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + (height + 10) + ")")
+            .call(xAxisBottom);
+
+          // Add a title and caption
+          g.append("g")
+            .append("text")
+            .attr("x", 0)
+            .attr("y", 40)
+            .text("First words")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "24px");
+          g.append("g")
+            .append("text")
+            .attr("x", 0)
+            .attr("y", 60)
+            .text(
+              "Age of acquisition, in months, of children's first words (translated from Norwegian)"
+            )
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "14px");
+        }
+      );
+      function onlyUnique(value, index, self) {
+        return self.indexOf(value) === index;
+      }
+      function unique(arr, keyProps) {
+        const kvArray = arr.map((entry) => {
+          const key = keyProps.map((k) => entry[k]).join("|");
+          return [key, entry];
+        });
+        const map = new Map(kvArray);
+        return Array.from(map.values());
+      }
+    </script>
+  </body>
+</html>

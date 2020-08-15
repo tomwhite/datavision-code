@@ -1,0 +1,732 @@
+Word_CDI,Translation,Freq_NoWaC,Freq_CDS
+'au','ouch',4366,7
+'bææ','baa baa',18,5
+'brrr (bil-lyd)','vroom',#N/A,20
+'gakk gakk','quack quack',16,3
+'grr','grr',78,1
+'kykeliky','cock-a-doodle-doo',8,2
+'mjau','meow',214,7
+'møø','moo',8,7
+'nam - nam','yum yum',35,19
+'oi (uttrykk for overraskelse)','oh',5019,437
+'tøff-tøff','choo choo',5,3
+'voff voff','woof woof',10,52
+'(meite)mark','(earth)worm',#N/A,#N/A
+'and','duck',354716,4
+'apekatt','monkey',1535,2
+'bjørn','bear',9156,9
+'dyr','animal',78524,29
+'ekorn','squirrel',982,7
+'elefant','elephant',3344,8
+'elg','moose',6162,5
+'esel','donkey',1292,9
+'fisk','fish',73111,11
+'flue','fly',5154,3
+'frosk','frog',2759,4
+'fugl','bird',40740,40
+'gås','goose',1491,2
+'gris','pig',7868,45
+'hane','rooster',1508,1
+'hest','horse',87784,39
+'høne','hen',4401,5
+'hund','dog',166676,35
+'kanin','bunny',10421,9
+'katt','cat',41391,24
+'kattunge',kitten',6890,1
+'krokodille','crocodile',1190,15
+'ku','cow',10848,10
+'kylling','chicken',7512,6
+'lam','lamb',3076,7
+'(leke)bamse','teddybear',3542,1
+'løve','lion',3977,9
+'maur','ant',1742,1
+'mus','mouse',12268,20
+'mygg','mosquito',3365,1
+'pingvin','penguin',1297,2
+'ponni','pony',4337,1
+'reinsdyr','reindeer',1317,3
+'sau','sheep',10218,15
+'sebra','zebra',448,1
+'sjiraff','giraffe',291,3
+'skilpadde','turtle',1353,4
+'sommerfugl','butterfly',2715,3
+'tiger','tiger',3190,11
+'ugle','owl',2374,2
+'ulv','wolf',14204,27
+'valp','puppy',26852,2
+'veps','wasp',1086,1
+'akebrett','sled',351,3
+'barnevogn','stroller',1828,1
+'bil','car',186357,96
+'brannbil','firetruck',740,3
+'båt','boat',79071,31
+'buss','bus',34459,32
+'fly','airplane',55541,42
+'helikopter','helicopter',8329,2
+'lastebil','truck',5854,4
+'motorsykkel','motorcycle',4282,16
+'sykkel','bicycle',22334,18
+'tog','train',24356,18
+'traktor','tractor',3479,24
+'trehjulssykkel','tricycle',104,7
+'ball','ball',96368,74
+'ballong','balloon',2903,7
+'blyant','pencil',1822,5
+'bok','book',252996,167
+'klosser','blocks',1217,21
+'dukke','doll',6522,36
+'lego','lego',336,3
+'eventyr','fairytale',16232,2
+'fargeblyant','crayon',119,2
+'presang','present',900,7
+'kritt','chalk',550,1
+'leke','toy',11744,69
+'lim','glue',3616,6
+'penn','pen',6184,3
+'plastilina','plasticine',69,1
+'puslespill','puzzle',1543,7
+'spill','game',127043,1
+'såpebobler','soap bubbles',248,18
+'(brød)skive','slice (of bread)',3034,2
+'agurk','cucumber',1908,1
+'appelsin','orange',2869,5
+'banan','banana',4673,17
+'boller','buns',#N/A,#N/A
+'bønner','beans',3285,1
+'brød','bread',13129,11
+'brus','soda/pop',5503,2
+'cola','coke',3232,1
+'corn flakes','cornflakes',233,1
+'dessert','dessert',4248,3
+'druer',grapes',3611,1
+'egg','egg',25973,16
+'eple','apple',8413,27
+'erter','peas',2466,1
+'fisk','fish',73111,11
+'frokostblanding','cereal',686,1
+'frukt','fruits',22242,1
+'godteri','candy',4832,3
+'grøt','porridge',2799,8
+'gulrot','carrot',4599,4
+'hamburger','hamburger',1606,1
+'is','ice cream',180159,11
+'jordbær','strawberry',3565,3
+'juice','juice',2818,3
+'kaffe','coffee',27804,12
+'kake','cake',13219,17
+'kjeks','cracker',2138,17
+'kjøtt','meat',20096,3
+'kjøttkaker','meatballs',987,1
+'knekkebrød','crispbread',1849,1
+'kylling','chicken',7510,6
+'leverpostei','liver paté',1157,1
+'mat','food',124531,28
+'matpakke','lunch packet',2521,1
+'melk','milk',17156,25
+'melon','melon',697,1
+'nøtter','nuts',5757,1
+'nugatti','Nugatti',209,1
+'ost','cheese',8516,16
+'pannekake','pancake',1916,2
+'pasta','pasta',3675,4
+'pizza','pizza',9099,4
+'pølser','sausages',8362,4
+'pommes frites','french fries',5,1
+'popcorn','popcorn',224,1
+'poteter','potatoes',10207,1
+'potetgull','potato chips',1214,1
+'ris','rice',6155,1
+'ristet brød','toast',108,1
+'rosiner','raisins',2121,1
+'saft','fruit juice',6323,2
+'salami','salami',432,5
+'salt','salt',17282,2
+'saus','sauce',4791,1
+'sjokolade','chocolate',11297,7
+'smør','butter',8481,6
+'spagetti','spaghetti',412,1
+'sukkertøy','candy',464,3
+'suppe','soup',5071,1
+'syltetøy',jam',1627,5
+'te','tea',28772,10
+'tran','cod-liver oil',2734,1
+'tyggegummi','gum',811,4
+'vafler','waffles',2823,1
+'vann','water',128365,61
+'yoghurt','yogurt',2455,3
+'belte','belt',5983,1
+'bleie','diaper',2239,21
+'bukse','pants',13342,16
+'dress (ute)','(thermal) suit',4804,3
+'genser','sweater',5296,14
+'glidelås','zipper',1213,1
+'halskjede','necklace',149,1
+'hansker','gloves',4341,1
+'jakke','jacket',7271,5
+'joggesko','sneakers',1657,4
+'kjole','dress',13038,16
+'knapper','buttons',19068,3
+'lue','cap',4902,10
+'pysjamas','pajamas',178,1
+'regntøy','rainwear',546,2
+'sandaler','sandals',1088,1
+'shorts','shorts',2320,1
+'skjerf','scarf',3567,6
+'skjorte','shirt',6440,6
+'sko','shoes',25474,23
+'smekke','bib',97,2
+'smokk','pacifier',876,6
+'sokker','socks',4152,7
+'støvler','boots',3174,2
+'strømpebukse','tights',880,3
+'strømper','sock',1423,1
+'t-skjorte','t-shirt',4612,1
+'tøfler','slippers',1076,16
+'underbukse','underpants',922,1
+'votter','mittens',1479,2
+'ankel','ankle',3147,1
+'ansikt','face',35337,4
+'arm','arm',28497,9
+'bein','leg',31238,45
+'finger','finger',35457,5
+'fot','foot',34233,3
+'hake','chin',1533,7
+'hånd','hand',105619,58
+'hår','hair',35568,33
+'hode','head',84749,45
+'kinn','cheek',4826,7
+'kne','knee',14794,3
+'lepper','lips',10442,1
+'mage','tummy',32819,13
+'munn','mouth',32844,37
+'navle','belly button',1957,24
+'nese','nose',15947,20
+'øre','ear',35384,13
+'øye','eye',100999,31
+'pupp','tit',7496,2
+'rumpe','buttocks/bottom',9979,9
+'rygg','back',39556,11
+'skulder','shoulder',15013,2
+'tenner','teeth',15536,14
+'tiss','willie',1410,1
+'tunge','tongue',12814,2
+'tå','toe',7497,18
+'bilde','picture',450532,57
+'boks','box',26669,16
+'børste','brush',667,2
+'bøtte','bucket',5175,18
+'brett','tray',6842,4
+'briller','glasses',5988,8
+'dopapir','toilet paper',553,5
+'dyne','duvet',3617,3
+'eske','box',6027,8
+'fat','(large) plate',#N/A,#N/A
+'flaske','bottle',18779,9
+'drikke','drink',13625,27
+'gåbil','toy car',3,1
+'gaffel','fork',1296,4
+'glass','glass',23884,2
+'hammer','hammer',1726,6
+'håndkle','towel',2908,13
+'kam','comb',3526,4
+'kamera','camera',104401,5
+'kasse','box',17380,8
+'kjøkkenrull','roll of paper towels',9,1
+'klokke','clock',82457,21
+'kniv','knife',10132,1
+'kopp','cup',8944,21
+'kost','broom',16399,4
+'krukke','jar',1312,1
+'krus','cup',870,1
+'lampe','lamp',4685,3
+'lommebok','wallet',7743,1
+'lys','light',74510,13
+'medisin','medicine',33309,1
+'nøkler','keys',12675,6
+'papir','paper',24874,13
+'penger','money',211410,6
+'plante','plant',20413,2
+'pute','pillow',5131,3
+'radio','radio',22688,1
+'saks','scissors',1961,3
+'såpe','soap',2991,5
+'sekk','bag',11416,3
+'serviett','napkin',769,2
+'skål','bowl',2121,1
+'skje','spoon',5034,36
+'søppel','rubbish',8093,6
+'søppelbøtte','rubbish bin',519,1
+'støvsuger','vacuum cleaner',1203,8
+'tallerken','plate',2631,4
+'tannbørste','toothbrush',972,8
+'telefon','telephone',91612,20
+'teppe','blanket/carpet',8255,3
+'veske','bag',7606,13
+'bad','bathroom',18277,9
+'badekar','bathtub',2807,2
+'balkong','balcony',3835,2
+'barneseng','cot',146,1
+'barnestol','high chair',308,1
+'bord','table',35222,43
+'do','toilet',32705,32
+'dør','door',55036,26
+'dusj','shower',10612,3
+'garasje','garage',6483,7
+'gyngestol','rocking chair',188,1
+'kjeller','basement',11422,6
+'kjøkken','kitchen',21854,17
+'kjøleskap','refrigerator',7337,14
+'komfyr','stove',1449,4
+'lekegrind','play pen',602,2
+'ovn','oven',7130,5
+'PC','computer',41778,1
+'potte','potty',1184,3
+'rom','room',87748,16
+'seng','bed',32461,47
+'skap','closet',11310,19
+'skuff','drawer',1146,6
+'sofa','couch',14687,5
+'soverom','bedroom',11370,1
+'stol','chair',17754,40
+'stue','living room',19733,8
+'terrasse','terrace',4770,1
+'tørketrommel','dryer',767,4
+'trapp','stairs',12647,1
+'TV','TV',58063,9
+'vask','sink',6876,6
+'vaskemaskin','washing machine',2887,2
+'vindu','window',30472,31
+'badebasseng','pool',268,2
+'bakgård','backyard',2581,1
+'blomst','flower',16242,30
+'fjell','mountain',34010,1
+'flagg','flag',10441,1
+'fortau','sidewalk',2704,1
+'gress','grass',10258,2
+'gressklipper','lawn mower',657,6
+'himmel','sky',27605,1
+'huske','swing',14753,128
+'kjelke','sled',312,6
+'måne','moon',8110,16
+'pinne','stick',5990,2
+'regn','rain',19954,1
+'sandkasse','sandbox',1061,5
+'sklie','slide',430,2
+'skyer','clouds',9652,3
+'snø','snow',25916,4
+'snømann','snowman',695,2
+'sol','sun',47810,14
+'spade','spade',3268,22
+'steiner','rocks',20532,5
+'stige','ladder',4002,3
+'stjerner','stars',37996,12
+'tak','roof',80784,11
+'trampoline','trampoline',698,1
+'tre','tree',21156,47
+'vann','water',128365,61
+'vannslange','hose',218,1
+'vei','street',242681,36
+'vind','wind',26281,1
+'bensinstasjon','gas station',4120,1
+'bondegård','farm',753,5
+'butikk','store',63212,3
+'byen','downtown',287890,10
+'campingplass','camping site',3425,1
+'dyrehage','zoo',781,2
+'fest','party',32675,2
+'hage','yard',19445,6
+'hjem','home',25005,7
+'hus','house',111408,32
+'jobb','work',203898,4
+'kino','cinema',25031,1
+'kirke','church',75007,1
+'landet','the countryside',#N/A,#N/A
+'lekeplass','playground',2281,3
+'park','park',14131,19
+'sirkus','circus',3908,1
+'skogen','the woods',42463,1
+'skole','school',250915,28
+'strand','beach',21420,2
+'svømmehall','swimming pool',1887,1
+'ut','outside',1371838,181
+'baby','baby',16739,33
+'barn','child',438387,21
+'barnets navn','child's own name',#N/A,317
+'barnevaktens navn','babysitter's name',#N/A,#N/A
+'bestefar','grandfather',6554,1
+'bestemor','grandmother',8557,2
+'bonde','farmer',26702,2
+'brannmann','fireman',1764,2
+'bror','brother',34283,1
+'cowboy','cowboy',1734,8
+'dame','lady',59469,22
+'doktor','doctor',3664,5
+'farfar','(paternal) grandfather',2063,1
+'farmor','(paternal) grandmother',1905,1
+'folk','people',384521,2
+'gutt','boy',134986,37
+'helsesøster','nurse',4949,1
+'jente','girl',159199,30
+'klovn','clown',2462,7
+'lærer','teacher',74910,12
+'mamma','mommy',36751,171
+'mann','man',315581,18
+'mennesker','people',289792,9
+'morfar','(maternal) grandfather',1736,1
+'mormor','(maternal) grandmother',2860,1
+'navn på kjæledyr','pet's name',#N/A,#N/A
+'oldefar','great-grandfather',1234,1
+'oldemor','great-grandmother',1194,1
+'onkel','uncle',9753,6
+'pappa/far','daddy',24689,118
+'politi','police',89536,7
+'postbud','mailman',375,4
+'søster','sister',20446,1
+'tante','aunt',8489,6
+'venn','friend',240567,8
+'venninne','(female) friend',19939,2
+'”kommer og tar deg” lek',''gonna get you' game',73,1
+'bade','bathe',8123,16
+'frokost','breakfast',15287,1
+'gå på do','go to the bathroom',1252,1
+'god natt','good night',2520,1
+'ha det','bye',467,6
+'hallo','hello',3699,61
+'handle','shop',109640,2
+'hei','hi',64086,74
+'hysj','hush',353,1
+'ikke','not',5202279,893
+'ja','yes',158496,3291
+'jo','yes',589490,120
+'klappe kake','patty cake',3,1
+'kveldsmat','supper',1590,1
+'Borte! (lek hvor ansikt gjemmes og plutselig vises)','peek-a-boo',5,27
+'lunsj','lunch',12285,1
+'middag','dinner',27049,6
+'nei','no',136554,470
+'ringe',call (on phone)',45240,23
+'snurre rundt','turn around',565,1
+'sovetid','nap time',55,1
+'sååå stor','this big!',46,1
+'takk','thank you',106589,106
+'vær så snill','please',3787,1
+'vent','wait',9678,10
+'vil','wanna/want to',1848716,138
+'jobbe','work',192166,1
+'bite','bite',17348,7
+'blåse','blow',19567,16
+'bråke','brawl',2476,22
+'bygge','build',172286,19
+'bære','carry',44847,10
+'danse','dance',21390,20
+'dele','share',111880,7
+'drikke','drink',43156,27
+'dytte','push',7857,6
+'elske','love',3733,1
+'fange','catch',26887,13
+'falle','fall',108342,28
+'finne','find',551966,136
+'forte seg','hurry',152,7
+'få','get',2396707,287
+'gi','give',891875,19
+'gjemme','hide',12187,15
+'gjøre seg ferdig','finish',625,1
+'gli','slide',17619,1
+'gråte','cry',13366,7
+'gå','walk',1297942,312
+'ha','have',8429287,1174
+'hate','hate',25992,1
+'helle','pour',8838,5
+'hente','get',95263,42
+'hjelpe','help',144856,34
+'holde','hold',372390,43
+'holde øye med','watch',818,1
+'hoppe','jump',31778,24
+'huske','swing',#N/A,#N/A
+'høre','hear',233345,56
+'høre etter','listen',803,1
+'følge etter','follow',5656,1
+'kaste','throw',68891,29
+'kile','tickle',1701,3
+'kjøpe','buy',255029,13
+'kjøre','drive',145844,89
+'klappe','clap',5766,3
+'klatre','climb',10674,15
+'klemme','hug',7732,4
+'kle på','dress',2010,1
+'koste',cost/sweep',#N/A,#N/A
+'kysse','kiss',11868,2
+'lage mat','cook',3671,1
+'late som','pretend',5519,1
+'putte','put',14269,38
+'legge','put',629383,63
+'leke','toy',26869,69
+'lese','read',264653,77
+'like','like',153782,28
+'lukke','close',18704,20
+'løpe','run',48219,49
+'male','paint',23491,41
+'mate','feed',4581,2
+'miste','loose',87531,13
+'reparere','repair',6683,8
+'passe','fit',89523,38
+'plaske','splash',756,1
+'prøve','try',223301,67
+'puste','breathe',11258,7
+'ri','ride',22478,8
+'riste','shake',8566,2
+'rive av','rip',1250,1
+'rydde','tidy',22236,9
+'røre','touch',12537,4
+'se','look',1566932,933
+'se på','look at',152869,1
+'sette','put',416323,79
+'si','say',1464840,387
+'sitte','sit',224252,193
+'skjære','cut',10296,5
+'skli','slip',6534,5
+'skrive','write',648363,3
+'skynde seg','hurry',940,7
+'slikke','lick',8204,2
+'slutte','finish',68314,3
+'slå','hit',186927,30
+'smake','taste',23745,9
+'smile','smile',29058,2
+'snakke','talk',184454,29
+'sove','sleep',40794,51
+'sparke','kick',17049,9
+'spille','play',306904,41
+'spise','eat',104732,115
+'stikke','sting',36577,6
+'stoppe','stop',72269,6
+'stå','stand',523907,145
+'synge','sing',47677,32
+'svømme','swim',7226,4
+'søle','spill',1123,2
+'ta','take',1419661,296
+'tegne','draw',25212,114
+'tenke','think',311411,42
+'treffe','meet',56006,2
+'dra','go',148743,5
+'tørke','dry',9544,16
+'vaske','wash',19396,10
+'vente','wait',129451,8
+'slå seg','hurt oneself',9539,1
+'vise','show',470932,63
+'velte','overturn',5760,16
+'være glad i','be fond of',9388,1
+'våkne','wake',23206,2
+'ødelegge','break',51755,1
+'ønske','wish',328796,2
+'åpne','open',111606,16
+'bedre','better',349680,1
+'blå','blue',31961,32
+'bløt','soft/wet',3020,2
+'borte','away',56747,56
+'bra','good',354111,64
+'bråkete','noisy',614,2
+'brun','brown',16214,4
+'dårlig','bad',227001,3
+'ekkelt','yucky',8620,4
+'fin','fine',240979,241
+'forsiktig','careful',32764,10
+'først','first',178986,37
+'fort','fast',94174,25
+'frekk','cheeky',8977,2
+'full','full',211567,8
+'gammel','old',342030,18
+'glad','happy',93604,14
+'god','good',1920301,182
+'grønn','green',43341,18
+'gul','yellow',30966,23
+'hard','hard',103135,13
+'høy','high',310687,29
+'hvit','white',70380,9
+'kald','cold',45169,13
+'klissete','sticky',1051,1
+'lang','long',517593,35
+'lei seg','sad',2569,1
+'liten','small',828607,144
+'mørkt','dark',44729,3
+'ny','new',1167123,21
+'ødelagt','broken',18472,10
+'oransje','orange',3395,1
+'pen','pretty',47091,15
+'rar','nice',60473,105
+'redd','scared',53509,11
+'ren','clean',91341,3
+'rød','red',68611,44
+'sen','late',177291,2
+'sint','mad',13869,24
+'sist','last',420404,15
+'sitter fast','stuck',2000,1
+'skitten','dirty',7480,4
+'skjønn','beautiful',12524,1
+'slem','bad',5791,8
+'snill','kind',31313,22
+'søt','cute',32482,5
+'søvnig','sleepy',921,1
+'stakkars','poor',10597,2
+'stille','quiet',54841,26
+'stor','big',1307694,62
+'sulten','hungry',8876,7
+'sur','grumpy',23512,4
+'svart','black',45765,8
+'syk','sick',56929,1
+'tom','empty',36694,5
+'tørr','dry',23950,3
+'tørst','thirsty',2135,5
+'trøtt','tired',9729,4
+'tung','heavy',59220,10
+'våken','awake',7936,5
+'varm','hot',58220,22
+'våt','wet',18513,9
+'vondt','painful',129422,19
+'dag','day',1074722,62
+'etter','after',1137455,23
+'ettermiddag','afternoon',29317,3
+'etterpå','afterwords',36076,29
+'før','before',598533,41
+'formiddag','morning',14515,2
+'i dag','today',394236,2
+'i går','yesterday',83408,7
+'i kveld','tonight',2709,2
+'i morgen','tomorrow',37720,7
+'kveld','evening',123627,2
+'morgen','morning',46248,2
+'nå','now',1120297,461
+'natt','night',73005,4
+'senere','later',125096,1
+'tid','time',644085,11
+'de','they',2911837,481
+'deg','you (sg)',654317,8
+'deg selv','yourself',33409,1
+'dem','them',462725,39
+'den','it/that',3864873,1619
+'denne','this',1053753,31
+'dere','you (pl)',406134,53
+'deres','your(s) (pl)/their(s)',201042,3
+'det','it/that',11278389,4917
+'dette','this',2010675,100
+'din','your(s) (sg)',304988,234
+'disse','these',492410,17
+'du','you (sg)',2804710,3448
+'ham','him',172668,3
+'han','he',2209568,855
+'hans','his',261100,10
+'henne','her',170695,12
+'hennes','her(s)',120798,3
+'hun','she',1000080,238
+'hverandre','each other',101055,15
+'jeg','I',4816307,906
+'man','one',1383204,55
+'meg','me',1000527,2
+'meg selv','myself',25540,1
+'min','my/mine',496463,45
+'oss','us',600133,26
+'seg','himself/herself',2050589,95
+'seg selv','himself/herself',130150,1
+'sin','his/her',1393825,123
+'vår','our(s)',499327,14
+'vi','we',3387355,1111
+'hva','what',859118,1533
+'hvem','who',159251,131
+'hvilken','which',240992,70
+'hvor','where',660990,268
+'hvordan','how',435967,33
+'hvorfor','why',187443,40
+'når','when',1086512,123
+'av','by',7737060,208
+'bak','behind',156733,25
+'bort','away',118510,69
+'borte','away',56747,56
+'der','there',742743,1206
+'for','for',6939412,521
+'foran','in front of',95023,11
+'fra','from',2696389,29
+'frem','forward',210978,7
+'gjennom','through',360696,4
+'her','here',1050636,423
+'hit','here (hither)',25403,14
+'hjem','home',105920,7
+'hjemme','(at) home',102855,6
+'hos','at',278021,18
+'i','at',15141908,548
+'i stedet for','instead of',32260,12
+'inn','inside',911258,61
+'inne','inside',117267,21
+'inni','inside',17319,42
+'med','with',6630707,329
+'mot','towards/against',849778,5
+'ned','down',368446,85
+'nede','down(stairs)',41226,10
+'nedi','down in',2754,9
+'om','about',3259965,137
+'opp','up',1016524,139
+'oppå','on top of',8110,58
+'oppe','up(stairs)',42346,8
+'oppi','up in',11144,174
+'over','over',981095,17
+'på','on',9507635,1064
+'til','to',62579,376
+'tilbake','back',285663,30
+'under','under',543826,34
+'ut','outside',1371838,181
+'ute','outside',165881,62
+'utenfor','outside',113560,7
+'utenpå','outside',3592,5
+'ved siden av','next to',29117,1
+'vekk','away',43417,10
+'alle','everyone',304512,15
+'alt','everything',375299,29
+'andre','other(s)',72801,13
+'den','it/that',3887740,1619
+'det','it/that',11291491,4917
+'ei','a',120367,1
+'en','a',11415112,1019
+'en annen','another',1478707,28
+'et','a',3151715,3
+'hver','each',396195,6
+'hvert','each',143732,3
+'ikke','not',5202279,893
+'ingen','no one',147321,15
+'ingenting','nothing',70201,7
+'litt','a little',821994,405
+'mange','many',1748921,86
+'mer','more',1529227,2
+'mye','a lot',2742433,166
+'noe','something',744491,349
+'noen','someone',414688,277
+'også','too',1680324,292
+'samme','same',434827,21
+'bli','be(come)',3721974,178
+'bør','should',324893,1
+'burde','should',469501,4
+'er','is',12115790,15
+'få','get',2396707,287
+'gjør','does',475020,320
+'gjorde','did',149517,52
+'gjøre','do',1340396,488
+'ha','have',73111,1174
+'hadde','had',1000755,2
+'har','has',6229512,10
+'kan','can',2851732,3
+'kunne','could',3456913,742
+'la','let',170816,7
+'må','have to',1121332,5
+'måtte','had to',1355908,242
+'skal','will',1837061,3
+'skulle','would',2295140,1152
+'være','be',16594833,4419
+'var','was',2446938,6
+'vil','wanna/want to',1814650,4
+'ville','would',2183940,161
+'at','that',6016756,215
+'eller','or',1705360,210
+'for','for',352478,521
+'fordi','because',320966,12
+'hvis','if',498529,86
+'men','but',3015440,444
+'og','and',16079937,1074
+'så','then',2141716,900
+'som','that',5486715,402
