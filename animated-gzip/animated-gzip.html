@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Animated gzip</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-array@2.7.1/dist/d3-array.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+
+    <style>
+      .d3-tip {
+        line-height: 1;
+        font-family: "Courier";
+        font-size: 12px;
+        padding: 10px;
+        background: white;
+        color: black;
+        border-radius: 2px;
+        border: solid black;
+        border-width: thin;
+        pointer-events: none;
+      }
+      .title {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 24px;
+      }
+      .caption {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 10px;
+      }
+      .label {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+      <button id="button"">Compress</button>
+    <script type="text/javascript">
+      const margin = { top: 20, right: 20, bottom: 20, left: 40 };
+      const padding = 40;
+
+      const bitsPerCharFormat = d3.format(".1f");
+
+      d3.text("data/ham.txt").then((text) => {
+        const lineLength = 40;
+        let items = parseDefdbOutput(text);
+        items = breakIntoFixedLengthLines(items, lineLength);
+        //items = breakIntoLines(items, lineLength);
+        console.log(items)
+        const numLines = items[items.length - 1].lineNumber + 1
+
+        const bitsWidth = 3;
+        const charHeight = 8 * bitsWidth;
+        const charSpacing = 2 * bitsWidth;
+        const textSize = (10 / 1.5) * bitsWidth;
+        const textOffsetX = textSize / 4;
+        const textOffsetY = textSize - 1;
+
+        const w = 80 * 9 * bitsWidth;
+        const h = numLines * (charHeight + charSpacing);
+
+        const svg = d3
+          .select("body")
+          .append("svg")
+          .attr("width", w + margin.left + margin.right)
+          .attr("height", h + margin.top + margin.bottom);
+
+        const g = svg
+          .append("g")
+          .attr(
+            "transform",
+            "translate(" + margin.left + "," + margin.top + ")"
+          );
+
+        const tip = d3
+          .tip()
+          .attr("class", "d3-tip")
+          .html(
+            (d) => `${d.fullText}<br/>${d.length == 1 ? d.bitsPerChar : bitsPerCharFormat(d.bitsPerChar)} bits/char`
+          )
+          .direction((d) => (d.lineNumber < numLines / 2 ? "s" : "n"));
+        svg.call(tip);
+
+        // Create groups that contain coloured rectangles and characters.
+        // Each group can then be transformed to similate the effect of compression
+        const groups = g.selectAll(".groups")
+          .data(items)
+          .enter()
+          .append("g")
+          .attr("class", "item")
+          .attr("transform", d => "translate(" + ((d.cumLineUncompressedSize - d.uncompressedSize) * bitsWidth) +  ",0)")
+
+        groups.append("rect")
+          .attr("class", d => `rect rect-${d.pos}`)
+          .attr("x", 0)
+          .attr("y", (d) => d.lineNumber * (charHeight + charSpacing))
+          .attr("width", (d) => d.uncompressedSize * bitsWidth)
+          .attr("height", charHeight)
+          .attr("fill", (d) => bitsPerCharToColour(d.bitsPerChar))
+          .attr("stroke", "black")
+          .attr("stroke-width", 0.5)
+          .on("mouseover", tip.show)
+          .on("mouseout", tip.hide)
+          .on("mousedown", (data, index, element) => {
+            if (data.distance != null) {
+              tip.hide(data, element[index]);
+              svg.selectAll(".text").attr("visibility", d => d.pos === data.pos ? "visible" : "hidden")
+              svg.selectAll(".rect").attr("fill-opacity", 0.5)
+              for (let i = data.pos - data.distance; i < data.pos - data.distance + data.length; i++) {
+                svg.select(`.char-${i}`).attr("visibility", "visible")
+              }
+            }})
+          .on("mouseup", (data, index, element) => {
+            if (data.distance != null) {
+              svg.selectAll(".text").attr("visibility", "visible")
+              svg.selectAll(".rect").attr("fill-opacity", 1)
+            }})
+
+        // Draw characters
+        groups
+          .selectAll("each-letter")
+          .data(
+            (d, i) => d3.range(d.text.length).map(() => d) // create text.length copies
+          )
+          .enter()
+          .append("text")
+          .attr("class", (d, i) => `text char-${d.subpos + i}`)
+          .text((d, i) => d.text[i])
+          .attr("x", (d, i) => (i * 8) * bitsWidth + textOffsetX)
+          .attr("y", (d) => d.lineNumber * (charHeight + charSpacing) + textOffsetY)
+          .attr("font-size", `${textSize}px`)
+          .attr("font-family", "Courier")
+          .attr("pointer-events", "none");
+
+        const button = d3.select("#button");
+        button.on("click", function () {
+          const button = d3.select(this);
+          if (button.text() === "Compress") {
+            groups.transition()
+              .duration(2000)
+              .attr("transform", d => "translate(" + ((d.cumLineCompressedSize - d.compressedSize) * bitsWidth) +  ",0) scale(" + (d.compressedSize/d.uncompressedSize) + ", 1)")
+              .end().then(() => {
+                button.text("Decompress");
+              });
+          } else {
+            groups.transition()
+              .duration(2000)
+              .attr("transform", d => "translate(" + ((d.cumLineUncompressedSize - d.uncompressedSize) * bitsWidth) +  ",0)")
+              .end().then(() => {
+                button.text("Compress");
+              });
+          }
+        });
+      });
+
+      function parseDefdbOutput(defdbText) {
+        let chars = [];
+        const items = defdbText.split(/\r?\n/).flatMap((line) => {
+          const match = line.match(
+            /\[(?<compressedSize>\d+)\] ((?<literal>[0-9A-F][0-9A-F])|\((?<length>\d+),(?<distance>\d+)\))$/
+          );
+          if (match != null) {
+            const item = match.groups;
+            item.pos = chars.length;
+            item.subpos = item.pos;
+            item.compressedSize = +item.compressedSize;
+
+            if (item.literal != null) {
+              const c = String.fromCharCode(parseInt(item.literal, 16));
+              item.length = 1;
+              item.uncompressedSize = 8;
+              item.text = makePrintable(c);
+              chars.push(c);
+            } else {
+              item.length = +item.length;
+              item.distance = +item.distance;
+              const len = item.length;
+              const dist = item.distance;
+              const backref = chars.slice(-dist, -dist + len);
+              item.uncompressedSize = 8 * backref.length;
+              item.text = makePrintable(backref.join(""));
+              chars = chars.concat(backref);
+            }
+            item.fullText = item.text;
+            item.bitsPerChar = item.compressedSize / item.length;
+            return [item];
+          } else {
+            return [];
+          }
+        });
+        return items
+      }
+      function breakIntoLines(items, lineLength) {
+        let chars = [];
+        let lineNumber = 0;
+        let linePos = 0;
+        let cumLineCompressedSize = 0;
+        let cumLineUncompressedSize = 0;
+        return items.map(item => {
+          if (linePos >= lineLength) {
+            // new line
+            lineNumber++;
+            linePos = 0;
+            cumLineCompressedSize = 0;
+            cumLineUncompressedSize = 0;
+          }
+          if (item.literal != null) {
+            linePos++;
+            cumLineCompressedSize += item.compressedSize;
+            cumLineUncompressedSize += item.uncompressedSize;
+          } else {
+            linePos += item.text.length;
+            cumLineCompressedSize += item.compressedSize;
+            cumLineUncompressedSize += item.uncompressedSize;
+          }
+          item.lineNumber = lineNumber;
+          item.cumLineCompressedSize = cumLineCompressedSize;
+          item.cumLineUncompressedSize = cumLineUncompressedSize;
+          return item;
+        });
+      }
+      function breakIntoFixedLengthLines(items, lineLength) {
+        let chars = [];
+        let lineNumber = 0;
+        let linePos = 0;
+        let cumLineCompressedSize = 0;
+        let cumLineUncompressedSize = 0;
+        return items.flatMap(item => {
+          if (linePos >= lineLength) {
+            // new line
+            lineNumber++;
+            linePos = 0;
+            cumLineCompressedSize = 0;
+            cumLineUncompressedSize = 0;
+          }
+          if (item.literal != null) {
+            linePos++;
+            cumLineCompressedSize += item.compressedSize;
+            cumLineUncompressedSize += item.uncompressedSize;
+            item.lineNumber = lineNumber;
+            item.cumLineCompressedSize = cumLineCompressedSize;
+            item.cumLineUncompressedSize = cumLineUncompressedSize;
+            return [item];
+          } else {
+            // potentially items spanning multiple lines
+            const totalLength = item.text.length;
+            let remainingLength = item.text.length;
+            let offset = 0;
+            const newItems = [];
+            while (remainingLength > 0) {
+              let length;
+              if ((linePos + remainingLength) <= lineLength) {
+                length = remainingLength;
+                const scale = length / totalLength;
+                linePos += length;
+                cumLineCompressedSize += item.compressedSize * scale;
+                cumLineUncompressedSize += item.uncompressedSize * scale;
+                const newItem = {...item};
+                newItem.subpos = item.pos + offset;
+                newItem.text = item.text.substring(offset)
+                newItem.lineNumber = lineNumber;
+                newItem.cumLineCompressedSize = cumLineCompressedSize;
+                newItem.cumLineUncompressedSize = cumLineUncompressedSize;
+                newItem.compressedSize = item.compressedSize * scale;
+                newItem.uncompressedSize = item.uncompressedSize * scale;
+                newItems.push(newItem);
+                break;
+              } else {
+                length = lineLength - linePos;
+                const scale = length / totalLength;
+                cumLineCompressedSize += item.compressedSize * scale;
+                cumLineUncompressedSize += item.uncompressedSize * scale;
+                const newItem = {...item};
+                newItem.subpos = item.pos + offset;
+                newItem.text = item.text.substring(offset, offset + length)
+                newItem.lineNumber = lineNumber;
+                newItem.cumLineCompressedSize = cumLineCompressedSize;
+                newItem.cumLineUncompressedSize = cumLineUncompressedSize;
+                newItem.compressedSize = item.compressedSize * scale;
+                newItem.uncompressedSize = item.uncompressedSize * scale;
+                newItems.push(newItem);
+                // new line
+                lineNumber++;
+                linePos = 0;
+                cumLineCompressedSize = 0;
+                cumLineUncompressedSize = 0;
+              }
+              remainingLength -= length;
+              offset += length;
+            }
+            return newItems;
+          }
+        });
+      }
+      function makePrintable(s) {
+        return s.replace(/ /g, "\u2423").replace(/[\x00-\x1F]/g, "\u25A1");
+      }
+      function bitsPerCharToColour(bitsPerChar) {
+        if (bitsPerChar <= 8) {
+          return d3.interpolateBlues(1.0 - bitsPerChar / 8.0);
+        }
+        bitsPerChar = Math.min(bitsPerChar, 12);
+        return d3.interpolateReds((bitsPerChar - 8.0) / 4.0);
+      }
+    </script>
+  </body>
+</html>

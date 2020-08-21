@@ -1,0 +1,14 @@
+ [1] Last block (val: 1)
+ [2] Fixed Huffman Tree block (val: 1)
+ [8] 48
+ [8] 65
+ [8] 6C
+ [8] 6C
+ [8] 6F
+ [8] 68
+ [8] 7A
+[13] (3,6)
+ [8] 20
+[13] (3,6)
+ [8] 0A
+ [7] EofB
