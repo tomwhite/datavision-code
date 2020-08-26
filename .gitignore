@@ -19,3 +19,5 @@ venv
 30-land-cover/data/*.zip
 30-land-cover/data/readme.txt
 30-land-cover/data/*.pdf
+35-lego-colours/data/*.zip
+35-lego-colours/data/*.csv
