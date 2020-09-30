@@ -21,3 +21,4 @@ venv
 30-land-cover/data/*.pdf
 35-lego-colours/data/*.zip
 35-lego-colours/data/*.csv
+40-the-a1/data
