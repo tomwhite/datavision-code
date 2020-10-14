@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A Level grades</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <style>
+      .axis {
+        font-family: "sans-serif";
+        font-size: 14px;
+      }
+      .label {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="plot"></div>
+    <script type="text/javascript">
+      // based on https://observablehq.com/@d3/stacked-bar-chart
+
+      // set the dimensions and margins of the graph
+      const margin = { top: 50, right: 40, bottom: 45, left: 40 },
+        width = 800 - margin.left - margin.right,
+        height = 550 - margin.top - margin.bottom;
+
+      // append the svg object to the body of the page
+      const svg = d3
+        .select("#plot")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+      const g = svg
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      d3.csv("data/a-levels.csv", d3.autoType).then((data) => {
+        data.reverse();
+
+        const formatValue = (x) => (isNaN(x) ? "N/A" : x.toLocaleString("en"));
+
+        const stacked = d3
+          .stack()
+          .keys(data.columns.slice(1, 9).reverse())(data)
+          .map((d) => (d.forEach((v) => (v.key = d.key)), d));
+
+        const x = d3
+          .scaleBand()
+          .domain(data.map((d) => d.Year))
+          .range([margin.left, width - margin.right])
+          .padding(0.1);
+
+        const y = d3
+          .scaleLinear()
+          .domain([0, 100])
+          .rangeRound([height - margin.bottom, margin.top]);
+
+        const yRev = d3
+          .scaleLinear()
+          .domain([100, 0])
+          .rangeRound([height - margin.bottom, margin.top]);
+
+        const color = d3
+          .scaleOrdinal()
+          .domain(stacked.map((d) => d.key))
+          .range(d3.schemeTableau10.slice(0, stacked.length))
+          .unknown("#ccc");
+
+        g.append("g")
+          .selectAll("g")
+          .data(stacked)
+          .join("g")
+          .attr("fill", (d) => color(d.key))
+          .selectAll("rect")
+          .data((d) => d)
+          .join("rect")
+          .attr("x", (d, i) => x(d.data.Year))
+          .attr("y", (d) => y(d[1]))
+          .attr("height", (d) => y(d[0]) - y(d[1]))
+          .attr("width", x.bandwidth())
+          .append("title")
+          .text(
+            (d) => `${formatValue(d.data[d.key])}% ${d.key}
+${d.data.Year}`
+          );
+
+        const xAxisTop = (g) =>
+          g
+            .attr("class", "axis")
+            .attr("transform", `translate(0,${height - margin.bottom})`)
+            .call(
+              d3
+                .axisBottom(x)
+                .tickValues([
+                  "1989",
+                  "1995",
+                  "2000",
+                  "2005",
+                  "2010",
+                  "2015",
+                  "2020 Teacher",
+                ])
+                .tickSizeOuter(0)
+            )
+            .call((g) => g.selectAll(".domain").remove());
+
+        const xAxisBottom = (g) =>
+          g
+            .attr("class", "axis")
+            .attr("transform", `translate(0,${margin.top})`)
+            .call(
+              d3
+                .axisTop(x)
+                .tickValues(["1963-1986", "2020 Algorithm"])
+                .tickSizeOuter(0)
+            )
+            .call((g) => g.selectAll(".domain").remove());
+
+        const yAxisLeft = (g) =>
+          g
+            .attr("class", "axis")
+            .attr("transform", `translate(${margin.left},0)`)
+            .call(d3.axisLeft(yRev).ticks(null, "s"))
+            .call((g) => g.selectAll(".domain").remove());
+
+        const yAxisRight = (g) =>
+          g
+            .attr("class", "axis")
+            .attr("transform", `translate(${width - margin.right},0)`)
+            .call(d3.axisRight(yRev).ticks(null, "s"))
+            .call((g) => g.selectAll(".domain").remove());
+
+        g.append("g").call(xAxisTop);
+        g.append("g").call(xAxisBottom);
+
+        g.append("g").call(yAxisLeft);
+        g.append("g").call(yAxisRight);
+
+        // Legend
+        const grades = stacked.map((d) => d.key).reverse();
+        g.selectAll("legend")
+          .data(grades)
+          .enter()
+          .append("rect")
+          .attr("x", width - margin.right + 40)
+          .attr("y", (d, i) => margin.top + i * 20)
+          .attr("width", 15)
+          .attr("height", 15)
+          .attr("fill", (d) => color(d));
+        g.selectAll("legend")
+          .data(grades)
+          .enter()
+          .append("text")
+          .attr("x", width - margin.right + 60)
+          .attr("y", (d, i) => margin.top + 12 + i * 20)
+          .attr("class", "label")
+          .text((d) => d);
+
+        // Add a title and caption
+        g.append("g")
+          .append("text")
+          .attr("x", 0)
+          .attr("y", 0)
+          .text("A Level grades")
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "24px");
+        g.append("g")
+          .append("text")
+          .attr("x", 0)
+          .attr("y", height)
+          .text("Graphic: Tom White. Data source: Brian Stubbs")
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "14px");
+      });
+    </script>
+  </body>
+</html>
