@@ -1,0 +1,182 @@
+display_id,zipCode,land,state,objectType,buildType,baujahr,constructionType,units,squareMeters,city
+6435,PO38 2DG,UK,South West England,detached single family house,Passive House new build,2019,timber construction,1,150,Niton
+6421,BN25 7NQ,UK,South East England,detached single family house,EnerPHit Retrofit,2019,masonry construction,1,1444,Barton on Sea
+6414,BS130QG,UK,South West England,apartment house,Passive House new build,2016,timber construction,4,217,Bristol
+6411,NW5 4DJ,UK,Greater London,apartment house,EnerPHit Retrofit,2019,masonry construction,15,637,London
+6410,OX2 6PN,UK,South East England,school | campus | university,Passive House new build,2017,masonry construction,0,303,Oxford
+6362,SW1W 8HR,UK,Greater London,terraced house,EnerPHit Retrofit,2015,masonry construction,1,66,London
+6361,CO2 8YY,UK,East of England,apartment house,Passive House new build,2020,timber construction,6,322,Colchester
+6360,CO2 8YY,UK,East of England,terraced house,Passive House new build,2019,timber construction,12,1200,Colchester
+6357,S6 3QB,UK,Yorkshire and the Humber,detached single family house,EnerPHit Retrofit,2018,mixed construction,1,,Sheffield
+6343,EX5 2JA,UK,South West England,detached single family house,Passive House new build,2018,mixed construction,1,357,Exeter
+6329,BA3 3DD,UK,South West England,detached single family house,Passive House new build,2018,timber construction,1,114,Radstock
+6315,EX12 2NP,UK,,apartment house,Passive House Plus new build,2019,mixed construction,8,870,"Seaton, Devon"
+6300,M11 2LH,UK,Yorkshire and the Humber,terraced house,Passive House new build,2019,timber construction,3,233,MANCHESTER
+6273,CO2 8YY,UK,East of England,urban settlement | housing colony,Passive House new build,2019,timber construction,5,650,Colchester
+6226,BT19 6LX,UK,Northern Ireland,detached single family house,Passive House new build,2015,timber construction,1,205,Belfast
+6224,BT61 8LG,UK,Northern Ireland,detached single family house,Passive House new build,2017,masonry construction,1,275,Armagh
+6195,SO45,UK,South West England,detached single family house,Passive House new build,2019,timber construction,1,181,Southampton
+6165,IV51 9NW,UK,Scotland,detached single family house,Passive House new build,2018,masonry construction,1,224,"Portree, Isle of Skye"
+6164,HG1 4EB,UK,Yorkshire and the Humber,detached single family house,Low-energy house new build,2018,timber construction,1,168,Harrogate
+6159,WR13 5ES,UK,West Midlands,detached single family house,Passive House new build,2019,timber construction,1,182,Storridge
+6154,HP4 1HE.,UK,South East England,detached single family house,EnerPHit Retrofit,2017,masonry construction,1,217,"Berkhamsted,"
+6145,HR2 8AT,UK,West Midlands,detached single family house,EnerPHit Retrofit,2018,masonry construction,1,167,Hereford
+6136,SO50 9QX,UK,South East England,terraced house,Passive House new build,2018,timber construction,5,432,Eastleigh
+6129,DG16 5QB,UK,Scotland,detached single family house,Passive House new build,2016,masonry construction,1,117,Gretna
+6094,NE16 5TR,UK,North East England,detached single family house,Passive House new build,2019,timber construction,1,205,Newcastle upon Tyne
+6045,NR2 4QN,UK,East of England,terraced house,Passive House new build,2019,timber construction,93,6037,Norwich
+6040,EH4 7BL,UK,Scotland,detached single family house,Passive House new build,,timber construction,1,178,Edinburgh
+6029,CV37 8TB,UK,West Midlands,detached single family house,Passive House new build,2019,timber construction,1,162,Upper Quinton
+5983,TN9 1LG,UK,South East England,detached single family house,Passive House new build,2018,timber construction,1,146,Kent
+5937,AL6 0LH,UK,South East England,detached single family house,Passive House new build,2018,masonry construction,1,209,Welwyn Garden City
+5913,WS136PB,UK,West Midlands,multi family dwelling,Passive House new build,2017,masonry construction,14,789,Lichfield
+5896,TF13 6FD,UK,West Midlands,semi detached house,Passive House new build,2018,timber construction,2,109,Much Wenlock
+5872,AL3 8BA,UK,South East England,detached single family house,Passive House new build,2017,timber construction,1,192,"Flamstead, St. Albans"
+5870,M12 5RB,UK,North West England,apartment house,EnerPHit Retrofit,2015,mixed construction,12,741,Manchester
+5865,M12 5RB,UK,North West England,apartment house,EnerPHit Retrofit,2015,mixed construction,20,1253,Manchester
+5842,LS17 9JU,UK,Yorkshire and the Humber,detached single family house,Passive House new build,2018,masonry construction,1,140,"Wike, Leeds"
+5838,SE23 3TL,UK,Greater London,terraced house,EnerPHit Retrofit,1978,masonry construction,1,97,London
+5830,BT66 7SW,UK,Northern Ireland,detached single family house,Passive House new build,2018,masonry construction,1,204,Craigavon
+5827,DL8 4AJ,UK,Yorkshire and the Humber,detached single family house,Passive House new build,2018,masonry construction,1,123,Preston Under Scar
+5822,WR13 5JQ,UK,West Midlands,detached single family house,Passive House new build,2016,masonry construction,0,256,Cradley
+5807,M21 8TH,UK,North West England,semi detached house,EnerPHit Retrofit Plus,2018,mixed construction,2,374,Manchester
+5771,WA68BU,UK,North West England,semi detached house,Passive House refurbishment,2016,masonry construction,1,90,Kingsley
+5760,HP4 2NH,UK,South East England,detached single family house,EnerPHit Retrofit,2017,masonry construction,1,206,Berkhamsted
+5733,PE33 9AP,UK,East of England,public building | church,Passive House new build,2018,masonry construction,1,374,King's Lynn
+5720,HR2 8AT,UK,East Midlands,detached single family house,EnerPHit Retrofit,2018,masonry construction,1,167,Hereford
+5633,BN33WL,UK,South East England,terraced house,low energy refurbishment with PH components,2017,masonry construction,1,110,Brighton & Hove
+5632,BN3 6NR,UK,South East England,detached single family house,Passive House new build,2017,timber construction,1,454,Brigthon and Hove
+5610,HP4,UK,South East England,detached single family house,EnerPHit Retrofit,2017,masonry construction,1,206,Berkhamstead
+5600,SN10 3RD,UK,South West England,detached single family house,Passive House new build,2017,timber construction,1,245,Devizes
+5535,,UK,South East England,detached single family house,Passive House Plus new build,2015,mixed construction,1,175,Aylesbury
+5493,LS81JQ,UK,Yorkshire and the Humber,detached single family house,Passive House new build,2018,masonry construction,1,155,Leeds
+5488,SW19,UK,Greater London,detached single family house,Passive House new build,2017,mixed construction,1,219,"Merton Park, London, SW193JL"
+5472,HP22,UK,South East England,detached single family house,Passive House new build,2017,timber construction,1,167,Wendover
+5469,HP84R,UK,South East England,detached single family house,Passive House Plus new build,2017,mixed construction,1,345,"Chalfont St Giles, HP8 4RQ"
+5451,EX14,UK,South West England,office | administration building,Passive House new build,2017,timber construction,1,140,Payhembury
+5433,YO24,UK,Yorkshire and the Humber,detached single family house,Passive House new build,2017,timber construction,1,146,York
+5432,YO10 4HQ,UK,Yorkshire and the Humber,detached single family house,Passive House new build,2017,timber construction,1,108,York
+5427,NR59,UK,East of England,urban settlement | housing colony,Passive House new build,2017,mixed construction,79,476,Norwich
+5421,LL40 2SD,UK,Wales,detached single family house,Passive House new build,2017,insulated concrete forms,1,161,Dolgellau
+5415,RH10,UK,South East England,apartment house,Passive House new build,2017,masonry construction,6,362,Crawley
+5414,RH10,UK,South East England,terraced house,Passive House new build,2017,masonry construction,4,329,Crawley
+5407,E8,UK,Greater London,detached single family house,Passive House new build,2015,timber construction,1,94,London
+5406,RH10,UK,South East England,terraced house,Passive House new build,2017,masonry construction,3,227,Crawley
+5345,TN39,UK,South East England,detached single family house,EnerPHit Retrofit,2015,timber construction,1,169,Hooe
+5334,HG4,UK,Yorkshire and the Humber,detached single family house,EnerPHit Retrofit,2017,mixed construction,1,125,Ripon
+5326,LL12,UK,Wales,detached single family house,Passive House new build,2016,masonry construction,1,187,Wrexham
+5319,YO26,UK,Yorkshire and the Humber,detached single family house,Passive House new build,2015,masonry construction,1,127,York
+5310,TQ13,UK,South West England,detached single family house,low energy refurbishment with PH components,2011,masonry construction,1,246,Chagford
+5291,NP25,UK,Wales,detached single family house,Passive House new build,2017,insulated concrete forms,1,296,Monmouth
+5290,DT36B,UK,South West England,detached single family house,Passive House new build,2016,timber construction,1,216,
+5283,SP11,UK,South West England,detached single family house,Passive House Plus new build,2015,timber construction,1,197,Andover
+5282,AL5,UK,South East England,detached single family house,Passive House new build,2017,timber construction,1,343,Harpenden
+5281,BR1,UK,Greater London,detached single family house,Passive House new build,2016,timber construction,1,208,Bromley
+5263,,UK,East Midlands,school | campus | university,Passive House new build,2014,masonry construction,1,9863,Leicester LE1
+5249,NG349,UK,East of England,semi detached house,Passive House new build,2016,masonry construction,2,141,Sleaford
+5239,CB102,UK,East of England,semi detached house,Passive House new build,2016,masonry construction,2,178,Wimbish
+5238,CB102,UK,East of England,semi detached house,Passive House new build,2016,masonry construction,2,159,Wimbish
+5237,CB102,UK,East of England,semi detached house,Passive House new build,2016,masonry construction,2,139,Wimbish
+5236,CB12X,UK,East of England,semi detached house,Passive House new build,2016,masonry construction,2,178,Wimbish
+5235,CB102,UK,East of England,terraced house,Passive House new build,2016,masonry construction,3,170,Wimbish
+5234,IP257,UK,East of England,detached single family house,Passive House new build,2016,masonry construction,1,187,Ashill
+5201,NG10,UK,East Midlands,semi detached house,Passive House new build,2015,timber construction,2,175,Nottingham
+5197,DT27P,UK,South West England,detached single family house,Passive House new build,2014,timber construction,1,161,Dorchester
+5185,BT74 6RW,UK,Northern Ireland,school | campus | university,Passive House new build,2014,timber construction,1,455,Enniskillen
+5167,G63 0,UK,Scotland,detached single family house,Passive House refurbishment,2016,timber construction,1,215,Glasgow
+5166,W54JS,UK,Greater London,semi detached house,Passive House new build,2011,masonry construction,1,114,London
+5164,NW105,UK,Greater London,terraced house,Passive House refurbishment,2016,mixed construction,1,111,London
+5161,TF10 8EP,UK,West Midlands,detached single family house,Passive House new build,2016,timber construction,1,190,Newport
+5151,LE158BW,UK,East Midlands,detached single family house,Passive House new build,2014,mixed construction,1,221,Oakham
+5148,NR65F,UK,East of England,urban settlement | housing colony,Passive House new build,2016,masonry construction,14,181,Norwich
+5140,,UK,South East England,detached single family house,Passive House new build,2014,timber construction,1,420,Mayfield
+5132,HR2 8BA,UK,West Midlands,detached single family house,Passive House new build,2016,timber construction,1,95,"Little Birch, Herefordshire"
+5111,MK45,UK,East of England,detached single family house,Passive House Plus new build,2016,timber construction,1,221,Maulden
+5108,HR8 2,UK,West Midlands,single family house + separate apartment,Passive House new build,2012,mixed construction,2,130,Ledbury
+5083,LA15B,UK,North West England,terraced house,Passive House refurbishment,2016,masonry construction,1,146,Lancaster
+5070,HD4,UK,Yorkshire and the Humber,public building | church,EnerPHit Retrofit,,timber construction,1,98,Huddersfield
+5068,HD7 4JW,UK,Yorkshire and the Humber,detached single family house,Passive House new build,2014,masonry construction,1,230,Huddersfield
+5061,WR37S,UK,South West England,school | campus | university,Passive House new build,2015,timber construction,1,396,Worcester
+5043,FK8 3HL,UK,Scotland,detached single family house,Passive House new build,2016,timber construction,1,170,Kippen
+5042,CM6 3EF,UK,South East England,detached single family house,Passive House new build,2012,timber construction,1,258,Dunmow
+5035,161LJ,UK,South West England,detached single family house,Passive House new build,2017,timber construction,1,411,Bristol
+5005,PO10 7JJ,UK,South East England,detached single family house,Passive House new build,2015,timber construction,1,134,Emsworth
+5001,TQ47B,UK,South West England,detached single family house,Passive House new build,2013,timber construction,1,80,Paignton
+4995,AB24,UK,Scotland,kindergarten | day care,Passive House new build,2015,timber construction,1,513,Aberdeen
+4842,BS11,UK,South West England,terraced house,low energy new build with PH components,2015,timber construction,1,99,Bristol
+4762,YO10,UK,Yorkshire and the Humber,detached single family house,Passive House Plus new build,2015,mixed construction,1,186,York
+4751,na,UK,Northern Ireland,detached single family house,Passive House new build,2014,timber construction,1,144,Dungannon
+4750,TFI2,UK,Scotland,detached single family house,Passive House new build,2012,masonry construction,1,239,Shropshire
+4749,BT92,UK,Northern Ireland,detached single family house,EnerPHit Retrofit,2014,masonry construction,1,287,Magheraveely
+4741,PE344,UK,,semi detached house,Passive House new build,2015,timber construction,2,161,Clenchwarton
+4740,CM227,UK,East of England,terraced house,Passive House new build,2015,masonry construction,11,288,Hatfield Heath
+4739,CB214,UK,,terraced house,Passive House new build,2014,masonry construction,2,141,Horseheath
+4738,PE318,UK,East of England,terraced house,Passive House new build,2014,masonry construction,3,202,Burnham Overy Staithe
+4737,PE377,UK,East of England,detached single family house,Passive House new build,2015,masonry construction,1,104,Swaffham
+4619,,UK,North West England,detached single family house,Passive House new build,2015,mixed construction,1,135,"Crosby Ravensworth, CA10 3JE"
+4597,PO54N,UK,South East England,apartment house,EnerPHit Retrofit,2015,masonry construction,34,3120,Portsmouth
+4466,KW15,UK,Scotland,detached single family house,Passive House refurbishment,2014,mixed construction,1,40,Orkney
+4464,CA4,UK,,detached single family house,Passive House new build,2014,masonry construction,6,137,"Aglionby, Carlisle"
+4463,HP4,UK,East of England,detached single family house,Passive House new build,2014,timber construction,1,111,Berkhamsted
+4433,TD6,UK,Scotland,detached single family house,low energy refurbishment with PH components,2014,masonry construction,1,121,Melrose
+4430,GU59J,UK,South East England,detached single family house,Passive House new build,2014,timber construction,1,226,Guildford
+4426,na,UK,Northern Ireland,detached single family house,Passive House new build,2014,timber construction,1,187,Dunloy
+4417,SW17,UK,Greater London,school | campus | university,Passive House new build,2014,timber construction,1,83,London
+4411,NA,UK,Scotland,detached single family house,Passive House new build,2012,timber construction,1,163,Fenwick
+4410,DY6,UK,West Midlands,detached single family house,Passive House new build,2011,masonry construction,1,168,Kingswinford
+4409,NR31,UK,East of England,semi detached house,Passive House new build,2014,timber construction,1,68,Great Yarmouth
+4408,NR30,UK,East of England,semi detached house,Passive House new build,2014,timber construction,2,137,Great Yarmouth
+4407,CV4,UK,West Midlands,detached single family house,Passive House new build,2013,timber construction,2,75,Coventry
+4406,NG10,UK,West Midlands,terraced house,Passive House new build,2013,mixed construction,3,236,Nottingham
+4400,CV35,UK,West Midlands,semi detached house,EnerPHit Retrofit,2011,insulated concrete forms,1,65,Warwick
+4186,DH61L,UK,North East England,detached single family house,Passive House new build,2014,timber construction,1,219,Durham
+4044,SW182,UK,Greater London,terraced house,EnerPHit Retrofit,2013,masonry construction,1,139,London
+3987,NG10,UK,East Midlands,terraced house,Passive House new build,2013,timber construction,3,236,Nottingham
+3877,BT701,UK,Northern Ireland,apartment house,Passive House new build,2012,timber construction,1,85,Dungannon
+3820,W67RA,UK,Greater London,apartment house,Passive House new build,2013,mixed construction,12,951,London
+3809,GL50,UK,South West England,detached single family house,Passive House new build,2012,masonry construction,1,154,Cheltenham
+3025,W67RA,UK,Greater London,terraced house,Passive House new build,2013,mixed construction,6,686,London
+3024,BT701,UK,Northern Ireland,terraced house,Passive House new build,2012,timber construction,1,99,Dungannon
+2986,PL1,UK,South West England,office | administration building,EnerPHit Retrofit,2013,masonry construction,1,81,3RJ Plymouth
+2972,Lan,UK,North West England,urban settlement | housing colony,Passive House new build,2012,mixed construction,8,455,caster LA2 6FD
+2960,NR21,UK,East of England,semi detached house,Passive House new build,2013,mixed construction,2,177,Fulmodeston
+2955,WV10,UK,West Midlands,school | campus | university,Passive House new build,2011,timber construction,1,1707,8BY Wolverhampton
+2953,WV11,UK,West Midlands,school | campus | university,Passive House new build,2011,timber construction,1,2205,2QQ Wolverhampton
+2891,EX49A,UK,South West England,apartment house,Passive House new build,2011,masonry construction,18,948,Exeter
+2875,NE47 8PJ,UK,North East England,detached single family house,Passive House new build,2013,masonry construction,1,151,Whitfield
+2871,EX5,UK,South West England,detached single family house,Passive House new build,2012,timber construction,1,313,Silverton
+2870,GU5,UK,South East England,detached single family house,Passive House new build,2014,timber construction,1,187,Guildford
+2864,SP11,UK,South West England,detached single family house,Passive House new build,2012,timber construction,1,211,Lower Chute
+2856,BT19,UK,Northern Ireland,detached single family house,Passive House new build,2013,timber construction,1,185,Bangor
+2855,TA116,UK,South West England,detached single family house,Passive House new build,2013,timber construction,1,203,Compton Dundon
+2821,TA10,UK,South West England,terraced house,Passive House new build,2013,masonry construction,3,176,9LN Long Sutton
+2785,,UK,East of England,terraced house,Passive House new build,2012,masonry construction,14,956,Ditchingham NR25 2SB
+2753,LS9,UK,Yorkshire and the Humber,school | campus | university,Passive House new build,2012,timber construction,35,3454,8QF Leeds
+2751,SE5,UK,Greater London,terraced house,Passive House new build,2012,timber construction,1,130,London
+2705,WR10,UK,West Midlands,detached single family house,Passive House new build,2011,mixed construction,1,160,3LZ Pershore
+2646,EH44,UK,Scotland,detached single family house,Passive House new build,2011,timber construction,1,297,6 PS Innerleithen
+2518,CT3,UK,South East England,detached single family house,Passive House new build,2014,timber construction,1,118,Canterbury
+2474,,UK,Northern Ireland,detached single family house,Passive House new build,2012,timber construction,1,127,Omagh
+2456,MK43B,UK,South East England,detached single family house,Passive House new build,2012,timber construction,1,175,Milton Keynes
+2429,RH13,UK,South East England,terraced house,Passive House new build,2012,timber construction,12,1110,Horsham
+2360,EX4 1,UK,South West England,school | campus | university,Passive House new build,2011,masonry construction,0,2367,EXETER EX4 1BS
+2352,CB10,UK,East of England,terraced house,Passive House new build,2011,masonry construction,14,891,Saffron Walden
+2343,CT2,UK,South East England,factory | industrial building,Passive House new build,2010,timber construction,1,167,Canterbury
+2305,TQ9,UK,South West England,detached single family house,Passive House refurbishment,2011,mixed construction,1,162,Totnes
+2229,CV2,UK,West Midlands,semi detached house,low energy new build with PH components,2011,timber construction,23,71,1RB Coventry
+2096,KY15,UK,Scotland,detached single family house,Passive House new build,2011,timber construction,1,81,"Cupar, Fife"
+2039,NP23,UK,Wales,detached single family house,Passive House new build,2010,timber construction,1,69,Ebbw Vale
+2034,W114N,UK,Greater London,terraced house,Passive House refurbishment,2010,masonry construction,1,88,H LONDON
+2033,W67PZ,UK,Greater London,terraced house,Passive House refurbishment,2010,masonry construction,1,196,LONDON
+2005,LS5,UK,Yorkshire and the Humber,residential school | hall of residence,Passive House new build,2009,timber construction,1,294,Leeds
+1967,HD88F,UK,Yorkshire and the Humber,detached single family house,low energy new build with PH components,2010,masonry construction,1,104,Huddersfield
+1874,N16,UK,Greater London,sports centre | recreation centre,Passive House refurbishment,2010,masonry construction,0,665,"London, N16 8NA"
+1849,NP23,UK,Wales,detached single family house,Passive House new build,2010,timber construction,1,87,Ebbw Vale
+1813,TN12,UK,South East England,detached single family house,Passive House new build,2009,mixed construction,1,256,"Staplehurst, Kent"
+1807,TN110,UK,South East England,school | campus | university,Passive House new build,2010,mixed construction,1,242,Hadlow
+1787,GL56,UK,South West England,detached single family house,Passive House new build,2010,insulated concrete forms,1,358,Moreton-in-Marsh
+1779,HD7 4JW,UK,Yorkshire and the Humber,detached single family house,Passive House new build,2010,masonry construction,1,104,Huddersfield
+1778,0000,UK,South East England,office | administration building,Passive House new build,2010,mixed construction,2,504,Rochford SS4 1DQ
+1777,,UK,Greater London,detached single family house,Passive House new build,2010,timber construction,1,102,London NW2 2BU
+1773,AB51,UK,Scotland,detached single family house,low energy new build with PH components,2009,timber construction,1,179,"Midmar, Inverurie"
+1695,PA29,UK,Scotland,terraced house,Passive House new build,2009,timber construction,1,88,Dunoon

@@ -23,3 +23,4 @@ venv
 35-lego-colours/data/*.csv
 40-the-a1/data
 41-plant-chromosome-numbers/data
+43-passive-houses-in-the-uk/data/*.html
