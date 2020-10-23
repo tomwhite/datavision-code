@@ -1,293 +1,340 @@
 <!DOCTYPE html>
 <html>
-<meta charset="utf-8">
-<head>
-<title>Asteroids</title>
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="https://d3js.org/d3-array.v2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
-<script src="d3-simple-slider.min.js"></script>
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  .asteroid {
-    stroke: white;
-    stroke-width: 0.5;
-    stroke-opacity: 0.5;
-    fill: white;
-    fill-opacity: 0.5;
-  }
-  .moon-line {
-    stroke: yellow;
-    stroke-width: 0.75;
-    stroke-opacity: 0.8;
-  }
-  .moon-text {
-    font-family: "sans-serif";
-    font-size: 12px;
-    fill: yellow;
-    color: yellow;
-  }
-  .d3-tip {
-    line-height: 1;
-    font-family: "sans-serif";
-    font-size: 12px;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.8);
-    color: black;
-    border-radius: 2px;
-    pointer-events: none;
-  }
-  .axis line {
-    stroke: white;
-    stroke-opacity: 0.5;
-  }
-  .axis path {
-    stroke: white;
-    stroke-opacity: 0.5;
-  }
-  .axis text {
-    stroke-width: 0;
-    color: white;
-    fill: white;
-    font-family: "sans-serif";
-  }
-  .axis-text {
-    stroke-width: 0;
-    color: white;
-    fill: white;
-    font-family: "sans-serif";
-    font-size: 12px;
-  }
-  .slider-text {
-    stroke-width: 0;
-    fill: white;
-    font-family: "sans-serif";
-    font-size: 12px;
-  }
-  .title {
-    stroke-width: 0;
-    fill: white;
-    font-family: "sans-serif";
-    font-size: 24px;
-  }
-  .caption {
-    stroke-width: 0;
-    fill: white;
-    font-family: "sans-serif";
-    font-size: 10px;
-  }
-</style>
-</head>
+  <meta charset="utf-8" />
+  <head>
+    <title>Asteroids</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-array@2.7.1/dist/d3-array.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+    <script src="d3-simple-slider.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .asteroid {
+        stroke: white;
+        stroke-width: 0.5;
+        stroke-opacity: 0.5;
+        fill: white;
+        fill-opacity: 0.5;
+      }
+      .moon-line {
+        stroke: yellow;
+        stroke-width: 0.75;
+        stroke-opacity: 0.8;
+      }
+      .moon-text {
+        font-family: "sans-serif";
+        font-size: 12px;
+        fill: yellow;
+        color: yellow;
+      }
+      .d3-tip {
+        line-height: 1;
+        font-family: "sans-serif";
+        font-size: 12px;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.8);
+        color: black;
+        border-radius: 2px;
+        pointer-events: none;
+      }
+      .axis line {
+        stroke: white;
+        stroke-opacity: 0.5;
+      }
+      .axis path {
+        stroke: white;
+        stroke-opacity: 0.5;
+      }
+      .axis text {
+        stroke-width: 0;
+        color: white;
+        fill: white;
+        font-family: "sans-serif";
+      }
+      .axis-text {
+        stroke-width: 0;
+        color: white;
+        fill: white;
+        font-family: "sans-serif";
+        font-size: 12px;
+      }
+      .slider-text {
+        stroke-width: 0;
+        fill: white;
+        font-family: "sans-serif";
+        font-size: 12px;
+      }
+      .title {
+        stroke-width: 0;
+        fill: white;
+        font-family: "sans-serif";
+        font-size: 24px;
+      }
+      .caption {
+        stroke-width: 0;
+        fill: white;
+        font-family: "sans-serif";
+        font-size: 10px;
+      }
+    </style>
+  </head>
 
-<body>
-  <div id="asteroids"></div>
-<script>
+  <body>
+    <div id="asteroids"></div>
+    <script>
+      const width = 1080,
+        height = 720,
+        padding = 50;
 
-const width = 1080,
-    height = 720,
-    padding = 50;
+      const svg = d3
+        .select("#asteroids")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("style", "background-color: black");
 
-const svg = d3.select("#asteroids")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .attr("style", "background-color: black")
+      const parseDate = d3.timeParse("%Y-%m-%d");
+      const formatDate = d3.timeFormat("%d %b %Y");
 
-const parseDate = d3.timeParse("%Y-%m-%d");
-const formatDate = d3.timeFormat("%d %b %Y");
+      d3.csv("data/cneos_closeapproach_data_20ld_clean.csv", function (d) {
+        return {
+          object: d.Object,
+          date: parseDate(d.Date),
+          nominalDistance: +d["Nominal Distance"],
+          minimumDistance: +d["Minimum Distance"],
+          diameterRange: [
+            +d["Lower Diameter Range"],
+            +d["Upper Diameter Range"],
+          ],
+        };
+      }).then(function (data) {
+        // Calculate the nuber of approaches for each object
+        const grouped = d3.groups(data, (d) => d.object);
+        const objectToNumApproaches = Object.assign(
+          {},
+          ...grouped.map((x) => ({ [x[0]]: x[1].length }))
+        );
+        data.forEach(
+          (d) => (d.numApproaches = objectToNumApproaches[d.object])
+        );
 
-d3.csv("data/cneos_closeapproach_data_20ld_clean.csv", function(d) {
-  return {
-    object: d.Object,
-    date: parseDate(d.Date),
-    nominalDistance: +d["Nominal Distance"],
-    minimumDistance: +d["Minimum Distance"],
-    diameterRange: [+d["Lower Diameter Range"], +d["Upper Diameter Range"]]
-  };
-}).then(function(data) {
+        const xScale = d3
+          .scaleTime()
+          .domain([d3.min(data, (d) => d.date), d3.max(data, (d) => d.date)])
+          .range([padding, width - padding]);
 
-  // Calculate the nuber of approaches for each object
-  const grouped = d3.groups(data, d => d.object);
-  const objectToNumApproaches = Object.assign({}, ...grouped.map((x) => ({[x[0]]: x[1].length})));
-  data.forEach(d => d.numApproaches = objectToNumApproaches[d.object]);
+        const yScale = d3
+          .scaleLinear()
+          .domain([0, 20])
+          .range([height - padding, padding]);
 
-  const xScale = d3.scaleTime()
-      .domain([
-        d3.min(data, d => d.date),
-        d3.max(data, d => d.date)
-      ])
-      .range([padding, width - padding]);
+        const xAxis = d3.axisBottom().scale(xScale).tickSizeOuter(0);
 
-  const yScale = d3.scaleLinear()
-      .domain([0, 20])
-      .range([height - padding, padding]);
+        const yAxis = d3.axisLeft().scale(yScale);
 
-  const xAxis = d3.axisBottom()
-      .scale(xScale)
-      .tickSizeOuter(0);
+        function diameterToPixels(d) {
+          return Math.max(1, d / 200);
+        }
 
-  const yAxis = d3.axisLeft()
-      .scale(yScale);
+        // Add a tooltip for the asteroids
+        const tip = d3
+          .tip()
+          .attr("class", "d3-tip")
+          .direction(
+            (d) =>
+              (yScale(d.minimumDistance) < height / 2 ? "s" : "n") +
+              (xScale(d.date) < width / 2 ? "e" : "w")
+          )
+          .html(
+            (d) =>
+              `${d.object}<br/>diameter: ${d.diameterRange[0]}-${
+                d.diameterRange[1]
+              }m<br/>approach: ${d3.format(".1f")(
+                d.minimumDistance
+              )} LD on ${formatDate(d.date)}<br/>no. approaches: ${
+                d.numApproaches
+              }`
+          );
+        svg.call(tip);
 
-  function diameterToPixels(d) {
-    return Math.max(1, d / 200);
-  }
+        svg
+          .append("g")
+          .selectAll(".asteroid")
+          .data(data)
+          .enter()
+          .append("circle")
+          .attr("class", "asteroid")
+          .attr("r", (d) => diameterToPixels(d.diameterRange[0]))
+          .attr("cx", (d) => xScale(d.date))
+          .attr("cy", (d) => yScale(d.minimumDistance))
+          .on("mouseover", (data, index, element) => {
+            svg
+              .selectAll(".asteroid")
+              .style("fill", (d2) =>
+                d2.object === data.object ? "yellow" : "white"
+              )
+              .style("stroke", (d2) =>
+                d2.object === data.object ? "green" : "white"
+              );
+            tip.show(data, element[index]);
+          })
+          .on("mousedown", (data, index, element) => {
+            svg
+              .selectAll(".asteroid")
+              .style("fill", "yellow")
+              .style("fill-opacity", (d2) =>
+                d2.object === data.object ? 1 : 0
+              )
+              .style("stroke", "green")
+              .style("stroke-opacity", (d2) =>
+                d2.object === data.object ? 1 : 0
+              );
+            tip.show(data, element[index]);
+          })
+          .on("mouseup", (data, index, element) => {
+            svg
+              .selectAll(".asteroid")
+              .style("fill", (d2) =>
+                d2.object === data.object ? "yellow" : "white"
+              )
+              .style("fill-opacity", 0.5)
+              .style("stroke", (d2) =>
+                d2.object === data.object ? "green" : "white"
+              )
+              .style("stroke-opacity", 0.5);
+            tip.show(data, element[index]);
+          })
+          .on("mouseout", (data, index, element) => {
+            svg
+              .selectAll(".asteroid")
+              .style("fill", "white")
+              .style("fill-opacity", 0.5)
+              .style("stroke", "white")
+              .style("stroke-opacity", 0.5);
+            tip.hide(data, element[index]);
+          });
 
-  // Add a tooltip for the asteroids
-  const tip = d3
-      .tip()
-      .attr("class", "d3-tip")
-      .direction(d => (yScale(d.minimumDistance) < height / 2 ? "s" : "n") + (xScale(d.date) < width / 2 ? "e" : "w"))
-      .html(d => `${d.object}<br/>diameter: ${d.diameterRange[0]}-${d.diameterRange[1]}m<br/>approach: ${d3.format(".1f")(d.minimumDistance)} LD on ${formatDate(d.date)}<br/>no. approaches: ${d.numApproaches}`);
-  svg.call(tip);
+        // Draw axes
+        svg
+          .append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(0," + (height - padding) + ")")
+          .call(xAxis);
 
-  svg.append("g")
-    .selectAll(".asteroid")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("class", "asteroid")
-    .attr("r", d => diameterToPixels(d.diameterRange[0]))
-    .attr("cx", d => xScale(d.date))
-    .attr("cy", d => yScale(d.minimumDistance))
-    .on("mouseover", (data, index, element) => {
-      svg.selectAll(".asteroid")
-        .style("fill", d2 => d2.object === data.object ? "yellow" : "white")
-        .style("stroke", d2 => d2.object === data.object ? "green" : "white");
-      tip.show(data, element[index]);
-    })
-    .on("mousedown", (data, index, element) => {
-      svg.selectAll(".asteroid")
-        .style("fill", "yellow")
-        .style("fill-opacity", d2 => d2.object === data.object ? 1 : 0)
-        .style("stroke", "green")
-        .style("stroke-opacity", d2 => d2.object === data.object ? 1 : 0)
-      tip.show(data, element[index]);
-    })
-    .on("mouseup", (data, index, element) => {
-      svg.selectAll(".asteroid")
-        .style("fill", d2 => d2.object === data.object ? "yellow" : "white")
-        .style("fill-opacity", 0.5)
-        .style("stroke", d2 => d2.object === data.object ? "green" : "white")
-        .style("stroke-opacity", 0.5)
-      tip.show(data, element[index]);
-    })
-    .on("mouseout", (data, index, element) => {
-      svg.selectAll(".asteroid")
-        .style("fill", "white")
-        .style("fill-opacity", 0.5)
-        .style("stroke", "white")
-        .style("stroke-opacity", 0.5)
-      tip.hide(data, element[index]);
-    });
+        svg
+          .append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(" + padding + ",0)")
+          .call(yAxis);
 
-  // Draw axes
-  svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(0," + (height - padding) + ")")
-      .call(xAxis);
+        svg
+          .append("g")
+          .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 0)
+          .attr("x", -height / 2)
+          .attr("dy", "2em")
+          .attr("class", "axis-text")
+          .style("text-anchor", "middle")
+          .text("Distance from Earth (multiples of Lunar Distance)");
 
-  svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(" + padding + ",0)")
-      .call(yAxis);
+        // Draw line for moon distance (1LD)
+        svg
+          .append("line")
+          .attr("x1", padding)
+          .attr("x2", width - padding)
+          .attr("y1", yScale(1))
+          .attr("y2", yScale(1))
+          .attr("class", "moon-line");
+        svg
+          .append("text")
+          .attr("x", width - padding + 10)
+          .attr("y", yScale(1) + 4)
+          .attr("class", "moon-text")
+          .text("Moon");
+        svg
+          .append("text")
+          .attr("x", 10)
+          .attr("y", yScale(1) + 4)
+          .attr("class", "moon-text")
+          .text("Moon");
 
-  svg.append("g")
-    .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0)
-    .attr("x", -height / 2)
-    .attr("dy", "2em")
-    .attr("class", "axis-text")
-    .style("text-anchor", "middle")
-    .text("Distance from Earth (multiples of Lunar Distance)");
+        const maxDiameter = d3.max(data, (d) => d.diameterRange[0]);
 
-  // Draw line for moon distance (1LD)
-  svg.append("line")
-      .attr("x1", padding)
-      .attr("x2", width - padding)
-      .attr("y1", yScale(1))
-      .attr("y2", yScale(1))
-      .attr("class", "moon-line");
-  svg.append("text")
-      .attr("x", width - padding + 10)
-      .attr("y", yScale(1) + 4)
-      .attr("class", "moon-text")
-      .text("Moon");
-  svg.append("text")
-      .attr("x", 10)
-      .attr("y", yScale(1) + 4)
-      .attr("class", "moon-text")
-      .text("Moon");
+        function formatDiameterScale(val) {
+          if (val === 0) {
+            return "<1m";
+          } else if (val === 1) {
+            return "10m";
+          } else if (val === 2) {
+            return "100m";
+          } else if (val === 3) {
+            return "1km";
+          } else if (val === 4) {
+            return "10km";
+          }
+          return "";
+        }
 
-  const maxDiameter = d3.max(data, d => d.diameterRange[0]);
+        const sliderRange = d3
+          .sliderBottom()
+          .min(0)
+          .max(4)
+          .ticks(5)
+          .tickFormat(formatDiameterScale)
+          .marks(d3.range(0, 4.25, 0.25))
+          .width(300)
+          .displayValue(false)
+          .default([0, 4])
+          //.fill('black')
+          .on("onchange", (val) => {
+            const minDiameter = val[0] === 0 ? 0 : Math.pow(10, val[0]);
+            const maxDiameter = val[1] === 0 ? 0 : Math.pow(10, val[1]);
+            svg
+              .selectAll("circle")
+              .attr("display", "block")
+              // filter out all objects whose minimum diameter is not in range
+              .filter(
+                (d) =>
+                  d.diameterRange[0] < minDiameter ||
+                  d.diameterRange[0] > maxDiameter
+              )
+              .attr("display", "none");
+          });
 
-  function formatDiameterScale(val) {
-    if (val === 0) {
-      return "<1m";
-    } else if (val === 1) {
-      return "10m"
-    } else if (val === 2) {
-      return "100m"
-    } else if (val === 3) {
-      return "1km"
-    } else if (val === 4) {
-      return "10km"  
-    }
-    return "";
-  }
+        const gRange = svg
+          .append("g")
+          .attr("transform", "translate(" + (width - 330) + ",10)");
 
-  const sliderRange = d3
-    .sliderBottom()
-    .min(0)
-    .max(4)
-    .ticks(5)
-    .tickFormat(formatDiameterScale)
-    .marks(d3.range(0, 4.25, 0.25))
-    .width(300)
-    .displayValue(false)
-    .default([0, 4])
-    //.fill('black')
-    .on('onchange', val => {
-      const minDiameter = val[0] === 0 ? 0 : Math.pow(10, val[0]);
-      const maxDiameter = val[1] === 0 ? 0 : Math.pow(10, val[1]);
-      svg.selectAll("circle")
-        .attr("display", "block")
-        // filter out all objects whose minimum diameter is not in range
-        .filter(d => d.diameterRange[0] < minDiameter || d.diameterRange[0] > maxDiameter)
-        .attr("display", "none");
-    });
+        gRange.call(sliderRange);
 
-  const gRange = svg
-    .append('g')
-    .attr('transform', 'translate(' + (width - 330) + ',10)');
+        svg
+          .append("text")
+          .attr("x", width - 460)
+          .attr("y", 15)
+          .attr("class", "slider-text")
+          .text("Filter by min diameter");
 
-  gRange.call(sliderRange);
+        // Add a title and caption
+        svg
+          .append("text")
+          .attr("x", padding + 5)
+          .attr("y", 24)
+          .attr("class", "title")
+          .text("Asteroid Approaches within 20 Lunar Distances of Earth");
 
-  svg.append("text")
-      .attr("x", width - 460)
-      .attr("y", 15)
-      .attr("class", "slider-text")
-      .text("Filter by min diameter")
-
-  // Add a title and caption
-  svg.append("text")
-      .attr("x", padding + 5)
-      .attr("y", 24)
-      .attr("class", "title")
-      .text("Asteroid Approaches within 20 Lunar Distances of Earth")
-
-  svg.append("text")
-      .attr("x", padding + 5)
-      .attr("y", 40)
-      .attr("class", "caption")
-      .text("Tom White, 2020; Data source: Center for Near-Earth Object Studies; hover/long click on object for more info")
-
-});
-</script>
-
-</body>
+        svg
+          .append("text")
+          .attr("x", padding + 5)
+          .attr("y", 40)
+          .attr("class", "caption")
+          .text(
+            "Tom White, 2020; Data source: Center for Near-Earth Object Studies; hover/long click on object for more info"
+          );
+      });
+    </script>
+  </body>
 </html>
