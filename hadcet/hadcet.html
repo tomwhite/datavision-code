@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="d3-array.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+
+    <style>
+      .axis {
+        font-family: "sans-serif";
+        font-size: 14px;
+      }
+      .label {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 14px;
+      }
+      .d3-tip {
+        line-height: 1;
+        font-family: "sans-serif";
+        font-size: 14px;
+        padding: 10px;
+        background: white;
+        color: black;
+        border-radius: 2px;
+        border: solid black;
+        border-width: thin;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="plot"></div>
+    <script type="text/javascript">
+      // set the dimensions and margins of the graph
+      const margin = { top: 50, right: 40, bottom: 45, left: 40 },
+        width = 1000 - margin.left - margin.right,
+        height = 700 - margin.top - margin.bottom;
+
+      // append the svg object to the body of the page
+      const svg = d3
+        .select("#plot")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+      const g = svg
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      // try others, e.g. cetdl1772on.dat
+      d3.text("data/cetmaxdly1878on_urbadj4.dat").then((rawData) => {
+        const data = parseTemperatureData(rawData);
+
+        const minMaxTemp = d3.min(data, (d) => d.maxTemp);
+        const maxMaxTemp = d3.max(data, (d) => d.maxTemp);
+
+        console.log(minMaxTemp, maxMaxTemp);
+
+        // assign dayOfYear by grouping by year, then finding index
+        const dataByYear = d3.groups(data, (d) => d.year);
+        dataByYear.forEach((d) => {
+          const arr = d[1];
+          for (let i = 0; i < arr.length; i++) {
+            arr[i].dayOfYear = i + 1;
+          }
+        });
+
+        console.log(data);
+
+        const x = d3
+          .scaleLinear()
+          .domain(d3.extent(data, (d) => d.dayOfYear))
+          .range([0, width]);
+
+        const y = d3
+          .scaleLinear()
+          .domain(d3.extent(data, (d) => d.year))
+          .range([height, 0]);
+
+        const colour = d3
+          .scaleSequential()
+          .domain(d3.extent(data, (d) => d.maxTemp).reverse())
+          .interpolator(d3.interpolateRdYlBu);
+
+        const tip = d3
+          .tip()
+          .attr("class", "d3-tip")
+          .html((d) => {
+            return `${d.day}/${d.month}/${d.year}, ${d.maxTemp} &deg;C`;
+          })
+          .offset(function (d) {
+            return [this.getBBox().height / 2 - 7, 0];
+          });
+        svg.call(tip);
+
+        g.selectAll("years")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("x", (d) => x(d.dayOfYear))
+          .attr("y", (d) => y(d.year))
+          .attr("width", (d) => x(d.dayOfYear + 1) - x(d.dayOfYear) - 0.5)
+          .attr("height", (d) => y(d.year) - y(d.year + 1) - 0.5)
+          .attr("fill", (d) => colour(d.maxTemp))
+          .on("mouseover", tip.show)
+          .on("mouseout", tip.hide);
+      });
+
+      function parseTemperatureData(rawData) {
+        // Format: https://www.metoffice.gov.uk/hadobs/hadcet/data/daily_format.html
+        const NA = -999;
+        const parsedData = rawData
+          .trim()
+          .split("\n")
+          .map(
+            (line) =>
+              line
+                .trim()
+                .split(/\s+/) // split on whitespace
+                .map((d) => +d) // convert to numbers
+          );
+        const unsortedData = [];
+        parsedData.forEach((row) => {
+          const year = row[0];
+          const day = row[1];
+          for (let month = 1; month <= 12; month++) {
+            const value = row[month + 1];
+            if (value != NA) {
+              unsortedData.push({
+                year: year,
+                month: month,
+                day: day,
+                maxTemp: value / 10,
+              });
+            }
+          }
+        });
+        const data = unsortedData.sort((a, b) => {
+          if (a.year != b.year) {
+            return a.year - b.year;
+          }
+          if (a.month != b.month) {
+            return a.month - b.month;
+          }
+          return a.day - b.day;
+        });
+        return data;
+      }
+    </script>
+  </body>
+</html>
