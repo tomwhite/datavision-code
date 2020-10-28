@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Occupations in Crickhowell in 1881</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+  </head>
+
+  <body>
+    <div id="my_dataviz"></div>
+    <script type="text/javascript">
+      // Based on https://observablehq.com/@d3/treemap
+
+      // set the dimensions and margins of the graph
+      const margin = { top: 30, right: 10, bottom: 20, left: 10 },
+        width = 1200 - margin.left - margin.right,
+        height = 800 - margin.top - margin.bottom;
+
+      // append the svg object to the body of the page
+      const svg = d3
+        .select("#my_dataviz")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .style("font", "10px sans-serif")
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      const format = d3.format(",d");
+      const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+      d3.csv("data/crick1881-tree.csv", d3.autoType).then((data) => {
+        const root = d3
+          .stratify()
+          .id((d) => d.name)
+          .parentId((d) => d.parent)(data);
+        root.sum((d) => d.value);
+
+        d3.treemap().size([width, height]).padding(3)(root);
+
+        const leaf = svg
+          .selectAll("g")
+          .data(root.leaves())
+          .join("g")
+          .attr("transform", (d) => `translate(${d.x0},${d.y0})`);
+
+        leaf.append("title").text(
+          (d) =>
+            `${d
+              .ancestors()
+              .reverse()
+              .map((d) => d.data.name)
+              .join("/")
+              .replace("All/", "")}\n${format(d.value)}`
+        );
+
+        leaf
+          .append("rect")
+          .attr("id", (d) => (d.leafUid = uid("leaf")).id)
+          .attr("fill", (d) => {
+            while (d.depth > 1) d = d.parent;
+            return color(d.data.name);
+          })
+          .attr("fill-opacity", 0.6)
+          .attr("width", (d) => d.x1 - d.x0)
+          .attr("height", (d) => d.y1 - d.y0);
+
+        leaf
+          .append("clipPath")
+          .attr("id", (d) => (d.clipUid = uid("clip")).id)
+          .append("use")
+          .attr("xlink:href", (d) => d.leafUid.href);
+
+        leaf
+          .append("text")
+          .attr("clip-path", (d) => d.clipUid)
+          .selectAll("tspan")
+          .data((d) => d.data.name.split(/\s+/g).concat(format(d.value)))
+          .join("tspan")
+          .attr("x", 3)
+          .attr(
+            "y",
+            (d, i, nodes) =>
+              `${(i === nodes.length - 1) * 0.3 + 1.1 + i * 0.9}em`
+          )
+          .attr("fill-opacity", (d, i, nodes) =>
+            i === nodes.length - 1 ? 0.7 : null
+          )
+          .text((d) => d);
+
+        // Add a title and caption
+        svg
+          .append("g")
+          .append("text")
+          .attr("x", 0)
+          .attr("y", -10)
+          .text("Occupations in Crickhowell in 1881")
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "20px");
+        svg
+          .append("g")
+          .append("text")
+          .attr("x", 0)
+          .attr("y", height + 10)
+          .text(
+            "Graphic: Tom White. Data source: 1881 Wales Census, Ancestry.co.uk"
+          )
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "14px");
+      });
+
+      // from https://github.com/observablehq/stdlib/blob/master/src/dom/uid.js
+      var count = 0;
+      function uid(name) {
+        return new Id("O-" + (name == null ? "" : name + "-") + ++count);
+      }
+      function Id(id) {
+        this.id = id;
+        this.href = new URL(`#${id}`, location) + "";
+      }
+      Id.prototype.toString = function () {
+        return "url(" + this.href + ")";
+      };
+    </script>
+  </body>
+</html>

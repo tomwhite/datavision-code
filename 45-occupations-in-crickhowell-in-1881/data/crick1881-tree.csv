@@ -1,0 +1,183 @@
+name,parent,value
+All,,
+Service,All,
+Trade,All,
+Manual,All,
+Construction,All,
+Agriculture,All,
+Professional,All,
+Hospitality,All,
+Industrial,All,
+Independent Means,All,
+Education,All,
+Timber trades,All,
+Transport,All,
+Religion,All,
+Communication,All,
+Medical,All,
+Police,All,
+Military,All,
+Domestic Servant,Service,58
+Labourer,Manual,40
+Dressmaker,Trade,30
+Gardener,Service,20
+Mason,Construction,18
+Farm Labourer,Agriculture,17
+Blacksmith,Manual,14
+Carpenter,Construction,14
+Grocer,Trade,14
+Housekeeper,Service,14
+Cook (Domestic),Service,13
+Laundress,Service,13
+Tailor,Trade,13
+Farmer,Agriculture,12
+Housemaid,Service,12
+Bootmaker,Trade,11
+Milliner,Trade,11
+Annuitant,Independent Means,10
+Farm Servant,Agriculture,8
+Licensed Victualler,Hospitality,7
+Butcher,Trade,6
+Clerk,Professional,6
+Sawyer,Timber trades,6
+Draper,Trade,5
+Groom,Service,5
+Living On Means,Independent Means,5
+Painter,Construction,5
+Plasterer,Construction,5
+Teacher,Education,5
+Wool Weaver,Industrial,5
+Ironmonger,Trade,4
+Pupil Teacher,Education,4
+Saddler,Manual,4
+Tailor & Draper,Trade,4
+Builder,Construction,3
+Cabinet Maker,Trade,3
+Coachman,Service,3
+Curate (Church),Religion,3
+Farmer's daughter,Agriculture,3
+Governess,Education,3
+Haulier,Transport,3
+Innkeeper,Hospitality,3
+Ironworker,Industrial,3
+Letterpress Printer,Trade,3
+Lodging House Keeper,Hospitality,3
+Parlourmaid,Service,3
+Police Officer,Police,3
+Tailor Journeyman,Trade,3
+Woodcutter,Timber trades,3
+Accountant,Professional,2
+Bank Apprentice,Professional,2
+Boot & Shoemaker,Trade,2
+Butler,Service,2
+Charwoman,Service,2
+Chemist,Trade,2
+Confectioner,Trade,2
+Dairy Maid,Agriculture,2
+Draper & Grocer,Trade,2
+Drapers Assistant,Trade,2
+Fancy Goods Dealer,Trade,2
+Farmer's son,Agriculture,2
+Farrier,Agriculture,2
+Fruiterer,Trade,2
+Groom and Gardener,Service,2
+Hawker (Rag and Bone),Trade,2
+Ironmongers Porter,Trade,2
+Kitchenmaid,Service,2
+Labourer (factory),Industrial,2
+Labourer (roads),Manual,2
+Lady's maid,Service,2
+Land Agent,Professional,2
+Miller,Trade,2
+Minister (Chapel),Religion,2
+Minister (Church),Religion,2
+Nailor,Industrial,2
+Nurse,Service,2
+Ostler,Hospitality,2
+Plumber,Construction,2
+Postman,Communication,2
+Seamstress,Trade,2
+Shoemaker,Trade,2
+Shopkeeper,Trade,2
+Stonecutter,Manual,2
+Surgeon,Medical,2
+Tailor (Apprentice),Trade,2
+Travelling Draper,Trade,2
+Washerwoman,Service,2
+Wheelwright,Transport,2
+Agricultural Engine Driver,Transport,1
+Architect,Construction,1
+Baker & Confectioner,Trade,1
+Bank Accountant,Professional,1
+Bank Cashier,Professional,1
+Bank Manager,Professional,1
+Bookseller & Stationer,Communication,1
+Bootmaker (manager),Trade,1
+Butcher & Farmer 70 Acres,Trade,1
+Carpenter & Joiner,Construction,1
+Carrier,Communication,1
+Carter,Transport,1
+Castrator,Agriculture,1
+Chemist Assistant,Trade,1
+Chimney Sweeper,Manual,1
+China Dealer,Trade,1
+Clockmaker,Trade,1
+Coachman and Gardener,Service,1
+Coachman Unemployed,Service,1
+Coalminer Unemployed,Industrial,1
+Commercial Clerk,Professional,1
+Cooper,Manual,1
+Corn and Feed Business,Trade,1
+Dress & Bonnetmaker,Trade,1
+Dressmakers Apprentice,Trade,1
+Engine fitter,Industrial,1
+Farmer,Transport,1
+Fisherman,Manual,1
+Gamekeeper,Service,1
+Gas Manager,Professional,1
+Gasworks owner,Industrial,1
+Greengrocer,Trade,1
+Grocer & Wine Merchant,Trade,1
+Hairdresser,Trade,1
+Horse Breaker,Agriculture,1
+Hotel Keeper,Hospitality,1
+Inland Revenue Officer,Professional,1
+Innkeeper & Farmer,Hospitality,1
+Innkeeper Auctioneer & Collector Of Rates & Taxes,Hospitality,1
+Inspector Of Nuisances,Professional,1
+Land & Household Proprietress,Independent Means,1
+Laundrymaid,Service,1
+Law Student,Professional,1
+Licensed Victualler & Painter,Hospitality,1
+Licensed Victualler And Mason,Hospitality,1
+Magistrate,Professional,1
+Malster,Trade,1
+Masons Apprentice,Construction,1
+Merchant,Professional,1
+Messenger,Trade,1
+Milliner & Dressmaker,Trade,1
+Nurse (monthly),Medical,1
+Organist,Religion,1
+Painter and Glazier,Construction,1
+Paper mill worker,Industrial,1
+Parish Clerk (Church),Religion,1
+Physician,Medical,1
+Police Superintendent,Police,1
+Puddler,Industrial,1
+Quilter,Trade,1
+Seedsman,Trade,1
+Sergeant (Army),Military,1
+Signalman (railway),Transport,1
+Solicitor,Professional,1
+Solicitor & Deputy Coroner Insurance Agent B.A.Cantab Landed Proprietor,Professional,1
+Solicitor Registrar To C C & Clerk To Magistrates,Professional,1
+Superintendent Registrar & Stamp Distributor,Professional,1
+Timber haulier,Transport,1
+Tin Plate Worker,Industrial,1
+Town Hall Keeper,Service,1
+Toy Shop,Trade,1
+Travelling Optician,Trade,1
+Watch & Clockmaker,Trade,1
+Watchmaker,Trade,1
+Water Bailiff,Agriculture,1
+Woodman,Timber trades,1
