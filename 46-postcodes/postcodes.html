@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Postcodes</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+      .axis {
+        font-family: "sans-serif";
+        font-size: 12px;
+      }
+      .label {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 12px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="my_dataviz"></div>
+    <script type="text/javascript">
+      // Based on https://observablehq.com/@d3/treemap
+
+      // set the dimensions and margins of the graph
+      const margin = { top: 10, right: 10, bottom: 30, left: 50 },
+        width = 1000,
+        height = 600;
+      const legendWidth = 150;
+
+      // append the svg object to the body of the page
+      const svg = d3
+        .select("#my_dataviz")
+        .append("svg")
+        .attr("width", width + legendWidth)
+        .attr("height", height)
+        .style("font", "10px sans-serif");
+
+      const g = svg
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      const graph = svg.append("g").attr("pointer-events", "bounding-box");
+
+      const fetchCounts = d3.csv("data/postcode_counts_wide.csv");
+      const fetchAreas = d3.tsv("data/areas.tsv");
+
+      Promise.all([fetchCounts, fetchAreas]).then(([rawData, areas]) => {
+        const areaNames = Object.assign(
+          {},
+          ...areas.map((d) => ({ [d.area]: d.name }))
+        );
+
+        const columns = rawData.columns.slice(1);
+
+        const data = {
+          y: "Number of active postcodes",
+          series: rawData.map((d) => ({
+            name: `${d.area} (${areaNames[d.area]})`,
+            area: d.area,
+            fullName: areaNames[d.area],
+            values: columns.map((k) => (d[k] == "" ? NaN : +d[k])),
+          })),
+          dates: columns.map(d3.utcParse("%Y%m")),
+        };
+
+        const x = d3
+          .scaleUtc()
+          .domain(d3.extent(data.dates))
+          .range([margin.left, width - margin.right]);
+
+        const y = d3
+          .scaleLinear()
+          .domain([0, d3.max(data.series, (d) => d3.max(d.values))])
+          .nice()
+          .range([height - margin.bottom, margin.top]);
+
+        const xAxisBottom = (g) =>
+          g
+            .attr("class", "axis")
+            .attr("transform", `translate(0,${height - margin.bottom})`)
+            .call(d3.axisBottom(x));
+
+        const yAxisLeft = (g) =>
+          g
+            .attr("transform", `translate(${margin.left},0)`)
+            .attr("class", "axis")
+            .call(d3.axisLeft(y));
+
+        const line = d3
+          .line()
+          .defined((d) => !isNaN(d))
+          .x((d, i) => x(data.dates[i]))
+          .y((d) => y(d));
+
+        function hover(elt, path) {
+          if ("ontouchstart" in document)
+            elt
+              .style("-webkit-tap-highlight-color", "transparent")
+              .on("touchmove", moved)
+              .on("touchstart", entered)
+              .on("touchend", left);
+          else
+            elt
+              .on("mousemove", moved)
+              .on("mouseenter", entered)
+              .on("mouseleave", left);
+
+          const dot = elt.append("g").attr("display", "none");
+
+          dot.append("circle").attr("r", 2.5);
+
+          dot
+            .append("text")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", 10)
+            .attr("text-anchor", "middle")
+            .attr("y", -8);
+
+          function moved(event) {
+            event.preventDefault();
+            const pointer = d3.pointer(event, this);
+            const xm = x.invert(pointer[0]);
+            const ym = y.invert(pointer[1]);
+            const i = d3.bisectCenter(data.dates, xm);
+            const s = d3.least(data.series, (d) => Math.abs(d.values[i] - ym));
+            path
+              .attr("stroke", (d) => (d === s ? null : "#ddd"))
+              .filter((d) => d === s)
+              .raise();
+            dot.attr(
+              "transform",
+              `translate(${x(data.dates[i])},${y(s.values[i])})`
+            );
+            dot.select("text").text(s.name);
+            svg.selectAll(".blah").attr("opacity", (d) => (d === s ? 1 : 0.2));
+          }
+
+          function entered() {
+            path.style("mix-blend-mode", null).attr("stroke", "#ddd");
+            dot.attr("display", null);
+          }
+
+          function left() {
+            path.style("mix-blend-mode", "multiply").attr("stroke", null);
+            dot.attr("display", "none");
+            svg.selectAll(".blah").attr("opacity", 1);
+          }
+        }
+
+        const path = graph
+          .append("g")
+          .attr("fill", "none")
+          .attr("stroke", "steelblue")
+          .attr("stroke-width", 1.5)
+          .attr("stroke-linejoin", "round")
+          .attr("stroke-linecap", "round")
+          .selectAll("path")
+          .data(data.series)
+          .join("path")
+          .style("mix-blend-mode", "multiply")
+          .attr("d", (d) => line(d.values));
+
+        graph.call(hover, path);
+
+        svg.append("g").call(xAxisBottom);
+        svg.append("g").call(yAxisLeft);
+
+        // Legend
+        svg
+          .append("g")
+          .selectAll("legend")
+          .data(data.series)
+          .enter()
+          .append("text")
+          .attr("id", (d) => d.area)
+          .attr("class", "blah")
+          .attr("x", (d, i) => width + (i % 5) * 25)
+          .attr("y", (d, i) => margin.top + 40 + Math.floor(i / 5) * 20)
+          .text((d) => d.area)
+          .on("mouseover", (data, index, element) => {
+            const s = index;
+            path.style("mix-blend-mode", null).attr("stroke", "#ddd");
+            path
+              .attr("stroke", (d) => (d === s ? null : "#ddd"))
+              .filter((d) => d === s)
+              .raise();
+            svg.selectAll(".blah").attr("opacity", (d) => (d === s ? 1 : 0.2));
+          })
+          .on("mouseout", (data, index, element) => {
+            path.style("mix-blend-mode", "multiply").attr("stroke", null);
+            svg.selectAll(".blah").attr("opacity", 1);
+          })
+          .append("title")
+          .text((d) => d.fullName);
+
+        // Add a title and caption
+        g.append("g")
+          .append("text")
+          .attr("x", 10)
+          .attr("y", 20)
+          .text("Postcode numbers by area code, 1980-2020")
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "24px");
+        g.append("g")
+          .append("text")
+          .attr("x", 10)
+          .attr("y", 40)
+          .text(
+            "Graphic: Tom White. Data source: Office for National Statistics"
+          )
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "14px");
+        svg
+          .append("g")
+          .append("text")
+          .attr("x", width)
+          .attr("y", 25)
+          .text("Area codes")
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "14px");
+      });
+    </script>
+  </body>
+</html>
