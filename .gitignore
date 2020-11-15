@@ -26,3 +26,6 @@ venv
 43-passive-houses-in-the-uk/data/*.html
 45-occupations-in-crickhowell-in-1881/data/Crickhowell1881CensusDataWithOccupation.csv
 46-postcodes/data/NSPL_AUG_2020_UK.csv
+47-apv-growth-in-europe/data/*.xls
+47-apv-growth-in-europe/data/*.xlsx
+47-apv-growth-in-europe/data/*.XLSX
