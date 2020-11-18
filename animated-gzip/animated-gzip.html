@@ -45,7 +45,7 @@
 
       const bitsPerCharFormat = d3.format(".1f");
 
-      d3.text("data/ham.txt").then((text) => {
+      d3.text("data/animated-gzip-hamilton.txt").then((text) => {
         const lineLength = 40;
         let items = parseDefdbOutput(text);
         items = breakIntoFixedLengthLines(items, lineLength);
@@ -86,7 +86,7 @@
         svg.call(tip);
 
         // Create groups that contain coloured rectangles and characters.
-        // Each group can then be transformed to similate the effect of compression
+        // Each group can then be transformed to simulate the effect of compression
         const groups = g.selectAll(".groups")
           .data(items)
           .enter()
