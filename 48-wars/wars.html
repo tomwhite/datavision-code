@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Wars</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: white;
+      }
+      svg {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .d3-tip {
+        line-height: 1;
+        font-family: "sans-serif";
+        font-size: 14px;
+        padding: 10px;
+        background: white;
+        color: black;
+        border-radius: 2px;
+        border: solid black;
+        border-width: thin;
+        pointer-events: none;
+      }
+      .axis {
+        font-family: "sans-serif";
+        font-size: 12px;
+      }
+      .label {
+        stroke-width: 0;
+        font-family: "sans-serif";
+        font-size: 12px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="my_dataviz"></div>
+    <script type="text/javascript">
+      const formatComma = d3.format(",");
+
+      // set the dimensions and margins of the graph
+      const margin = { top: 10, right: 40, bottom: 40, left: 40 },
+        width = 1000 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
+
+      // append the svg object to the body of the page
+      const svg = d3
+        .select("#my_dataviz")
+        .append("svg")
+        .attr(
+          "viewBox",
+          `0 0 ${width + margin.left + margin.right} ${
+            height + margin.top + margin.bottom
+          }`
+        )
+
+        // .attr("width", width + margin.left + margin.right)
+        // .attr("height", height + margin.top + margin.bottom)
+        .style("font", "10px sans-serif");
+
+      const g = svg
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      // colours from https://sashamaps.net/docs/resources/20-colors/
+      const regions = [
+        { id: 1, name: "North America", colour: "#9A6324" }, // Brown
+        { id: 2, name: "South America", colour: "#f58231" }, // Orange
+        { id: 3, name: "West Europe", colour: "#e6194B" }, // Red
+        { id: 4, name: "East Europe", colour: "#800000" }, // Maroon
+        { id: 5, name: "Middle East", colour: "#ffe119" }, // Yellow
+        { id: 6, name: "North Africa", colour: "#808000" }, // Olive
+        { id: 7, name: "West & Central Africa", colour: "#bfef45" }, // Lime
+        { id: 8, name: "East & South Africa", colour: "#3cb44b" }, // Green
+        { id: 9, name: "Central Asia", colour: "#42d4f4" }, // Cyan
+        { id: 10, name: "South Asia", colour: "#000075" }, // Navy
+        { id: 11, name: "Southeast Asia", colour: "#4363d8" }, // Blue
+        { id: 12, name: "East Asia", colour: "#911eb4" }, // Purple
+        { id: -9, name: "World", colour: "#000000" }, // seems to be used only for WW2
+      ];
+
+      d3.csv("data/Conflict_Catalog_18_vars.csv", (d) => ({
+        name: d.Name,
+        commonName: d["Common Name"],
+        startYear: +d.StartYear,
+        // if no end year, set to 2000 (end date for dataset)
+        endYear: d.EndYear === "" ? 2000 : +d.EndYear,
+        totalFatalities: d.TotalFatalities === "" ? NaN : +d.TotalFatalities,
+        region: +d.Region,
+        regionName: regions.find((r) => r.id === +d.Region).name,
+        regionColour: regions.find((r) => r.id === +d.Region).colour,
+      })).then((data) => {
+        data = data.filter(
+          (d) => !isNaN(d.endYear) && !isNaN(d.totalFatalities)
+        );
+
+        const colour = d3
+          .scaleOrdinal()
+          .domain(data, (d) => d.region)
+          .range(d3.schemeDark2);
+
+        const x = d3
+          .scaleLinear()
+          .domain(d3.extent(data, (d) => d.endYear))
+          .range([0, width])
+          .nice();
+
+        const y = d3
+          .scaleLog()
+          .domain(d3.extent(data, (d) => d.totalFatalities))
+          .range([height, 0])
+          .nice();
+
+        const tip = d3
+          .tip()
+          .attr("class", "d3-tip")
+          .html(
+            (d) =>
+              `${d.name}<br/>${
+                d.commonName && !d.name.startsWith(d.commonName)
+                  ? d.commonName + "<br/>"
+                  : ""
+              }Total fatalities: ${formatComma(d.totalFatalities)}`
+          )
+          .direction(
+            (d) =>
+              (y(d.totalFatalities) < height / 2 ? "s" : "n") +
+              (x(d.startYear) < width / 2 ? "e" : "w")
+          );
+        svg.call(tip);
+
+        const xAxisBottom = d3.axisBottom().scale(x).tickFormat(d3.format("d"));
+
+        const yAxisLeft = d3
+          .axisLeft()
+          .scale(y)
+          .ticks(6)
+          .tickFormat((d) => Math.round(Math.log(d) / Math.LN10));
+        const yAxisRight = d3
+          .axisRight()
+          .scale(y)
+          .ticks(6)
+          .tickFormat((d) => Math.round(Math.log(d) / Math.LN10));
+
+        // Each conflict is show as a line
+        g.append("g")
+          .selectAll("wars")
+          .data(data)
+          .enter()
+          .append("line")
+          .attr("class", "war")
+          .attr("x1", (d) => x(d.startYear))
+          .attr("y1", (d) => y(d.totalFatalities))
+          .attr("x2", (d) => x(d.endYear))
+          .attr("y2", (d) => y(d.totalFatalities))
+          .attr("stroke", (d) => d.regionColour)
+          .attr("stroke-linecap", "round")
+          .attr("stroke-width", 3)
+          .attr("stroke-opacity", 0.6)
+          .on("mouseover", tip.show)
+          .on("mouseout", tip.hide);
+
+        // Invisible circles with slightly larger area for tooltips
+        g.append("g")
+          .selectAll(".wars")
+          .data(data)
+          .enter()
+          .append("circle")
+          .attr("r", 3)
+          .attr("cx", (d) => x(d.startYear))
+          .attr("cy", (d) => y(d.totalFatalities))
+          .attr("fill", "pink")
+          .attr("visibility", "hidden")
+          .attr("pointer-events", "all")
+          .on("mouseover", tip.show)
+          .on("mouseout", tip.hide);
+
+        g.append("g")
+          .selectAll(".wars")
+          .data(data)
+          .enter()
+          .append("circle")
+          .attr("r", 3)
+          .attr("cx", (d) => x(d.endYear))
+          .attr("cy", (d) => y(d.totalFatalities))
+          .attr("fill", "green")
+          .attr("visibility", "hidden")
+          .attr("pointer-events", "all")
+          .on("mouseover", tip.show)
+          .on("mouseout", tip.hide);
+
+        // Axes
+        g.append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxisBottom);
+
+        g.append("g").attr("class", "axis").call(yAxisLeft);
+        g.append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(" + width + ",0)")
+          .call(yAxisRight);
+
+        svg
+          .append("g")
+          .append("text")
+          .attr("transform", "translate(0," + height + "),rotate(-90)")
+          .attr("y", margin.left - 40)
+          .attr("x", height / 2)
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "10pt")
+          .text("Magnitude (base-10 log total fatalities)");
+
+        // Add legend
+        g.selectAll("regions")
+          .data(regions)
+          .enter()
+          .append("circle")
+          .attr("r", 4)
+          .attr("cx", 15)
+          .attr("cy", (d, i) => 50 + i * 12)
+          .attr("fill", (d) => d.colour)
+          .attr("fill-opacity", 0.6)
+          // hover over a region to highlight wars (by dimming others)
+          .on("mouseover", (d) => {
+            svg
+              .selectAll(".war")
+              .attr("stroke-opacity", (d2) =>
+                d.id === d2.region ? 0.6 : 0.05
+              );
+          })
+          .on("mouseout", (d) => {
+            svg.selectAll(".war").attr("stroke-opacity", 0.6);
+          });
+
+        g.selectAll("regions-text")
+          .data(regions)
+          .enter()
+          .append("text")
+          .attr("x", 15 + 10)
+          .attr("y", (d, i) => 50 + i * 12 + 4)
+          .text((d) => d.name)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "10px");
+
+        // Add title, captions, etc
+        svg
+          .append("g")
+          .append("text")
+          .attr("x", margin.left + 10)
+          .attr("y", margin.top)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "28pt")
+          .attr("dominant-baseline", "hanging")
+          .text("Wars");
+
+        svg
+          .append("g")
+          .append("text")
+          .attr("x", margin.left + width + 5)
+          .attr("y", margin.top + height + margin.bottom - 5)
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "8pt")
+          .attr("text-anchor", "end")
+          .attr("dominant-baseline", "baseline")
+          .text("Graphic: Tom White. Data source: Peter Brecke");
+      });
+    </script>
+  </body>
+</html>
