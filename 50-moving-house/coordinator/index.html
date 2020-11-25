@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <title>Coördinator Transition</title>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        background-color: #191414;
+      }
+    </style>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  // canvas settings
+  const width = 1400;
+  const height = 800;
+
+  // animation settings
+  const duration = 5000;
+
+  //different ease options
+  const eases = [
+    d3.easeCubic,
+    d3.easeElasticIn,
+    d3.easeLinear,
+    d3.easeElasticOut,
+    d3.easePolyIn,
+    d3.easeBackInOut,
+    d3.easeBounce,
+  ];
+  let timer;
+  let currLayout = 1;
+  let currEase = 0;
+
+  //draw each point to the canvas as a circle
+  function draw(t, points) {
+    ctx.save();
+    ctx.clearRect(0, 0, width, height);
+    for (let i = 0; i < points.length; ++i) {
+      const point = points[i];
+      const radius = 3;
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI, false);
+      ctx.closePath();
+      ctx.fillStyle = "#F037A5";
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+
+  function animate(oldPoints, newPoints, layouts, eases) {
+    // store the source position
+    const points = [];
+    const shuffledNewPoints = d3.shuffle(newPoints);
+    oldPoints.forEach((point, i) => {
+      newPoint = {};
+      newPoint.sx = point.x;
+      newPoint.sy = point.y;
+      newPoint.x = newPoint.tx = shuffledNewPoints[i].x;
+      newPoint.y = newPoint.ty = shuffledNewPoints[i].y;
+      points.push(newPoint);
+    });
+
+    ease = eases[currEase];
+    timer = d3.timer((elapsed) => {
+      // compute how far through the animation we are (0 to 1)
+      const t = Math.min(1, ease(elapsed / duration));
+      // update point positions (interpolate between source and target)
+      points.forEach((point) => {
+        point.x = point.sx * (1 - t) + point.tx * t;
+        point.y = point.sy * (1 - t) + point.ty * t;
+      });
+
+      // update what is drawn on screen
+      draw(t, points);
+
+      // if this animation is over
+      if (t === 1) {
+        // stop this timer for this layout and start a new one
+        timer.stop();
+
+        // update to use next layout
+        currLayout = (currLayout + 1) % layouts.length;
+        currEase = (currEase + 1) % eases.length;
+
+        // start animation for next layout
+        setTimeout(animate, 1500, points, layouts[currLayout], layouts, eases);
+      }
+    });
+  }
+
+  const screenScale = window.devicePixelRatio || 1;
+  const canvas = d3
+    .select("body")
+    .append("canvas")
+    .attr("width", width * screenScale)
+    .attr("height", height * screenScale)
+    .style("width", `${width}px`)
+    .style("height", `${height}px`);
+
+  canvas.node().getContext("2d").scale(screenScale, screenScale);
+
+  const ctx = canvas.node().getContext("2d");
+
+  d3.json("./coordinates.json", (data) => {
+    const layouts = [];
+    Object.keys(data).forEach((key) => {
+      let layout = [];
+      data[key].forEach((point) => {
+        layout.push({
+          x: point[0],
+          y: point[1],
+        });
+      });
+      layouts.push(layout);
+    });
+
+    animate(layouts[0], layouts[1], layouts, eases);
+  });
+</script>
