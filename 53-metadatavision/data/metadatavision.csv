@@ -1,0 +1,53 @@
+Title,Visualization library,Chart type,Chart family,Data size
+1. Women in parliament,ggplot2,stacked bar chart,Hierarchical,1.7 MB
+2. One million trees in Brecon Beacons National Park,Leaflet,map,Spatial,1.4 MB
+3. Wales Population Cartogram,ggplot2,cartogram,Spatial,4.2 MB
+4. Books read by Emilia White in 2019,d3,discontinuous line chart,Temporal,9.3 KB
+5. Genome size,ggplot2,beeswarm plot,Categorical,4.1 MB
+6. A&E waiting times in Wales,Vega-lite,line chart,Temporal,8.6 MB
+"7. Closest city, UK and Ireland",d3,Voronoi diagram,Spatial,8 KB
+8. A decade of GitHub,matplotlib,step chart,Temporal,275 KB
+9. iNaturalist observations,Leaflet,zoomable map,Spatial,1.8 GB
+10. Crickhowell flooding,d3,line and area chart,Temporal,30 KB
+11. Hamilton songs,d3,instance plot,Temporal,910 KB
+12. Programming language popularity,ggplot2,bump chart,Temporal,214 KB
+13. COVID-19 UK daily tests,Vega-lite,"bar chart, moving average line chart",Temporal,14 KB
+14. Lots of Lotties: 5K runs in 2019,d3,animated geolocation tracks,Spatial,79 KB
+15. Body temperature,ggplot2,line chart,Temporal,125 MB
+16. Asteroids,d3,bubble plot,Relational,3 MB
+17. Unknown Levels,d3,ridgeline plot,Temporal,879 KB
+18. Ageing Wales,d3,animated bar chart,Categorical,7.1 MB
+19. Fertility rate,d3,beeswarm bubble chart,Relational,401 KB
+20. Where are the coronavirus cases?,ggplot2,area and line chart,Temporal,46 KB
+21. Voronoi football,d3,animated Voronoi diagram,Spatial,284 MB
+22. Shopping trolleys in Bristol rivers,Vega-lite,"isotype chart, pictogram",Temporal,1.2 KB
+23. Food carbs,d3,beeswarm chart,Categorical,4.4 MB
+24. Public transport use in European cities during COVID-19,Vega-lite,line chart,Temporal,24 KB
+25. Bach charts,d3,animated bar charts,Categorical,85 MB
+26. The Tate collection,d3,rectangles,Spatial,26 MB
+27. Allowed password lengths,d3,isotype chart,Categorical,13 KB
+28. Daily covid-19 cases in Leicester,d3,animated bar chart,Temporal,161 MB
+29. Poisonous mushrooms,matplotlib,UMAP scatterplot,Relational,365 KB
+30. Change in UK land cover 1990-2015,Flourish,"Sankey diagram, alluvial diagram",Relational,6.8 GB
+31. Carbon mountain: historical UK CO2 emissions,d3,line and area chart,Temporal,1.5 KB
+32. Shires,d3,"grid map, hexagon bin map",Spatial,9.6 KB
+33. Is the age of Fields medalists going up?,ggplot2,scatterplot,Relational,2.6 KB
+34. First words,d3,scatterplot,Relational,58 KB
+35. Lego colours,d3,"dot plot, isotype chart, pictogram",Categorical,12 MB
+36. Disk drive capacities,ggplot2,bubble plot,Relational,53 GB
+37. Tooth cavities,d3,"dot plot, isotype chart, pictogram",Categorical,255 B
+38. Family lines,d3,line chart,Temporal,15 MB
+39. UK driving test pass rates,ggplot2,line chart,Temporal,309 KB
+40. The A1: the centre of the UK road network,Cytoscape.js,network graph,Relational,888 MB
+41. Plant chromosome numbers,ggplot2,bar chart,Categorical,15 MB
+42. A Level grades,d3,stacked bar chart,Hierarchical,2.2 KB
+43. Passive houses in the UK,Leaflet,map,Spatial,1.0 MB
+44. UK tree planting,ggplot2,line chart,Temporal,98 KB
+45. Occupations in Crickhowell in 1881,d3,treemap,Hierarchical,151 KB
+46. Postcodes,d3,multi-line chart,Temporal,191 MB
+47. Alternatively Powered Vehicle growth in Europe,ggplot2,faceted line chart,Temporal,7.7 MB
+48. Wars,d3,connected dot plot,Categorical,790 KB
+49. Animated gzip,d3,animated heatmap,Spatial,469 B
+50. Moving house,Coördinator,animated dots,Relational,447 KB
+51. Maximum daily temperatures in central England since 1878,d3,heatmap,Categorical,350 KB
+52. Food banks,ggplot2,bar chart,Temporal,236 B
